@@ -17,7 +17,7 @@ Usage: #example
 * author = Reference(Practitioner/example-gp)
 * author.display = "Dr Jane Wilson"
 
-* goal[0] = Reference(Goal/gpccmp-goal-example-01)
+* goal[0] = Reference(gpccmp-goal-example-01)
 * goal[0].display = "HbA1c target"
 
 * activity[0].detail.status = #scheduled
