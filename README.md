@@ -1,2 +1,2 @@
-# gpccmp-fhir-ig
-General Practitioner Chronic Condition Management Plan
+# GP Chronic Condition Management Plan FHIR Implementation Guide
+
