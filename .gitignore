@@ -1,0 +1,30 @@
+# Temporary folders
+/output/
+/input-cache/
+/temp/
+/template/
+/.vs/
+/fsh-generated/
+
+# Don't commit large files
+/input-cache/org.hl7.fhir.publisher.jar
+/input-cache/publisher.jar
+
+# Windows generated files
+Thumbs.db
+
+# OS generated files
+.DS_Store
+.DS_Store?
+
+# backup files
+*.bak
+
+# Node modules (if using npm packages)
+/node_modules/
+package-lock.json
+
+# IDE files
+.idea/
+*.iml
+.vscode/

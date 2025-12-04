@@ -1,0 +1,71 @@
+# ╭─────────────────────────Commonly Used ImplementationGuide Properties───────────────────────────╮
+# │  The properties below are used to create the ImplementationGuide resource. The most commonly   │
+# │  used properties are included. For a list of all supported properties and their functions,     │
+# │  see: https://fshschool.org/docs/sushi/configuration/.                                         │
+# ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+id: aehrc.fhir.au.gpccmp
+canonical: http://aehrc.com/fhir/gpccmp
+name: GPCCMPImplementationGuide
+title: GP Chronic Condition Management Plan Implementation Guide
+description: This implementation guide is provided to support the use of FHIR® for General Practitioner Chronic Condition Management Plans in an Australian context. It defines the minimum set of constraints on FHIR resources to represent and exchange chronic condition management plan information.
+status: draft
+extension:
+  - url: http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status
+    valueCode: draft
+  - url: http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm
+    valueInteger: 0
+version: 0.1.0
+fhirVersion: 4.0.1
+language: en
+copyright: Copyright © 2024+ AEHRC. Licensed Under Creative Commons Attribution 4.0.
+copyrightYear: 2024+
+releaseLabel: CI Build
+license: CC-BY-4.0
+publisher:
+  name: AEHRC
+  url: https://aehrc.csiro.au
+jurisdiction: urn:iso:std:iso:3166#AU
+
+# Pages
+pages:
+  index.md:
+    title: Home
+  guidance.md:
+    title: Guidance
+  profiles-and-extensions.md:
+    title: Profiles and Extensions
+  terminology.md:
+    title: Terminology
+  downloads.md:
+    title: Downloads
+  changes.md:
+    title: Change Log
+
+# Parameters
+parameters:
+  path-resource:
+    - input/resources
+    - fsh-generated/resources
+  path-pages:
+    - input/pagecontent
+    - input/intro-notes
+    - fsh-generated/includes
+  active-tables: true
+  apply-contact: true
+  apply-jurisdiction: true
+  apply-publisher: true
+  apply-version: true
+  show-inherited-invariants: false
+  usage-stats-opt-out: true
+  excludexml: false
+  excludejson: false
+  excludettl: true
+  excludemap: true
+
+# Contact
+contact:
+  - name: AEHRC
+    telecom:
+      - system: url
+        value: https://aehrc.csiro.au
+        use: work
