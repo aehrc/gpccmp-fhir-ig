@@ -3,3 +3,10 @@
 # Add warning and/or information messages here after you've confirmed that they aren't really a problem
 # (And include comments like this justifying why)
 # See https://github.com/FHIR/sample-ig/blob/master/input/ignoreWarnings.txt for examples
+
+# Slice matching - There are several extensions used that either match slices in other profiles stated in meta or are permitted for use by the extension itself.
+This element does not match any known slice defined in the profile http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire%
+
+# Cross version extension dependency issue. Will be rectified when IG tooling is supplied internationally.
+Slicing cannot be evaluated: Problem with use of resolve() - profile [CanonicalType[http://hl7.org/fhir/5.0/StructureDefinition/extension-Questionnaire.versionAlgorithm%5Bx%5D]] on Questionnaire.extension:versionAlgorithm could not be resolved (@char 1)
+Slicing cannot be evaluated: Problem with use of resolve() - profile [CanonicalType[http://hl7.org/fhir/5.0/StructureDefinition/extension-Questionnaire.copyrightLabel]] on Questionnaire.extension:copyrightLabel could not be resolved (@char 1)

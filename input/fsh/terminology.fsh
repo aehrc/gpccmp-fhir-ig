@@ -34,7 +34,7 @@ Description: "Concepts for Yes, No and Not applicable"
 * ^expansion.contains[+].system = "http://terminology.hl7.org/CodeSystem/v2-0532"
 * ^expansion.contains[=].code = #NA
 * ^expansion.contains[=].display = "not applicable"
-
+/*
 ValueSet: YesNo
 Id: YesNo
 Title: "Yes/No"
@@ -62,3 +62,4 @@ Description: "Concepts for Yes and No"
 * ^expansion.contains[+].system = "http://terminology.hl7.org/CodeSystem/v2-0532"
 * ^expansion.contains[=].code = #N
 * ^expansion.contains[=].display = "No"
+*/

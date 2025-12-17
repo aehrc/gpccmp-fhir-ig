@@ -1,0 +1,234 @@
+{
+  "resourceType" : "StructureDefinition",
+  "id" : "QuestionnaireItemTextHidden",
+  "url" : "https://smartforms.csiro.au/ig/StructureDefinition/QuestionnaireItemTextHidden",
+  "version" : "0.3.0-draft",
+  "name" : "QuestionnaireItemTextHidden",
+  "title" : "Questionnaire Item Text Hidden",
+  "status" : "draft",
+  "date" : "2025-10-30T20:31:27+10:00",
+  "publisher" : "AEHRC CSIRO",
+  "contact" : [{
+    "name" : "AEHRC CSIRO",
+    "telecom" : [{
+      "system" : "url",
+      "value" : "https://confluence.csiro.au/display/PCDQFPhase2/Primary+Care+Data+Quality+Foundations+-+Phase+2"
+    }]
+  }],
+  "description" : "This custom extension is used to indicate that the text of a Questionnaire item should be hidden in the user interface. This is useful for items where the text is not intended to be displayed to the user but is still needed for other processes.",
+  "jurisdiction" : [{
+    "coding" : [{
+      "system" : "urn:iso:std:iso:3166",
+      "code" : "AU",
+      "display" : "Australia"
+    }]
+  }],
+  "copyright" : "Copyright © 2022+ Australian Government Department of Health and Aged Care - All rights reserved.\nThis content is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.\nSee https://creativecommons.org/licenses/by-sa/4.0/.\n",
+  "fhirVersion" : "4.0.1",
+  "mapping" : [{
+    "identity" : "rim",
+    "uri" : "http://hl7.org/v3",
+    "name" : "RIM Mapping"
+  }],
+  "kind" : "complex-type",
+  "abstract" : false,
+  "context" : [{
+    "type" : "element",
+    "expression" : "Questionnaire.item.text"
+  }],
+  "type" : "Extension",
+  "baseDefinition" : "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation" : "constraint",
+  "snapshot" : {
+    "extension" : [{
+      "url" : "http://hl7.org/fhir/tools/StructureDefinition/snapshot-base-version",
+      "valueString" : "4.0.1"
+    }],
+    "element" : [{
+      "id" : "Extension",
+      "path" : "Extension",
+      "short" : "Don't display text to user",
+      "definition" : "If true, indicates that the text of an item should not be displayed to the user.",
+      "min" : 0,
+      "max" : "1",
+      "base" : {
+        "path" : "Extension",
+        "min" : 0,
+        "max" : "*"
+      },
+      "condition" : ["ele-1"],
+      "constraint" : [{
+        "key" : "ele-1",
+        "severity" : "error",
+        "human" : "All FHIR elements must have a @value or children",
+        "expression" : "hasValue() or (children().count() > id.count())",
+        "xpath" : "@value|f:*|h:div",
+        "source" : "http://hl7.org/fhir/StructureDefinition/Element"
+      },
+      {
+        "key" : "ext-1",
+        "severity" : "error",
+        "human" : "Must have either extensions or value[x], not both",
+        "expression" : "extension.exists() != value.exists()",
+        "xpath" : "exists(f:extension)!=exists(f:*[starts-with(local-name(.), 'value')])",
+        "source" : "http://hl7.org/fhir/StructureDefinition/Extension"
+      }],
+      "isModifier" : false
+    },
+    {
+      "id" : "Extension.id",
+      "path" : "Extension.id",
+      "representation" : ["xmlAttr"],
+      "short" : "Unique id for inter-element referencing",
+      "definition" : "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+      "min" : 0,
+      "max" : "1",
+      "base" : {
+        "path" : "Element.id",
+        "min" : 0,
+        "max" : "1"
+      },
+      "type" : [{
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-fhir-type",
+          "valueUrl" : "string"
+        }],
+        "code" : "http://hl7.org/fhirpath/System.String"
+      }],
+      "isModifier" : false,
+      "isSummary" : false,
+      "mapping" : [{
+        "identity" : "rim",
+        "map" : "n/a"
+      }]
+    },
+    {
+      "id" : "Extension.extension",
+      "path" : "Extension.extension",
+      "slicing" : {
+        "discriminator" : [{
+          "type" : "value",
+          "path" : "url"
+        }],
+        "description" : "Extensions are always sliced by (at least) url",
+        "rules" : "open"
+      },
+      "short" : "Extension",
+      "definition" : "An Extension",
+      "min" : 0,
+      "max" : "0",
+      "base" : {
+        "path" : "Element.extension",
+        "min" : 0,
+        "max" : "*"
+      },
+      "type" : [{
+        "code" : "Extension"
+      }],
+      "constraint" : [{
+        "key" : "ele-1",
+        "severity" : "error",
+        "human" : "All FHIR elements must have a @value or children",
+        "expression" : "hasValue() or (children().count() > id.count())",
+        "xpath" : "@value|f:*|h:div",
+        "source" : "http://hl7.org/fhir/StructureDefinition/Element"
+      },
+      {
+        "key" : "ext-1",
+        "severity" : "error",
+        "human" : "Must have either extensions or value[x], not both",
+        "expression" : "extension.exists() != value.exists()",
+        "xpath" : "exists(f:extension)!=exists(f:*[starts-with(local-name(.), \"value\")])",
+        "source" : "http://hl7.org/fhir/StructureDefinition/Extension"
+      }],
+      "isModifier" : false,
+      "isSummary" : false
+    },
+    {
+      "id" : "Extension.url",
+      "path" : "Extension.url",
+      "representation" : ["xmlAttr"],
+      "short" : "identifies the meaning of the extension",
+      "definition" : "Source of the definition for the extension code - a logical name or a URL.",
+      "comment" : "The definition may point directly to a computable or human-readable definition of the extensibility codes, or it may be a logical URI as declared in some other specification. The definition SHALL be a URI for the Structure Definition defining the extension.",
+      "min" : 1,
+      "max" : "1",
+      "base" : {
+        "path" : "Extension.url",
+        "min" : 1,
+        "max" : "1"
+      },
+      "type" : [{
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-fhir-type",
+          "valueUrl" : "uri"
+        }],
+        "code" : "http://hl7.org/fhirpath/System.String"
+      }],
+      "fixedUri" : "https://smartforms.csiro.au/ig/StructureDefinition/QuestionnaireItemTextHidden",
+      "isModifier" : false,
+      "isSummary" : false,
+      "mapping" : [{
+        "identity" : "rim",
+        "map" : "N/A"
+      }]
+    },
+    {
+      "id" : "Extension.value[x]",
+      "path" : "Extension.value[x]",
+      "short" : "Value of extension",
+      "definition" : "Value of extension - must be one of a constrained set of the data types (see [Extensibility](http://hl7.org/fhir/R4/extensibility.html) for a list).",
+      "min" : 1,
+      "max" : "1",
+      "base" : {
+        "path" : "Extension.value[x]",
+        "min" : 0,
+        "max" : "1"
+      },
+      "type" : [{
+        "code" : "boolean"
+      }],
+      "constraint" : [{
+        "key" : "ele-1",
+        "severity" : "error",
+        "human" : "All FHIR elements must have a @value or children",
+        "expression" : "hasValue() or (children().count() > id.count())",
+        "xpath" : "@value|f:*|h:div",
+        "source" : "http://hl7.org/fhir/StructureDefinition/Element"
+      }],
+      "isModifier" : false,
+      "isSummary" : false,
+      "mapping" : [{
+        "identity" : "rim",
+        "map" : "N/A"
+      }]
+    }]
+  },
+  "differential" : {
+    "element" : [{
+      "id" : "Extension",
+      "path" : "Extension",
+      "short" : "Don't display text to user",
+      "definition" : "If true, indicates that the text of an item should not be displayed to the user.",
+      "max" : "1"
+    },
+    {
+      "id" : "Extension.extension",
+      "path" : "Extension.extension",
+      "max" : "0"
+    },
+    {
+      "id" : "Extension.url",
+      "path" : "Extension.url",
+      "fixedUri" : "https://smartforms.csiro.au/ig/StructureDefinition/QuestionnaireItemTextHidden"
+    },
+    {
+      "id" : "Extension.value[x]",
+      "path" : "Extension.value[x]",
+      "min" : 1,
+      "type" : [{
+        "code" : "boolean"
+      }]
+    }]
+  }
+}

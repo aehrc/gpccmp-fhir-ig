@@ -65,8 +65,10 @@ parameters:
   path-expansion-params: '../../input/_resources/exp-params.json'
   special-url-base: 'https://smartforms.csiro.au/ig'
   special-url:
+    - 'http://www.health.gov.au/assessments/GPChronicConditionManagementPlan'
     - 'https://smartforms.csiro.au/ig/StructureDefinition/QuestionnaireItemTextHidden'
     - 'https://smartforms.csiro.au/ig/StructureDefinition/GroupHideAddItemButton'
+    
 
   apply-publisher: false
   default-publisher: true
