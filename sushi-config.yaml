@@ -7,7 +7,7 @@ id: csiro.fhir.au.gpccmp
 canonical: https://gpccmp.csiro.au/ig
 name: GPChronicConditionManagementPlan
 title: GP Chronic Condition Management Plan
-description: The GP Chronic Condition Management Plan FHIR Implementation Guide descibes the conformance expectations of systems launching and exchanging health information to support the chronic condition management plan form in general practice.
+description: The GP Chronic Condition Management Plan FHIR Implementation Guide describes the conformance expectations of systems launching and exchanging health information to support the chronic condition management plan form in general practice.
 status: draft # draft | active | retired | unknown
 version: 0.1.0
 fhirVersion: 4.0.1 # https://www.hl7.org/fhir/valueset-FHIR-version.html
