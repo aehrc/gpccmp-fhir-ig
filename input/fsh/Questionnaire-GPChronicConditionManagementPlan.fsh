@@ -101,6 +101,14 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].type = #group
 * item[=].repeats = false
 
+//Instructions
+* item[=].item[+].linkId = "instructions"
+* item[=].item[=].text = "This GP Chronic Condition Management Plan has been prefilled with information that was available from the patient's health record. Upon saving this form, the form will be stored but additional information entered will not be used to update the patient's health record."
+* item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/rendering-xhtml].valueString = "<div xmlns=\"http://www.w3.org/1999/xhtml\">
+    <p style=\"font-size:1.2em; font-weight:normal\"><em>This GP Chronic Condition Management Plan has been prefilled with information that was available from the patient's health record. Upon saving this form, the form will be stored but additional information entered will not be used to update the patient's health record.</em></p>
+    </div>"
+* item[=].item[=].type = #display
+
 //Patient details
 * item[=].item[+].extension[sdc-questionnaire-collapsible].valueCode = #default-closed
 * item[=].item[=].linkId = "patient"
@@ -171,20 +179,42 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[+].extension[sdc-questionnaire-enableWhenExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].extension[sdc-questionnaire-enableWhenExpression].valueExpression.expression = "%age >= 50"
-* item[=].item[=].item[=].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#radio-button
-* item[=].item[=].item[=].extension[questionnaire-choiceOrientation].valueCode = #horizontal
 * item[=].item[=].item[=].linkId = "patient-myagedcare"
-* item[=].item[=].item[=].text = "Registered for My Aged Care"
-* item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].text = "My Aged Care"
+* item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].answerValueSet = "#YesNoNA"
-* item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#radio-button
-* item[=].item[=].item[=].extension[questionnaire-choiceOrientation].valueCode = #horizontal
-* item[=].item[=].item[=].linkId = "patient-ndis"
-* item[=].item[=].item[=].text = "Registered for NDIS"
-* item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = http://hl7.org/fhir/questionnaire-item-control#radio-button
+* item[=].item[=].item[=].item[=].extension[questionnaire-choiceOrientation].valueCode = #horizontal
+* item[=].item[=].item[=].item[=].linkId = "patient-myagedcare-registered"
+* item[=].item[=].item[=].item[=].text = "Registered for My Aged Care"
+* item[=].item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].answerValueSet = "#YesNoNA"
+* item[=].item[=].item[=].item[+].linkId = "patient-myagedcare-number"
+* item[=].item[=].item[=].item[=].text = "My Aged Care Number"
+* item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].enableWhen[+].question = "patient-myagedcare-registered"
+* item[=].item[=].item[=].item[=].enableWhen[=].operator = #=
+* item[=].item[=].item[=].item[=].enableWhen[=].answerCoding = http://terminology.hl7.org/CodeSystem/v2-0136#Y
+* item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[+].linkId = "patient-ndis"
+* item[=].item[=].item[=].text = "National Disability Insurance Scheme"
+* item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].answerValueSet = "#YesNoNA"
+* item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = http://hl7.org/fhir/questionnaire-item-control#radio-button
+* item[=].item[=].item[=].item[=].extension[questionnaire-choiceOrientation].valueCode = #horizontal
+* item[=].item[=].item[=].item[=].linkId = "patient-ndis-registered"
+* item[=].item[=].item[=].item[=].text = "Registered for NDIS"
+* item[=].item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].answerValueSet = "#YesNoNA"
+* item[=].item[=].item[=].item[+].linkId = "patient-ndis-number"
+* item[=].item[=].item[=].item[=].text = "NDIS Number"
+* item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].enableWhen[+].question = "patient-ndis-registered"
+* item[=].item[=].item[=].item[=].enableWhen[=].operator = #=
+* item[=].item[=].item[=].item[=].enableWhen[=].answerCoding = http://terminology.hl7.org/CodeSystem/v2-0136#Y
+* item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[+].extension[sdc-questionnaire-itemPopulationContext].valueExpression.name = "MedicareNumberArray"
 * item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.expression = "%patient.identifier.where(type.coding.exists(system='http://terminology.hl7.org/CodeSystem/v2-0203' and code='MC'))"
@@ -367,6 +397,12 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].text = "Phone"
 * item[=].item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].item[=].repeats = true
+// this is a user entered field and is not equivalent to the relationship coding in the FHIR resource
+* item[=].item[=].item[=].item[=].item[+].linkId = "patient-contact-emergencycontact-relationship"
+* item[=].item[=].item[=].item[=].item[=].text = "Personal relationship to patient (e.g. parent, child, friend)"
+* item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+
     // Carer information
 * item[=].item[=].item[+].linkId = "patient-carerdetails"
 * item[=].item[=].item[=].text = "Carer information"
@@ -386,6 +422,16 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].enableWhen[=].operator = #=
 * item[=].item[=].item[=].item[=].enableWhen[=].answerCoding = http://terminology.hl7.org/CodeSystem/v2-0136#Y
 * item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#radio-button
+* item[=].item[=].item[=].item[=].extension[questionnaire-choiceOrientation].valueCode = #horizontal
+* item[=].item[=].item[=].item[=].linkId = "patient-carerinformation-present"
+* item[=].item[=].item[=].item[=].text = "Carer present at appointment"
+* item[=].item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[=].enableWhen[+].question = "patient-carerinformation-hascarer"
+* item[=].item[=].item[=].item[=].enableWhen[=].operator = #=
+* item[=].item[=].item[=].item[=].enableWhen[=].answerCoding = http://terminology.hl7.org/CodeSystem/v2-0136#Y
+* item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].answerValueSet = "#YesNoNA"
 
 //Practitioner details
 * item[=].item[+].extension[sdc-questionnaire-collapsible].valueCode = #default-closed
@@ -400,13 +446,13 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%PractitionerRole.telecom.where(system = 'phone').value"
+* item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%PractitionerRole.entry.resource.telecom.where(system = 'phone').value"
 * item[=].item[=].item[=].linkId = "practitioner-phone"
 * item[=].item[=].item[=].text = "Phone"
 * item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%PractitionerRole.telecom.where(system = 'email').value"
+* item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%PractitionerRole.entry.resource.telecom.where(system = 'email').value"
 * item[=].item[=].item[=].linkId = "practitioner-email"
 * item[=].item[=].item[=].text = "Email"
 * item[=].item[=].item[=].type = #string
@@ -566,7 +612,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%GPCCMPLatest.entry.resource.where(status='in-progress').exists()"
 * item[=].item[=].item[=].linkId = "plandetails-inprogress"
-* item[=].item[=].item[=].text = "Management plan already in progress?"
+* item[=].item[=].item[=].text = "Incomplete draft management plan already exists?"
 * item[=].item[=].item[=].type = #boolean
 * item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].readOnly = true
@@ -576,11 +622,6 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].text = "Date of last completed management plan"
 * item[=].item[=].item[=].type = #dateTime
 * item[=].item[=].item[=].repeats = false
-    //GP notes
-* item[=].item[=].item[+].linkId = "gpnotes"
-* item[=].item[=].item[=].text = "GP notes"
-* item[=].item[=].item[=].type = #text
-* item[=].item[=].item[=].repeats = true
 
 //Management plan
 * item[=].item[+].extension[sdc-questionnaire-collapsible].valueCode = #default-open
@@ -648,6 +689,15 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/practitioner-role-1"
 
+//Notes
+* item[=].item[+].linkId = "notes"
+* item[=].item[=].text = "Notes"
+* item[=].item[=].type = #group
+* item[=].item[=].item[+].linkId = "notes-additionalcomments"
+* item[=].item[=].item[=].text = "Additional comments as needed"
+* item[=].item[=].item[=].type = #text
+* item[=].item[=].item[=].repeats = true
+
 //Final preparations of management plan
 * item[=].item[+].extension[sdc-questionnaire-collapsible].valueCode = #default-open
 * item[=].item[=].linkId = "finalpreparations"
@@ -665,18 +715,6 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[+].linkId = "finalpreparations-consent-planconsent"
 * item[=].item[=].item[=].item[=].text = "Consent given to proceed with plan after discussion of the purpose, benefits, process and costs"
 * item[=].item[=].item[=].item[=].type = #boolean
-* item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "(%user.name.where(use='official').select((given.join(' ') | family).join(' ') | text) | %user.name.select((given.join(' ') | family).join(' ') | text)).first()"
-* item[=].item[=].item[=].item[=].linkId = "finalpreparations-consent-practitioner"
-* item[=].item[=].item[=].item[=].text = "Practitioner who recorded consent"
-* item[=].item[=].item[=].item[=].type = #string
-* item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "today()"
-* item[=].item[=].item[=].item[=].linkId = "finalpreparations-consent-date"
-* item[=].item[=].item[=].item[=].text = "Date consent was recorded"
-* item[=].item[=].item[=].item[=].type = #date
 * item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[+].linkId = "finalpreparations-review"
 * item[=].item[=].item[=].text = "Scheduled review date"
