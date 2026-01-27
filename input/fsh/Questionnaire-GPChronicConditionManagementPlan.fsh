@@ -652,42 +652,91 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].item[+].extension[questionnaire-itemControl][+].valueCodeableConcept = $questionnaire-item-control#autocomplete
 * item[=].item[=].item[=].item[=].linkId = "plan-planitems-problemneed"
-* item[=].item[=].item[=].item[=].text = "Problem or need"
+* item[=].item[=].item[=].item[=].text = "Problem/Need"
 * item[=].item[=].item[=].item[=].type = #open-choice
 * item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/clinical-condition-1"
-* item[=].item[=].item[=].item[+].extension[+].url = "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl"
-* item[=].item[=].item[=].item[=].extension[=].valueCodeableConcept = $questionnaire-item-control#gtable
-* item[=].item[=].item[=].item[=].linkId = "plan-planitems-goalsactions"
-* item[=].item[=].item[=].item[=].text = "Goals and actions"
+* item[=].item[=].item[=].item[+].linkId = "plan-planitems-details"
+* item[=].item[=].item[=].item[=].text = "Details"
 * item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].repeats = true
-* item[=].item[=].item[=].item[=].item[+].linkId = "plan-planitems-goalsactions-goals"
-* item[=].item[=].item[=].item[=].item[=].text = "Health and lifestyle goals"
-* item[=].item[=].item[=].item[=].item[=].type = #text
+* item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl][+].valueCodeableConcept = $questionnaire-item-control#gtable
+* item[=].item[=].item[=].item[=].item[=].linkId = "plan-planitems-details-goalsetting"
+* item[=].item[=].item[=].item[=].item[=].text = "Goal setting"
+* item[=].item[=].item[=].item[=].item[=].text.extension[+].url = "https://smartforms.csiro.au/ig/StructureDefinition/QuestionnaireItemTextHidden"
+* item[=].item[=].item[=].item[=].item[=].text.extension[=].valueBoolean = true
+* item[=].item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[+].linkId = "plan-planitems-goalsactions-actions"
-* item[=].item[=].item[=].item[=].item[=].text = "Patient actions"
-* item[=].item[=].item[=].item[=].item[=].type = #text
-* item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[+].extension[+].url = "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl"
-* item[=].item[=].item[=].item[=].extension[=].valueCodeableConcept = $questionnaire-item-control#gtable
-* item[=].item[=].item[=].item[=].linkId = "plan-planitems-treatmentsservices"
-* item[=].item[=].item[=].item[=].text = "Treatments and services"
-* item[=].item[=].item[=].item[=].type = #group
-* item[=].item[=].item[=].item[=].repeats = true
-* item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl][+].valueCodeableConcept = $questionnaire-item-control#autocomplete
-* item[=].item[=].item[=].item[=].item[=].linkId = "plan-planitems-treatmentsservices-servicetype"
-* item[=].item[=].item[=].item[=].item[=].text = "Service type"
-* item[=].item[=].item[=].item[=].item[=].type = #open-choice
-* item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/service-type-1"
-* item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl][+].valueCodeableConcept = $questionnaire-item-control#autocomplete
-* item[=].item[=].item[=].item[=].item[=].linkId = "plan-planitems-treatmentsservices-practitionerrole"
-* item[=].item[=].item[=].item[=].item[=].text = "Practitioner role"
-* item[=].item[=].item[=].item[=].item[=].type = #open-choice
-* item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/practitioner-role-1"
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-width].valueQuantity = 70 '%'
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "plan-planitems-details-goalsetting-goals"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Goals"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #text
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-width].valueQuantity = 30 '%'
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "plan-planitems-details-goalsetting-targetdate"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Target date"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #date
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl][+].valueCodeableConcept = $questionnaire-item-control#gtable
+* item[=].item[=].item[=].item[=].item[=].linkId = "plan-planitems-details-interventionsactions"
+* item[=].item[=].item[=].item[=].item[=].text = "Interventions and actions"
+* item[=].item[=].item[=].item[=].item[=].text.extension[+].url = "https://smartforms.csiro.au/ig/StructureDefinition/QuestionnaireItemTextHidden"
+* item[=].item[=].item[=].item[=].item[=].text.extension[=].valueBoolean = true
+* item[=].item[=].item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].item[=].item[=].repeats = true
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-width].valueQuantity = 28 '%'
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#autocomplete
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "plan-planitems-details-interventionsactions-interventionsactions"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Interventions/Actions"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #open-choice
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/procedure-1"
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-width].valueQuantity = 24 '%'
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "plan-planitems-details-interventionsactions-owner"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Owner"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-width].valueQuantity = 17 '%'
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "plan-planitems-details-interventionsactions-duedate"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Due date"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #date
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-width].valueQuantity = 31 '%'
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "plan-planitems-details-interventionsactions-comment"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl][+].valueCodeableConcept = $questionnaire-item-control#gtable
+* item[=].item[=].item[=].item[=].item[=].linkId = "plan-planitems-details-servicestreatments"
+* item[=].item[=].item[=].item[=].item[=].text = "Services and treatments"
+* item[=].item[=].item[=].item[=].item[=].text.extension[+].url = "https://smartforms.csiro.au/ig/StructureDefinition/QuestionnaireItemTextHidden"
+* item[=].item[=].item[=].item[=].item[=].text.extension[=].valueBoolean = true
+* item[=].item[=].item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].item[=].item[=].repeats = true
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-width].valueQuantity = 23 '%'
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#autocomplete
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "plan-planitems-details-servicestreatments-servicestreatments"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Required services and treatments"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #open-choice
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/service-type-1"
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-width].valueQuantity = 23 '%'
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#autocomplete
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "plan-planitems-details-servicestreatments-activity"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Activity"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #open-choice
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/procedure-1"
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-width].valueQuantity = 23 '%'
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "plan-planitems-details-servicestreatments-provider"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Provider"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-width].valueQuantity = 31 '%'
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "plan-planitems-details-servicestreatments-comment"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
 
 //Notes
 * item[=].item[+].linkId = "notes"
