@@ -3,6 +3,15 @@ Alias: $LOINC = http://loinc.org
 
 Alias: $v2-0532 = http://terminology.hl7.org/CodeSystem/v2-0532|2.0.0
 
+CodeSystem: LaunchContextExtended
+Id: LaunchContextExtended
+Title: "Launch Context Extension"
+Description: "The Launch Context Extension code system defines concepts that extend the HL7 launch context concepts in http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext. They enable additional launch context items to be specified for use when launching a GP CCMP Questionnaire."
+
+* ^experimental = false
+* ^caseSensitive = true
+* #gpccmppractitionerrole "GP CCMP Practitioner Role" "PractitionerRole in context at launch time that is associated with the user in context. This concept has been defined to support use cases where the PractitionerRole is required to pre-populate the GP CCMP Questionnaire."
+
 ValueSet: YesNoNA
 Id: YesNoNA
 Title: "Yes/No/NA"

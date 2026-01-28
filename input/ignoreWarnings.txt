@@ -7,6 +7,12 @@
 # Slice matching - There are several extensions used that either match slices in other profiles stated in meta or are permitted for use by the extension itself.
 This element does not match any known slice defined in the profile http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire%
 
+# Slice matching - Obligation extension
+This element does not match any known slice defined in the profile http://hl7.org/fhir/StructureDefinition/obligation|5.3.0-ballot-tc1
+
+# Slice matching - CapabilityStatement search parameter combination extension
+This element does not match any known slice defined in the profile http://hl7.org/fhir/StructureDefinition/capabilitystatement-search-parameter-combination%
+
 # Cross version extension dependency issue. Will be rectified when IG tooling is supplied internationally.
 Slicing cannot be evaluated: Problem with use of resolve() - profile [CanonicalType[http://hl7.org/fhir/5.0/StructureDefinition/extension-Questionnaire.versionAlgorithm%5Bx%5D]] on Questionnaire.extension:versionAlgorithm could not be resolved (@char 1)
 Slicing cannot be evaluated: Problem with use of resolve() - profile [CanonicalType[http://hl7.org/fhir/5.0/StructureDefinition/extension-Questionnaire.copyrightLabel]] on Questionnaire.extension:copyrightLabel could not be resolved (@char 1)
