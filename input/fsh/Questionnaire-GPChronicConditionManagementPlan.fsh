@@ -11,6 +11,8 @@ Description: "GP Chronic Condition Management Plan"
 
 * contained[+] = YesNoNA
 //* contained[+] = YesNo
+* contained[+] = pulse-rhythm-1
+* contained[+] = MedicationStatementStatusLimited
 
 //launch context
 * extension[sdc-questionnaire-launchContext][+].extension[name].valueCoding = http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext#patient
@@ -64,11 +66,11 @@ Description: "GP Chronic Condition Management Plan"
 * extension[variable][=].valueExpression.language = #application/x-fhir-query
 * extension[variable][=].valueExpression.expression = "Observation?code=8280-0&_sort=-date&patient={{%patient.id}}"
 
-* extension[variable][+].valueExpression.name = "ObsHeartRate"
+* extension[variable][+].valueExpression.name = "ObsPulseRate"
 * extension[variable][=].valueExpression.language = #application/x-fhir-query
 * extension[variable][=].valueExpression.expression = "Observation?code=8867-4&_sort=-date&patient={{%patient.id}}"
 
-* extension[variable][+].valueExpression.name = "ObsHeartRhythm"
+* extension[variable][+].valueExpression.name = "ObsPulseRhythm"
 * extension[variable][=].valueExpression.language = #application/x-fhir-query
 * extension[variable][=].valueExpression.expression = "Observation?code=364074009&_sort=-date&patient={{%patient.id}}"
 
@@ -83,6 +85,10 @@ Description: "GP Chronic Condition Management Plan"
 * extension[variable][+].valueExpression.name = "ObsSmokingStatus"
 * extension[variable][=].valueExpression.language = #application/x-fhir-query
 * extension[variable][=].valueExpression.expression = "Observation?code=1747861000168109&_sort=-date&patient={{%patient.id}}"
+
+* extension[variable][+].valueExpression.name = "ObsAlcoholStatus"
+* extension[variable][=].valueExpression.language = #application/x-fhir-query
+* extension[variable][=].valueExpression.expression = "Observation?code=897148007&_sort=-date&patient={{%patient.id}}"
 
 
 //fhirpath variables
@@ -118,13 +124,13 @@ Description: "GP Chronic Condition Management Plan"
 * extension[variable][=].valueExpression.language = #text/fhirpath
 * extension[variable][=].valueExpression.expression = "%ObsWaistCircumference.entry.resource.where(status = 'final' or status = 'amended' or status = 'corrected').first()"
 
-* extension[variable][+].valueExpression.name = "ObsHeartRateLatest"
+* extension[variable][+].valueExpression.name = "ObsPulseRateLatest"
 * extension[variable][=].valueExpression.language = #text/fhirpath
-* extension[variable][=].valueExpression.expression = "%ObsHeartRate.entry.resource.where(status = 'final' or status = 'amended' or status = 'corrected').first()"
+* extension[variable][=].valueExpression.expression = "%ObsPulseRate.entry.resource.where(status = 'final' or status = 'amended' or status = 'corrected').first()"
 
-* extension[variable][+].valueExpression.name = "ObsHeartRhythmLatest"
+* extension[variable][+].valueExpression.name = "ObsPulseRhythmLatest"
 * extension[variable][=].valueExpression.language = #text/fhirpath
-* extension[variable][=].valueExpression.expression = "%ObsHeartRhythm.entry.resource.where(status = 'final' or status = 'amended' or status = 'corrected').first()"
+* extension[variable][=].valueExpression.expression = "%ObsPulseRhythm.entry.resource.where(status = 'final' or status = 'amended' or status = 'corrected').first()"
 
 * extension[variable][+].valueExpression.name = "ObsOxygenSaturationLatest"
 * extension[variable][=].valueExpression.language = #text/fhirpath
@@ -137,6 +143,101 @@ Description: "GP Chronic Condition Management Plan"
 * extension[variable][+].valueExpression.name = "ObsSmokingStatusLatest"
 * extension[variable][=].valueExpression.language = #text/fhirpath
 * extension[variable][=].valueExpression.expression = "%ObsSmokingStatus.entry.resource.where(status = 'final' or status = 'amended' or status = 'corrected').first()"
+
+* extension[variable][+].valueExpression.name = "ObsAlcoholStatusLatest"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsAlcoholStatus.entry.resource.where(status = 'final' or status = 'amended' or status = 'corrected').first()"
+
+        //Previous results variables
+* extension[variable][+].valueExpression.name = "ObsBodyHeightValue"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsBodyHeightLatest.value.where(exists(system='http://unitsofmeasure.org' and code='cm')).value" 
+* extension[variable][+].valueExpression.name = "ObsBodyHeightDateString"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsBodyHeightLatest.effective.toString().substring(0,10)"  
+* extension[variable][+].valueExpression.name = "ObsBodyHeightDateFormatted"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsBodyHeightDateString.substring(8,2).toInteger().toString() + ' ' + %ObsBodyHeightDateString.substring(5,2).replace('01','Jan').replace('02','Feb').replace('03','Mar').replace('04','Apr').replace('05','May').replace('06','Jun').replace('07','Jul').replace('08','Aug').replace('09','Sep').replace('10','Oct').replace('11','Nov').replace('12','Dec') + ' ' + %ObsBodyHeightDateString.substring(0,4)"
+
+* extension[variable][+].valueExpression.name = "ObsBodyWeightValue"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsBodyWeightLatest.value.where(exists(system='http://unitsofmeasure.org' and code='kg')).value"
+* extension[variable][+].valueExpression.name = "ObsBodyWeightDateString"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsBodyWeightLatest.effective.toString().substring(0,10)"
+* extension[variable][+].valueExpression.name = "ObsBodyWeightDateFormatted"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsBodyWeightDateString.substring(8,2).toInteger().toString() + ' ' + %ObsBodyWeightDateString.substring(5,2).replace('01','Jan').replace('02','Feb').replace('03','Mar').replace('04','Apr').replace('05','May').replace('06','Jun').replace('07','Jul').replace('08','Aug').replace('09','Sep').replace('10','Oct').replace('11','Nov').replace('12','Dec') + ' ' + %ObsBodyWeightDateString.substring(0,4)"
+
+* extension[variable][+].valueExpression.name = "ObsWaistCircumferenceValue"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsWaistCircumferenceLatest.value.where(exists(system='http://unitsofmeasure.org' and code='cm')).value"
+* extension[variable][+].valueExpression.name = "ObsWaistCircumferenceDateString"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsWaistCircumferenceLatest.effective.toString().substring(0,10)"
+* extension[variable][+].valueExpression.name = "ObsWaistCircumferenceDateFormatted"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsWaistCircumferenceDateString.substring(8,2).toInteger().toString() + ' ' + %ObsWaistCircumferenceDateString.substring(5,2).replace('01','Jan').replace('02','Feb').replace('03','Mar').replace('04','Apr').replace('05','May').replace('06','Jun').replace('07','Jul').replace('08','Aug').replace('09','Sep').replace('10','Oct').replace('11','Nov').replace('12','Dec') + ' ' + %ObsWaistCircumferenceDateString.substring(0,4)"
+
+* extension[variable][+].valueExpression.name = "ObsPulseRateValue"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsPulseRateLatest.value.where(exists(system='http://unitsofmeasure.org' and code='/min')).value"
+* extension[variable][+].valueExpression.name = "ObsPulseRateDateString"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsPulseRateLatest.effective.toString().substring(0,10)"
+* extension[variable][+].valueExpression.name = "ObsPulseRateDateFormatted"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsPulseRateDateString.substring(8,2).toInteger().toString() + ' ' + %ObsPulseRateDateString.substring(5,2).replace('01','Jan').replace('02','Feb').replace('03','Mar').replace('04','Apr').replace('05','May').replace('06','Jun').replace('07','Jul').replace('08','Aug').replace('09','Sep').replace('10','Oct').replace('11','Nov').replace('12','Dec') + ' ' + %ObsPulseRateDateString.substring(0,4)"
+
+* extension[variable][+].valueExpression.name = "ObsPulseRhythmValue"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsPulseRhythmLatest.value.coding.where(system='http://snomed.info/sct').first()"
+* extension[variable][+].valueExpression.name = "ObsPulseRhythmDateString"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsPulseRhythmLatest.effective.toString().substring(0,10)"
+* extension[variable][+].valueExpression.name = "ObsPulseRhythmDateFormatted"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsPulseRhythmDateString.substring(8,2).toInteger().toString() + ' ' + %ObsPulseRhythmDateString.substring(5,2).replace('01','Jan').replace('02','Feb').replace('03','Mar').replace('04','Apr').replace('05','May').replace('06','Jun').replace('07','Jul').replace('08','Aug').replace('09','Sep').replace('10','Oct').replace('11','Nov').replace('12','Dec') + ' ' + %ObsPulseRhythmDateString.substring(0,4)"
+
+* extension[variable][+].valueExpression.name = "ObsOxygenSaturationValue"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsOxygenSaturationLatest.value.where(exists(system='http://unitsofmeasure.org' and code='%')).value"
+* extension[variable][+].valueExpression.name = "ObsOxygenSaturationString"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsOxygenSaturationLatest.effective.toString().substring(0,10)"
+* extension[variable][+].valueExpression.name = "ObsOxygenSaturationDateFormatted"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsOxygenSaturationString.substring(8,2).toInteger().toString() + ' ' + %ObsOxygenSaturationString.substring(5,2).replace('01','Jan').replace('02','Feb').replace('03','Mar').replace('04','Apr').replace('05','May').replace('06','Jun').replace('07','Jul').replace('08','Aug').replace('09','Sep').replace('10','Oct').replace('11','Nov').replace('12','Dec') + ' ' + %ObsOxygenSaturationString.substring(0,4)"
+
+* extension[variable][+].valueExpression.name = "ObsSmokingStatusValue"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsSmokingStatusLatest.value.coding.where(system='http://snomed.info/sct').first()"
+* extension[variable][+].valueExpression.name = "ObsSmokingStatusDateString"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsSmokingStatusLatest.effective.toString().substring(0,10)"
+* extension[variable][+].valueExpression.name = "ObsSmokingStatusDateFormatted"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsSmokingStatusDateString.substring(8,2).toInteger().toString() + ' ' + %ObsSmokingStatusDateString.substring(5,2).replace('01','Jan').replace('02','Feb').replace('03','Mar').replace('04','Apr').replace('05','May').replace('06','Jun').replace('07','Jul').replace('08','Aug').replace('09','Sep').replace('10','Oct').replace('11','Nov').replace('12','Dec') + ' ' + %ObsSmokingStatusDateString.substring(0,4)"
+
+* extension[variable][+].valueExpression.name = "ObsAlcoholStatusValue"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsAlcoholStatusLatest.value.coding.where(system='http://snomed.info/sct').first()"
+* extension[variable][+].valueExpression.name = "ObsAlcoholStatusDateString"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsAlcoholStatusLatest.effective.toString().substring(0,10)"
+* extension[variable][+].valueExpression.name = "ObsAlcoholStatusDateFormatted"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsAlcoholStatusDateString.substring(8,2).toInteger().toString() + ' ' + %ObsAlcoholStatusDateString.substring(5,2).replace('01','Jan').replace('02','Feb').replace('03','Mar').replace('04','Apr').replace('05','May').replace('06','Jun').replace('07','Jul').replace('08','Aug').replace('09','Sep').replace('10','Oct').replace('11','Nov').replace('12','Dec') + ' ' + %ObsAlcoholStatusDateString.substring(0,4)"
+
+* extension[variable][+].valueExpression.name = "ObsBloodPressureValue"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsBloodPressureLatest.component.where(code.coding.exists(code='8480-6')).value.value.round(0).toString() + ' / ' + %ObsBloodPressureLatest.component.where(code.coding.exists(code='8462-4')).value.value.round(0).toString()"
+* extension[variable][+].valueExpression.name = "ObsBloodPressureDateString"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsBloodPressureLatest.effective.toString().substring(0,10)"
+* extension[variable][+].valueExpression.name = "ObsBloodPressureDateFormatted"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%ObsBloodPressureDateString.substring(8,2).toInteger().toString() + ' ' + %ObsBloodPressureDateString.substring(5,2).replace('01','Jan').replace('02','Feb').replace('03','Mar').replace('04','Apr').replace('05','May').replace('06','Jun').replace('07','Jul').replace('08','Aug').replace('09','Sep').replace('10','Oct').replace('11','Nov').replace('12','Dec') + ' ' + %ObsBloodPressureDateString.substring(0,4)"
 
 //R5 preadoption extensions
 * extension[+].url = "http://hl7.org/fhir/5.0/StructureDefinition/extension-Questionnaire.versionAlgorithm[x]"
@@ -497,7 +598,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ThirdPartyContactArray.relationship.coding"
 * item[=].item[=].item[=].item[=].linkId = "patient-thirdpartycontacts-type"
 * item[=].item[=].item[=].item[=].text = "Type"
-* item[=].item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[=].type = #open-choice
 * item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://snomed.info/sct#1072531000168103
 * item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://snomed.info/sct#394619001
@@ -586,100 +687,169 @@ Description: "GP Chronic Condition Management Plan"
     <p><em>This form has been prefilled with information that was available from the patient's health record. Upon saving, the form will be stored, but additional information entered will not be used to update the patient's health record.</em></p></div>"
 * item[=].item[=].item[=].type = #display
     //Problems/Diagnoses
-* item[=].item[=].item[+].extension[sdc-questionnaire-collapsible].valueCode = #default-open
-* item[=].item[=].item[=].extension[+].url = "https://smartforms.csiro.au/ig/StructureDefinition/GroupHideAddItemButton"
-* item[=].item[=].item[=].extension[=].valueBoolean = true
-* item[=].item[=].item[=].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#gtable
-* item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.name = "ConditionArray"
-* item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.expression = "%Condition.entry.resource.where(verificationStatus.coding.all(code.empty() or code='confirmed'))"
+* item[=].item[=].item[+].extension[sdc-questionnaire-collapsible].valueCode = #default-open    
 * item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses"
 * item[=].item[=].item[=].text = "Problems/Diagnoses"
 * item[=].item[=].item[=].type = #group
-* item[=].item[=].item[=].repeats = true
-* item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#autocomplete
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-width].valueQuantity = 40 '%'
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ConditionArray.code.select((coding.where(system='http://snomed.info/sct') | coding.where(system!='http://snomed.info/sct').first() | text ).first())"
-* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses-condition"
-* item[=].item[=].item[=].item[=].text = "Condition"
-* item[=].item[=].item[=].item[=].type = #open-choice
-* item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/clinical-condition-1"
-* item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].readOnly = true
-* item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#drop-down
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ConditionArray.clinicalStatus.coding"
-* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses-clinicalstatus"
-* item[=].item[=].item[=].item[=].text = "Clinical status"
-* item[=].item[=].item[=].item[=].type = #choice
-* item[=].item[=].item[=].item[=].answerValueSet = "http://hl7.org/fhir/ValueSet/condition-clinical|4.0.1"
-* item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].readOnly = true
-* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ConditionArray.onset.ofType(dateTime).toDate()"
-* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses-onsetdate"
-* item[=].item[=].item[=].item[=].text = "Onset date"
-* item[=].item[=].item[=].item[=].type = #date
-* item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].readOnly = true
-* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ConditionArray.abatement.ofType(dateTime).toDate()"
-* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses-abatementdate"
-* item[=].item[=].item[=].item[=].text = "Abatement date"
-* item[=].item[=].item[=].item[=].type = #date
-* item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].readOnly = true
+* item[=].item[=].item[=].repeats = false
+        //Recorded Problems/Diagnoses
+* item[=].item[=].item[=].item[+].extension[+].url = "https://smartforms.csiro.au/ig/StructureDefinition/GroupHideAddItemButton"
+* item[=].item[=].item[=].item[=].extension[=].valueBoolean = true
+* item[=].item[=].item[=].item[=].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#gtable
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.name = "ConditionArray"
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.expression = "%Condition.entry.resource.where(verificationStatus.coding.all(code.empty() or code='confirmed'))"
+* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses-recordedproblems"
+* item[=].item[=].item[=].item[=].text = "Recorded problems/diagnoses"
+* item[=].item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].item[=].repeats = true
+* item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#autocomplete
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-width].valueQuantity = 40 '%'
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ConditionArray.code.select((coding.where(system='http://snomed.info/sct') | coding.where(system!='http://snomed.info/sct').first() | text ).first())"
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses-recordedproblems-condition"
+* item[=].item[=].item[=].item[=].item[=].text = "Condition"
+* item[=].item[=].item[=].item[=].item[=].type = #open-choice
+* item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/clinical-condition-1"
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].readOnly = true
+* item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#drop-down
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ConditionArray.clinicalStatus.coding"
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses-recordedproblems-clinicalstatus"
+* item[=].item[=].item[=].item[=].item[=].text = "Clinical status"
+* item[=].item[=].item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[=].item[=].answerValueSet = "http://hl7.org/fhir/ValueSet/condition-clinical|4.0.1"
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].readOnly = false
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ConditionArray.onset.ofType(dateTime).toDate()"
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses-recordedproblems-onsetdate"
+* item[=].item[=].item[=].item[=].item[=].text = "Onset date"
+* item[=].item[=].item[=].item[=].item[=].type = #date
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].readOnly = true
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ConditionArray.abatement.ofType(dateTime).toDate()"
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses-recordedproblems-abatementdate"
+* item[=].item[=].item[=].item[=].item[=].text = "Abatement date"
+* item[=].item[=].item[=].item[=].item[=].type = #date
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].readOnly = false
+        //New Problems/Diagnoses
+* item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#gtable
+* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses-newproblems"
+* item[=].item[=].item[=].item[=].text = "New problems/diagnoses"
+* item[=].item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].item[=].repeats = true
+* item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#autocomplete
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-width].valueQuantity = 35 '%'
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses-newproblems-condition"
+* item[=].item[=].item[=].item[=].item[=].text = "Condition"
+* item[=].item[=].item[=].item[=].item[=].type = #open-choice
+* item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/clinical-condition-1"
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-width].valueQuantity = 25 '%'
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses-newproblems-onsetdate"
+* item[=].item[=].item[=].item[=].item[=].text = "Onset date"
+* item[=].item[=].item[=].item[=].item[=].type = #date
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-width].valueQuantity = 40 '%'
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses-newproblems-comment"
+* item[=].item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+
     //Adverse reaction risk
 * item[=].item[=].item[+].extension[sdc-questionnaire-collapsible].valueCode = #default-open
-* item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext][+].valueExpression[+].name = "AllergyIntoleranceArray"
-* item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext][=].valueExpression[=].language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext][=].valueExpression[=].expression = "%AllergyIntolerance.entry.resource.where(clinicalStatus.coding.exists(code='active')).where(verificationStatus.coding.all(code.empty() or code='confirmed'))"
-* item[=].item[=].item[=].extension[+].url = "https://smartforms.csiro.au/ig/StructureDefinition/GroupHideAddItemButton"
-* item[=].item[=].item[=].extension[=].valueBoolean = true
-* item[=].item[=].item[=].linkId = "clinicaldetails-allergy"
-* item[=].item[=].item[=].text = "Adverse reaction risk"
+* item[=].item[=].item[=].linkId = "clinicaldetails-allergies"
+* item[=].item[=].item[=].text = "Adverse reaction risks"
 * item[=].item[=].item[=].type = #group
-* item[=].item[=].item[=].repeats = true
-* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression][+].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][=].valueExpression.expression = "%AllergyIntoleranceArray.code.select((coding.where(system='http://snomed.info/sct') | coding.where(system!='http://snomed.info/sct').first() | text ).first())"
-* item[=].item[=].item[=].item[=].extension[questionnaire-itemControl][+].valueCodeableConcept = $questionnaire-item-control#autocomplete
-* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-allergy-substance"
-* item[=].item[=].item[=].item[=].text = "Substance"
-* item[=].item[=].item[=].item[=].type = #open-choice
-* item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].readOnly = true
-* item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/adverse-reaction-agent-1"
-* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression][+].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][=].valueExpression.expression = "%AllergyIntoleranceArray.reaction.manifestation.select((coding.where(system='http://snomed.info/sct') | coding.where(system!='http://snomed.info/sct').first() | text ).first())"
-* item[=].item[=].item[=].item[=].extension[questionnaire-itemControl][+].valueCodeableConcept = $questionnaire-item-control#autocomplete
-* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-allergy-manifestation"
-* item[=].item[=].item[=].item[=].text = "Manifestation"
-* item[=].item[=].item[=].item[=].type = #open-choice
+* item[=].item[=].item[=].repeats = false
+        //Recorded adverse reactions
+* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-itemPopulationContext][+].valueExpression[+].name = "AllergyIntoleranceArray"
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext][=].valueExpression[=].language = #text/fhirpath
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext][=].valueExpression[=].expression = "%AllergyIntolerance.entry.resource.where(clinicalStatus.coding.exists(code='active')).where(verificationStatus.coding.all(code.empty() or code='confirmed'))"
+* item[=].item[=].item[=].item[=].extension[+].url = "https://smartforms.csiro.au/ig/StructureDefinition/GroupHideAddItemButton"
+* item[=].item[=].item[=].item[=].extension[=].valueBoolean = true
+* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-allergies-recordedallergies"
+* item[=].item[=].item[=].item[=].text = "Recorded adverse reaction risks"
+* item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].repeats = true
-* item[=].item[=].item[=].item[=].readOnly = true
-* item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/clinical-finding-1"
-* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression][+].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression][+].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][=].valueExpression.expression = "%AllergyIntoleranceArray.code.select((coding.where(system='http://snomed.info/sct') | coding.where(system!='http://snomed.info/sct').first() | text ).first())"
+* item[=].item[=].item[=].item[=].item[=].extension[questionnaire-itemControl][+].valueCodeableConcept = $questionnaire-item-control#autocomplete
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-allergies-recordedallergies-substance"
+* item[=].item[=].item[=].item[=].item[=].text = "Substance"
+* item[=].item[=].item[=].item[=].item[=].type = #open-choice
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].readOnly = true
+* item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/adverse-reaction-agent-1"
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression][+].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][=].valueExpression.expression = "%AllergyIntoleranceArray.clinicalStatus.coding"
+* item[=].item[=].item[=].item[=].item[=].extension[questionnaire-itemControl][+].valueCodeableConcept = http://hl7.org/fhir/questionnaire-item-control#drop-down
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-allergies-recordedallergies-status"
+* item[=].item[=].item[=].item[=].item[=].text = "Status"
+* item[=].item[=].item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].answerValueSet = "http://hl7.org/fhir/ValueSet/allergyintolerance-clinical|4.0.1"
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression][+].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][=].valueExpression.expression = "%AllergyIntoleranceArray.reaction.manifestation.select((coding.where(system='http://snomed.info/sct') | coding.where(system!='http://snomed.info/sct').first() | text ).first())"
+* item[=].item[=].item[=].item[=].item[=].extension[questionnaire-itemControl][+].valueCodeableConcept = $questionnaire-item-control#autocomplete
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-allergies-recordedallergies-manifestation"
+* item[=].item[=].item[=].item[=].item[=].text = "Manifestation"
+* item[=].item[=].item[=].item[=].item[=].type = #open-choice
+* item[=].item[=].item[=].item[=].item[=].repeats = true
+* item[=].item[=].item[=].item[=].item[=].readOnly = true
+* item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/clinical-finding-1"
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression][+].valueExpression.language = #text/fhirpath
 //possible to support repeating comments. Needs nested itemPopulationContext which may not yet be supported. Needs investigation.
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][=].valueExpression.expression = "%AllergyIntoleranceArray.note[0].text"
-* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-allergy-comment"
-* item[=].item[=].item[=].item[=].text = "Comment"
-* item[=].item[=].item[=].item[=].type = #text
-* item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].readOnly = true
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][=].valueExpression.expression = "%AllergyIntoleranceArray.note[0].text"
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-allergies-recordedallergies-comment"
+* item[=].item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].item[=].type = #text
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+        //new adverse reactions
+* item[=].item[=].item[=].item[+].linkId = "clinicaldetails-allergies-newallergies"
+* item[=].item[=].item[=].item[=].text = "New adverse reaction risks"
+* item[=].item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].item[=].repeats = true
+* item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl][+].valueCodeableConcept = http://hl7.org/fhir/questionnaire-item-control#autocomplete
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-allergies-newallergies-substance"
+* item[=].item[=].item[=].item[=].item[=].text = "Substance"
+* item[=].item[=].item[=].item[=].item[=].type = #open-choice
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].required = true
+* item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/adverse-reaction-agent-1"
+* item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl][+].valueCodeableConcept = http://hl7.org/fhir/questionnaire-item-control#autocomplete
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-allergies-newallergies-manifestation"
+* item[=].item[=].item[=].item[=].item[=].text = "Manifestation"
+* item[=].item[=].item[=].item[=].item[=].type = #open-choice
+* item[=].item[=].item[=].item[=].item[=].repeats = true
+* item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/clinical-finding-1"
+* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-allergies-newallergies-comment"
+* item[=].item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].item[=].type = #text
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+
     // Medications
-* item[=].item[=].item[+].extension[sdc-questionnaire-collapsible].valueCode = #default-open
-* item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext][+].valueExpression[+].name = "MedicationStatementArray"
-* item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext][=].valueExpression[=].language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext][=].valueExpression[=].expression = "%MedicationStatement.entry.resource.ofType(MedicationStatement)"
-* item[=].item[=].item[=].extension[+].url = "https://smartforms.csiro.au/ig/StructureDefinition/GroupHideAddItemButton"
-* item[=].item[=].item[=].extension[=].valueBoolean = true
+* item[=].item[=].item[+].extension[sdc-questionnaire-collapsible].valueCode = #default-open    
 * item[=].item[=].item[=].linkId = "clinicaldetails-medications"
 * item[=].item[=].item[=].text = "Medications"
 * item[=].item[=].item[=].type = #group
-* item[=].item[=].item[=].repeats = true
-* item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#autocomplete
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][+].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].repeats = false
+        //Recorded medications
+* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-itemPopulationContext][+].valueExpression[+].name = "MedicationStatementArray"
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext][=].valueExpression[=].language = #text/fhirpath
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext][=].valueExpression[=].expression = "%MedicationStatement.entry.resource.ofType(MedicationStatement)"
+* item[=].item[=].item[=].item[=].extension[+].url = "https://smartforms.csiro.au/ig/StructureDefinition/GroupHideAddItemButton"
+* item[=].item[=].item[=].item[=].extension[=].valueBoolean = true
+* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-medications-recordedmedications"
+* item[=].item[=].item[=].item[=].text = "Recorded medications"
+* item[=].item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].item[=].repeats = true
+* item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#autocomplete
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][+].valueExpression.language = #text/fhirpath
 /*
   This expression selects the SNOMED coding from MedicationStatements.
   In some cases, medication.reference may be a reference to a contained Medication resource or an external Medication resource.
@@ -691,38 +861,72 @@ Description: "GP Chronic Condition Management Plan"
   Step 4: If it is, use the ID to find the corresponding Medication resource in %medicationsFromRef and select its SNOMED coding.
   Step 5: Otherwise, use the SNOMED coding from MedicationStatement.medication (medicationCodeableConcept to be specific).
 */
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][=].valueExpression.expression = "iif(%MedicationStatementArray.medication.reference.replace('#', '') in %medicationsFromContained.id, %medicationsFromContained.where(id = %MedicationStatementArray.medication.reference.replace('#', '')).code.select((coding.where(system='http://snomed.info/sct') | coding.where(system!='http://snomed.info/sct').first() | text ).first()), iif(%MedicationStatementArray.medication.reference.replace('Medication/', '') in %medicationsFromRef.id , %medicationsFromRef.where(id = %MedicationStatementArray.medication.reference.replace('Medication/', '')).code.select((coding.where(system='http://snomed.info/sct') | coding.where(system!='http://snomed.info/sct').first() | text ).first()), %MedicationStatementArray.medication.select((coding.where(system='http://snomed.info/sct') | coding.where(system!='http://snomed.info/sct').first() | text ).first())))"
-* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-medications-medication"
-* item[=].item[=].item[=].item[=].text = "Medication"
-* item[=].item[=].item[=].item[=].type = #open-choice
-* item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].readOnly = true
-* item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/australian-medication-1"
-* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression][+].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][=].valueExpression.expression = "%MedicationStatementArray.dosage.text"
-* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-medications-dosage"
-* item[=].item[=].item[=].item[=].text = "Dosage"
-* item[=].item[=].item[=].item[=].type = #text
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][=].valueExpression.expression = "iif(%MedicationStatementArray.medication.reference.replace('#', '') in %medicationsFromContained.id, %medicationsFromContained.where(id = %MedicationStatementArray.medication.reference.replace('#', '')).code.select((coding.where(system='http://snomed.info/sct') | coding.where(system!='http://snomed.info/sct').first() | text ).first()), iif(%MedicationStatementArray.medication.reference.replace('Medication/', '') in %medicationsFromRef.id , %medicationsFromRef.where(id = %MedicationStatementArray.medication.reference.replace('Medication/', '')).code.select((coding.where(system='http://snomed.info/sct') | coding.where(system!='http://snomed.info/sct').first() | text ).first()), %MedicationStatementArray.medication.select((coding.where(system='http://snomed.info/sct') | coding.where(system!='http://snomed.info/sct').first() | text ).first())))"
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-medications-recordedmedications-medication"
+* item[=].item[=].item[=].item[=].item[=].text = "Medication"
+* item[=].item[=].item[=].item[=].item[=].type = #open-choice
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].readOnly = true
+* item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/australian-medication-1"
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression][+].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][=].valueExpression.expression = "%MedicationStatementArray.status"
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-medications-recordedmedications-status"
+* item[=].item[=].item[=].item[=].item[=].text = "Status"
+* item[=].item[=].item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].answerValueSet = "#MedicationStatementStatusLimited"
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression][+].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][=].valueExpression.expression = "%MedicationStatementArray.dosage.text"
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-medications-recordedmedications-dosage"
+* item[=].item[=].item[=].item[=].item[=].text = "Dosage"
+* item[=].item[=].item[=].item[=].item[=].type = #text
 //do we need to support repeats for dosage?
-* item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].readOnly = true
-* item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#autocomplete
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][+].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][=].valueExpression.expression = "%MedicationStatementArray.reasonCode.select((coding.where(system='http://snomed.info/sct') | coding.where(system!='http://snomed.info/sct').first() | text ).first())"
-* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-medications-indication"
-* item[=].item[=].item[=].item[=].text = "Indication"
-* item[=].item[=].item[=].item[=].type = #open-choice
-* item[=].item[=].item[=].item[=].repeats = true
-* item[=].item[=].item[=].item[=].readOnly = true
-* item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/medication-reason-taken-1"
-* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression][+].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][=].valueExpression.expression = "%MedicationStatementArray.note.text"
-* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-medications-comment"
-* item[=].item[=].item[=].item[=].text = "Comment"
-* item[=].item[=].item[=].item[=].type = #text
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].readOnly = false
+* item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#autocomplete
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][+].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][=].valueExpression.expression = "%MedicationStatementArray.reasonCode.select((coding.where(system='http://snomed.info/sct') | coding.where(system!='http://snomed.info/sct').first() | text ).first())"
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-medications-recordedmedications-indication"
+* item[=].item[=].item[=].item[=].item[=].text = "Indication"
+* item[=].item[=].item[=].item[=].item[=].type = #open-choice
+* item[=].item[=].item[=].item[=].item[=].repeats = true
+* item[=].item[=].item[=].item[=].item[=].readOnly = true
+* item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/medication-reason-taken-1"
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression][+].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression][=].valueExpression.expression = "%MedicationStatementArray.note.text"
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-medications-recordedmedications-comment"
+* item[=].item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].item[=].type = #text
 //do we need to support repeats for comments?
-* item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].readOnly = true
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].readOnly = false
+        //New medications
+* item[=].item[=].item[=].item[+].linkId = "clinicaldetails-medications-newmedications"
+* item[=].item[=].item[=].item[=].text = "Recorded medications"
+* item[=].item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].item[=].repeats = true
+* item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#autocomplete
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-medications-newmedications-medication"
+* item[=].item[=].item[=].item[=].item[=].text = "Medication"
+* item[=].item[=].item[=].item[=].item[=].type = #open-choice
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/australian-medication-1"
+* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-medications-newmedications-dosage"
+* item[=].item[=].item[=].item[=].item[=].text = "Dosage"
+* item[=].item[=].item[=].item[=].item[=].type = #text
+//do we need to support repeats for dosage?
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#autocomplete
+* item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-medications-newmedications-indication"
+* item[=].item[=].item[=].item[=].item[=].text = "Indication"
+* item[=].item[=].item[=].item[=].item[=].type = #open-choice
+* item[=].item[=].item[=].item[=].item[=].repeats = true
+* item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/medication-reason-taken-1"
+* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-medications-newmedications-comment"
+* item[=].item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].item[=].type = #text
+//do we need to support repeats for comments?
+* item[=].item[=].item[=].item[=].item[=].repeats = false
 
 // Observations
     // Main table
@@ -731,209 +935,443 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].text = "Observations"
 * item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-instructions"  
+* item[=].item[=].item[=].item[=].text = "The tabled observations will display the most recent results available from the patient record. New observations may be added."
+* item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/rendering-xhtml].valueString = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p style=\"font-size:0.9em; font-weight:normal\"><em>The tabled observations will display the most recent results available from the patient record. New observations may be added.</em></p></div>"    
+* item[=].item[=].item[=].item[=].type = #display
 * item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#grid
-* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid"
-* item[=].item[=].item[=].item[=].type = #group 
+* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid"  
+* item[=].item[=].item[=].item[=].text = "Observations"
+* item[=].item[=].item[=].item[=].text.extension[+].url = Canonical(QuestionnaireItemTextHidden)
+* item[=].item[=].item[=].item[=].text.extension[=].valueBoolean = true
+* item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].readOnly = true
+        //Height
 * item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-height"
 * item[=].item[=].item[=].item[=].item[=].text = "Height"
 * item[=].item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-height-lastresult"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Last result"
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.expression = "iif(%ObsBodyHeightValue.exists() and %ObsBodyHeightDateFormatted.exists(), %ObsBodyHeightValue.round(0).toString() + ' cm ( ' + %ObsBodyHeightDateFormatted + ' )', 'Not available')"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[http://hl7.org/fhir/StructureDefinition/rendering-style].valueString = "text-align: left;"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #display
+            //Hidden height items to support BMI calculation
 * item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsBodyHeightLatest.value.value"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsBodyHeightValue"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-hidden].valueBoolean = true
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-unit].valueCoding = $UCUM#cm
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-height-value"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Value"
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-height-lastresultvalue"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #decimal
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsBodyHeightLatest.effective.toString().substring(0,10).toDate()"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-hidden].valueBoolean = true
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-height-lastresultdate"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #date
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+            //New height result
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-unit].valueCoding = $UCUM#cm
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-height-newresult"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New result"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #decimal
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#unit
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-height-value-unit"
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].text = "cm"
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].type = #display
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsBodyHeightLatest.effective"
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "iif(%resource.repeat(item).where(linkId='clinicaldetails-observations-maingrid-height-newresult').answer.value.exists(), today())"
 * item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-height-date"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Date performed"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New result date"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #date
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+        //Weight
 * item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-weight"
 * item[=].item[=].item[=].item[=].item[=].text = "Weight"
 * item[=].item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].item[=].repeats = false
+            //last weight result
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-weight-lastresult"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Last result"
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.expression = "iif(%ObsBodyWeightValue.exists() and %ObsBodyWeightDateFormatted.exists(), %ObsBodyWeightValue.round(1).toString() + ' kg ( ' + %ObsBodyWeightDateFormatted + ' )', 'Not available')"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[http://hl7.org/fhir/StructureDefinition/rendering-style].valueString = "text-align: left;"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #display
+            //Hidden weight items to support BMI calculation
 * item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsBodyWeightLatest.value.value"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsBodyWeightValue"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-hidden].valueBoolean = true
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-unit].valueCoding = $UCUM#kg
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-weight-value"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Value"
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-weight-lastresultvalue"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #decimal
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsBodyWeightLatest.effective.toString().substring(0,10).toDate()"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-hidden].valueBoolean = true
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-weight-lastresultdate"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #date
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+            //New weight result
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-unit].valueCoding = $UCUM#kg
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-weight-newresult"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New result"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #decimal
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#unit
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-weight-value-unit"
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].text = "kg"
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].type = #display
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsBodyWeightLatest.effective"
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "iif(%resource.repeat(item).where(linkId='clinicaldetails-observations-maingrid-weight-newresult').answer.value.exists(), today())"
 * item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-weight-date"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Date performed"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New result date"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #date
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+
+
+        //BMI
 * item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-bmi"
-* item[=].item[=].item[=].item[=].item[=].text = "BMI"
+* item[=].item[=].item[=].item[=].item[=].text = "BMI (calculated)"
 * item[=].item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].item[=].repeats = false
+            //Last BMI result
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-bmi-lastresult"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Last result"
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.expression = "iif(%ObsBodyWeightValue.exists() and %ObsBodyHeightValue.exists(), (%ObsBodyWeightValue/((%ObsBodyHeightValue/100).power(2))).round(1).toString() + ' kg/m2', 'Not available')"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[http://hl7.org/fhir/StructureDefinition/rendering-style].valueString = "text-align: left;"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #display
+            //New BMI result
 * item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.description = "BMI calculation"
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "(%weight/((%height/100).power(2))).round(1)"
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-unit].valueCoding = $UCUM#kg/m2
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-bmi-value"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Value"
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-bmi-newresult"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New result"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #decimal
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[=].item[=].item[=].readOnly = true
 * item[=].item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#unit
-* item[=].item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-bmi-value-unit"
+* item[=].item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-bmi-newresult-unit"
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].text = "kg/m2"
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].type = #display
+
+        //Waist circumference"
 * item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-waistcircumference"
 * item[=].item[=].item[=].item[=].item[=].text = "Waist circumference"
 * item[=].item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsWaistCircumferenceLatest.value.value"
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-unit].valueCoding = $UCUM#cm
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-waistcircumference-value"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Value"
+            //Last waist circumference result
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-waistcircumference-lastresult"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Last result"
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.expression = "iif(%ObsWaistCircumferenceValue.exists() and %ObsWaistCircumferenceDateFormatted.exists(), %ObsWaistCircumferenceValue.round(0).toString() + ' cm ( ' + %ObsWaistCircumferenceDateFormatted + ' )', 'Not available')"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[http://hl7.org/fhir/StructureDefinition/rendering-style].valueString = "text-align: left;"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #display
+            //New waist circumference result
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-unit].valueCoding = $UCUM#cm
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-waistcircumference-newresult"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New result"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #decimal
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#unit
-* item[=].item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-waistcircumference-value-unit"
+* item[=].item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = http://hl7.org/fhir/questionnaire-item-control#unit
+* item[=].item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-waistcircumference-newresult-unit"
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].text = "cm"
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].type = #display
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsWaistCircumferenceLatest.effective"
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-waistcircumference-date"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Date performed"
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "iif(%resource.repeat(item).where(linkId='clinicaldetails-observations-maingrid-waistcircumference-newresult').answer.value.exists(), today())"
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-waistcircumference-newdate"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New result date"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #date
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-heartrate"
-* item[=].item[=].item[=].item[=].item[=].text = "Heart rate"
+
+        //Pulse rate
+* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-pulserate"
+* item[=].item[=].item[=].item[=].item[=].text = "Pulse rate"
 * item[=].item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsHeartRateLatest.value.value"
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-unit].valueCoding = $UCUM#/min
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-heartrate-value"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Value"
+            //Last pulse rate result
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-pulserate-lastresult"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Last result"
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.expression = "iif(%ObsPulseRateValue.exists() and %ObsPulseRateDateFormatted.exists(), %ObsPulseRateValue.round(0).toString() + ' /min ( ' + %ObsPulseRateDateFormatted + ' )', 'Not available')"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[http://hl7.org/fhir/StructureDefinition/rendering-style].valueString = "text-align: left;"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #display
+            //New pulse rate result
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-unit].valueCoding = $UCUM#/min
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-pulserate-newresult"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New result"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #integer
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#unit
-* item[=].item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-heartrate-value-unit"
+* item[=].item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = http://hl7.org/fhir/questionnaire-item-control#unit
+* item[=].item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-pulserate-newresult-unit"
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].text = "/min"
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].type = #display
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsHeartRateLatest.effective"
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-heartrate-date"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Date performed"
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "iif(%resource.repeat(item).where(linkId='clinicaldetails-observations-maingrid-pulserate-newresult').answer.value.exists(), today())"
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-pulserate-newdate"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New result date"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #date
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-heartrhythm"
-* item[=].item[=].item[=].item[=].item[=].text = "Heart rhythm"
+        //Pulse rhythm
+* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-pulserhythm"
+* item[=].item[=].item[=].item[=].item[=].text = "Pulse rhythm"
 * item[=].item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#drop-down
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsHeartRhythmLatest.value.coding.where(system='http://snomed.info/sct').first()"
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-heartrhythm-value"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Value"
+            //Last pulse rhythm result
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-pulserhythm-lastresult"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Last result"
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.expression = "iif(%ObsPulseRhythmValue.exists() and %ObsPulseRhythmDateFormatted.exists(), %ObsPulseRhythmValue.display + ' ( ' + %ObsPulseRhythmDateFormatted + ' )', 'Not available')"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[http://hl7.org/fhir/StructureDefinition/rendering-style].valueString = "text-align: left;"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #display
+            //New pulse rhythm result
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = http://hl7.org/fhir/questionnaire-item-control#drop-down
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-pulserhythm-newresult"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New result"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #choice
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[=].answerOption[+].valueCoding = $SCT#933506231000036108 "Regular heart rhythm"
-* item[=].item[=].item[=].item[=].item[=].item[=].answerOption[+].valueCoding = $SCT#361137007 "Irregular heart rhythm"
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsHeartRhythmLatest.effective"
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-heartrhythm-date"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Date performed"
+* item[=].item[=].item[=].item[=].item[=].item[=].answerValueSet = "#pulse-rhythm-1"
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "iif(%resource.repeat(item).where(linkId='clinicaldetails-observations-maingrid-pulserhythm-newresult').answer.value.exists(), today())"
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-pulserhythm-newdate"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New result date"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #date
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+
+
+        //Oxygen saturation"
 * item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-oxygensaturation"
 * item[=].item[=].item[=].item[=].item[=].text = "Oxygen saturation"
 * item[=].item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsOxygenSaturationLatest.value.value"
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-unit].valueCoding = $UCUM#%
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-oxygensaturation-value"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Value"
+            //Last oxygen saturation result
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-oxygensaturation-lastresult"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Last result"
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.expression = "iif(%ObsOxygenSaturationValue.exists() and %ObsOxygenSaturationDateFormatted.exists(), %ObsOxygenSaturationValue.round(0).toString() + ' % ( ' + %ObsOxygenSaturationDateFormatted + ' )', 'Not available')"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[http://hl7.org/fhir/StructureDefinition/rendering-style].valueString = "text-align: left;"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #display
+            //New oxygen saturation result
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-unit].valueCoding = $UCUM#%
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-oxygensaturation-newresult"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New result"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #integer
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#unit
-* item[=].item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-oxygensaturation-value-unit"
+* item[=].item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = http://hl7.org/fhir/questionnaire-item-control#unit
+* item[=].item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-oxygensaturation-newresult-unit"
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].text = "%"
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].type = #display
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsOxygenSaturationLatest.effective"
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-oxygensaturation-date"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Date performed"
-* item[=].item[=].item[=].item[=].item[=].item[=].type = #date
-* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-smokingstatus"
-* item[=].item[=].item[=].item[=].item[=].text = "Smoking status"
-* item[=].item[=].item[=].item[=].item[=].type = #group
-* item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#drop-down
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsSmokingStatusLatest.value.coding.where(system='http://snomed.info/sct').first()"
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-smokingstatus-value"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Value"
-* item[=].item[=].item[=].item[=].item[=].item[=].type = #choice
-* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/smoking-status-1"
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsSmokingStatusLatest.effective"
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-smokingstatus-date"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Date performed"
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "iif(%resource.repeat(item).where(linkId='clinicaldetails-observations-maingrid-oxygensaturation-newresult').answer.value.exists(), today())"
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-oxygensaturation-newdate"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New result date"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #date
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
 
     // Blood pressure table
 * item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#grid
 * item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-bpgrid"
+* item[=].item[=].item[=].item[=].text = "Blood pressure"
+* item[=].item[=].item[=].item[=].text.extension[+].url = Canonical(QuestionnaireItemTextHidden)
+* item[=].item[=].item[=].item[=].text.extension[=].valueBoolean = true
 * item[=].item[=].item[=].item[=].type = #group 
 * item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].readOnly = true
-* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-bpgrid-bloodpressure"
+* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-bpgrid-bp"
 * item[=].item[=].item[=].item[=].item[=].text = "Blood pressure"
 * item[=].item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsBloodPressureLatest.component.where(code.coding.exists(code='8480-6')).value.value"
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-unit].valueCoding = $UCUM#mm[Hg]
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-bpgrid-bloodpressure-systolic"
+        //Last blood pressure result
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-bpgrid-bp-lastresult"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Last result"
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.expression = "iif(%ObsBloodPressureValue.exists() and %ObsBloodPressureDateFormatted.exists(), %ObsBloodPressureValue + ' mm Hg ( ' + %ObsBloodPressureDateFormatted + ' )', 'Not available')"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[http://hl7.org/fhir/StructureDefinition/rendering-style].valueString = "text-align: left;"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #display
+        //New blood pressure result
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-unit].valueCoding = $UCUM#mm[Hg]
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-bpgrid-bp-newresultsystolic"
 * item[=].item[=].item[=].item[=].item[=].item[=].text = "Systolic"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #integer
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#unit
-* item[=].item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-bpgrid-bloodpressure-systolic-unit"
+* item[=].item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = http://hl7.org/fhir/questionnaire-item-control#unit
+* item[=].item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-bpgrid-bp-newresultsystolic-unit"
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].text = "mm Hg"
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].type = #display
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsBloodPressureLatest.component.where(code.coding.exists(code='8462-4')).value.value"
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-unit].valueCoding = $UCUM#mm[Hg]
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-bpgrid-bloodpressure-diastolic"
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-unit].valueCoding = $UCUM#mm[Hg]
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-bpgrid-bp-newresultdiastolic"
 * item[=].item[=].item[=].item[=].item[=].item[=].text = "Diastolic"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #integer
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#unit
-* item[=].item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-bpgrid-bloodpressure-diastolic-unit"
+* item[=].item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = http://hl7.org/fhir/questionnaire-item-control#unit
+* item[=].item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-bpgrid-bp-newresultdiastolic-unit"
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].text = "mm Hg"
 * item[=].item[=].item[=].item[=].item[=].item[=].item[=].type = #display
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsBloodPressureLatest.effective"
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-bpgrid-bloodpressure-date"
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "iif(%resource.repeat(item).where(linkId='clinicaldetails-observations-bpgrid-bp-newresultsystolic').answer.value.exists() or %resource.repeat(item).where(linkId='clinicaldetails-observations-bpgrid-bp-newresultdiastolic').answer.value.exists(), today())"
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-bpgrid-bp-newresultdate"
 * item[=].item[=].item[=].item[=].item[=].item[=].text = "Date performed"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #date
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+
+    //Substance use table
+* item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#grid
+* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-substanceusegrid"
+* item[=].item[=].item[=].item[=].text = "Substance use"
+* item[=].item[=].item[=].item[=].text.extension[+].url = Canonical(QuestionnaireItemTextHidden)
+* item[=].item[=].item[=].item[=].text.extension[=].valueBoolean = true
+* item[=].item[=].item[=].item[=].type = #group 
+* item[=].item[=].item[=].item[=].repeats = false
+        //Smoking status
+* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-substanceusegrid-smokingstatus"
+* item[=].item[=].item[=].item[=].item[=].text = "Smoking status"
+* item[=].item[=].item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+            //Last smoking status
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-substanceusegrid-smokingstatus-laststatus"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Last status"
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.expression = "iif(%ObsSmokingStatusValue.exists() and %ObsSmokingStatusDateFormatted.exists(), %ObsSmokingStatusValue.display + ' ( ' + %ObsSmokingStatusDateFormatted + ' )', 'Not available')"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[http://hl7.org/fhir/StructureDefinition/rendering-style].valueString = "text-align: left;"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #display
+            //New smoking status
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#drop-down
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-substanceusegrid-smokingstatus-newstatus"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New status"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/smoking-status-1"
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "iif(%resource.repeat(item).where(linkId='clinicaldetails-observations-substanceusegrid-smokingstatus-newstatus').answer.value.exists(), today())"
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-substanceusegrid-smokingstatus-newdate"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New status date"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #date
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-smokingstatusgrid-smokingstatus-newcomment"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+        //Alcohol status
+* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-substanceusegrid-alcoholstatus"
+* item[=].item[=].item[=].item[=].item[=].text = "Alcohol status"
+* item[=].item[=].item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+            //Last alcohol status
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-substanceusegrid-alcoholstatus-laststatus"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Last status"
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.expression = "iif(%ObsAlcoholStatusValue.exists() and %ObsAlcoholStatusDateFormatted.exists(), %ObsAlcoholStatusValue.display + ' ( ' + %ObsAlcoholStatusDateFormatted + ' )', 'Not available')"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[http://hl7.org/fhir/StructureDefinition/rendering-style].valueString = "text-align: left;"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #display
+            //New alcohol status
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#drop-down
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-substanceusegrid-alcoholstatus-newstatus"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New status"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/alcohol-intake-status-1"
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "iif(%resource.repeat(item).where(linkId='clinicaldetails-observations-substanceusegrid-alcoholstatus-newstatus').answer.value.exists(), today())"
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-substanceusegrid-alcoholstatus-newdate"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New status date"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #date
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-substanceusegrid-alcoholstatus-newcomment"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+
+
+/*
+    //Smoking status table
+* item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#grid
+* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-smokingstatusgrid"
+* item[=].item[=].item[=].item[=].text = "Smoking status"
+* item[=].item[=].item[=].item[=].type = #group 
+* item[=].item[=].item[=].item[=].repeats = false
+        //Last recorded smoking status
+* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-smokingstatusgrid-laststatus"
+* item[=].item[=].item[=].item[=].item[=].text = "Last recorded status"
+* item[=].item[=].item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-smokingstatusgrid-laststatus-status"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Status"
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.expression = "iif(%ObsSmokingStatusValue.exists() and %ObsSmokingStatusDateFormatted.exists(), %ObsSmokingStatusValue.display + ' ( ' + %ObsSmokingStatusDateFormatted + ' )', 'Not available')"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[http://hl7.org/fhir/StructureDefinition/rendering-style].valueString = "text-align: left;"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #display
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-smokingstatusgrid-laststatus-date"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Date"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #date
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsSmokingStatusLatest.note[0].text"
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-smokingstatusgrid-laststatus-comment"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[=].readOnly = true
+        //New smoking status
+* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-smokingstatusgrid-newstatus"
+* item[=].item[=].item[=].item[=].item[=].text = "New status"
+* item[=].item[=].item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#drop-down
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-smokingstatusgrid-newstatus-status"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Status"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/smoking-status-1"
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "iif(%resource.repeat(item).where(linkId='clinicaldetails-observations-smokingstatusgrid-newstatus-status').answer.value.exists(), today())"
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-smokingstatusgrid-newstatus-date"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Date"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #date
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-smokingstatusgrid-newstatus-comment"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+*/
+/*
+    //Substance use
+* item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-substanceuse"
+* item[=].item[=].item[=].item[=].text = "Substance use"
+* item[=].item[=].item[=].item[=].type = #group 
+* item[=].item[=].item[=].item[=].repeats = false
+        //Smoking status
+* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-substanceuse-smokingstatus"
+* item[=].item[=].item[=].item[=].item[=].text = "Smoking status"
+* item[=].item[=].item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+            //Last smoking status
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-substanceuse-smokingstatus-laststatus"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "Last recorded status"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-substanceuse-smokingstatus-laststatus-status"
+* item[=].item[=].item[=].item[=].item[=].item[=].item[=].text = "Status"
+* item[=].item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.expression = "iif(%ObsSmokingStatusValue.exists() and %ObsSmokingStatusDateFormatted.exists(), %ObsSmokingStatusValue.display + ' ( ' + %ObsSmokingStatusDateFormatted + ' )', 'Not available')"
+* item[=].item[=].item[=].item[=].item[=].item[=].item[=].extension[http://hl7.org/fhir/StructureDefinition/rendering-style].valueString = "text-align: left;"
+* item[=].item[=].item[=].item[=].item[=].item[=].item[=].type = #display
+            //New smoking status
+* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-substanceuse-smokingstatus-newstatus"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New status"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/smoking-status-1"
+* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "iif(%resource.repeat(item).where(linkId='clinicaldetails-observations-substanceuse-smokingstatus-newstatus').answer.value.exists(), today())"
+* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-substanceuse-smokingstatus-newdate"
+* item[=].item[=].item[=].item[=].item[=].item[=].text = "New status date"
+* item[=].item[=].item[=].item[=].item[=].item[=].type = #date
+* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
+
+*/
+
 
 //Management plan
 * item[=].item[+].linkId = "plan"
@@ -962,7 +1400,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].repeats = false
     //Chronic condition
 * item[=].item[=].item[+].linkId = "plan-conditions"
-* item[=].item[=].item[=].text = "Conditions addressed by this plan"
+* item[=].item[=].item[=].text = "Conditions addressed"
 * item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].item[+].extension[questionnaire-itemControl][+].valueCodeableConcept = $questionnaire-item-control#autocomplete
