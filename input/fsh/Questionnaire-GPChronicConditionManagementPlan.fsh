@@ -670,8 +670,8 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].readOnly = true
 * item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%PractitionerRole.entry.resource.identifier.where(system = 'http://ns.electronichealth.net.au/id/medicare-provider-number').value"
-* item[=].item[=].item[=].linkId = "practitioner-providernumber"
-* item[=].item[=].item[=].text = "Provider number"
+* item[=].item[=].item[=].linkId = "practitioner-medicareprovidernumber"
+* item[=].item[=].item[=].text = "Medicare provider number"
 * item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].readOnly = true
