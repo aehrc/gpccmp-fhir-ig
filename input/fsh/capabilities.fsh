@@ -283,16 +283,6 @@ The server **SHALL** support both."
 //QuestionnaireResponse
 * rest.resource[+].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].extension[=].valueCode = #SHALL
-// need to determine search parameter requirements. At the moment they are implementation specific
-* rest.resource[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-search-parameter-combination"
-* rest.resource[=].extension[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
-* rest.resource[=].extension[=].extension[=].valueCode = #SHALL
-* rest.resource[=].extension[=].extension[+].url = "required"
-* rest.resource[=].extension[=].extension[=].valueString = "patient"
-* rest.resource[=].extension[=].extension[+].url = "required"
-* rest.resource[=].extension[=].extension[=].valueString = "_count"
-* rest.resource[=].extension[=].extension[+].url = "required"
-* rest.resource[=].extension[=].extension[=].valueString = "_sort"
 * rest.resource[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-search-parameter-combination"
 * rest.resource[=].extension[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].extension[=].extension[=].valueCode = #SHALL
@@ -304,17 +294,6 @@ The server **SHALL** support both."
 * rest.resource[=].extension[=].extension[=].valueString = "_sort"
 * rest.resource[=].extension[=].extension[+].url = "required"
 * rest.resource[=].extension[=].extension[=].valueString = "questionnaire"
-* rest.resource[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-search-parameter-combination"
-* rest.resource[=].extension[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
-* rest.resource[=].extension[=].extension[=].valueCode = #SHALL
-* rest.resource[=].extension[=].extension[+].url = "required"
-* rest.resource[=].extension[=].extension[=].valueString = "patient"
-* rest.resource[=].extension[=].extension[+].url = "required"
-* rest.resource[=].extension[=].extension[=].valueString = "_count"
-* rest.resource[=].extension[=].extension[+].url = "required"
-* rest.resource[=].extension[=].extension[=].valueString = "_sort"
-* rest.resource[=].extension[=].extension[+].url = "required"
-* rest.resource[=].extension[=].extension[=].valueString = "status"
 * rest.resource[=].type = #QuestionnaireResponse
 * rest.resource[=].supportedProfile[+] = "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaireresponse"
 * rest.resource[=].supportedProfile[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
@@ -351,14 +330,6 @@ The server **SHALL** support both. "
 The server **SHALL** support both.
 
 The client and server **SHALL** support chained search questionnaire.title using the :contains modifier."
-* rest.resource[=].searchParam[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
-* rest.resource[=].searchParam[=].extension[0].valueCode = #MAY
-* rest.resource[=].searchParam[+].name = "status"
-* rest.resource[=].searchParam[=].definition = "http://hl7.org/fhir/SearchParameter/QuestionnaireResponse-status"
-* rest.resource[=].searchParam[=].type = #token
-* rest.resource[=].searchParam[=].documentation = "The client **SHALL** provide at least a code value and **MAY** provide both the code and system values. 
-
-The server **SHALL** support both."
 * rest.resource[=].searchParam[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].searchParam[=].extension[0].valueCode = #MAY
 * rest.resource[=].searchParam[+].name = "_count"
@@ -662,16 +633,6 @@ The server **SHALL** support both."
 //QuestionnaireResponse
 * rest.resource[+].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].extension[=].valueCode = #SHALL
-// need to determine search parameter requirements. At the moment they are implementation specific
-* rest.resource[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-search-parameter-combination"
-* rest.resource[=].extension[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
-* rest.resource[=].extension[=].extension[=].valueCode = #SHALL
-* rest.resource[=].extension[=].extension[+].url = "required"
-* rest.resource[=].extension[=].extension[=].valueString = "patient"
-* rest.resource[=].extension[=].extension[+].url = "required"
-* rest.resource[=].extension[=].extension[=].valueString = "_count"
-* rest.resource[=].extension[=].extension[+].url = "required"
-* rest.resource[=].extension[=].extension[=].valueString = "_sort"
 * rest.resource[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-search-parameter-combination"
 * rest.resource[=].extension[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].extension[=].extension[=].valueCode = #SHALL
@@ -683,17 +644,6 @@ The server **SHALL** support both."
 * rest.resource[=].extension[=].extension[=].valueString = "_sort"
 * rest.resource[=].extension[=].extension[+].url = "required"
 * rest.resource[=].extension[=].extension[=].valueString = "questionnaire"
-* rest.resource[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-search-parameter-combination"
-* rest.resource[=].extension[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
-* rest.resource[=].extension[=].extension[=].valueCode = #SHALL
-* rest.resource[=].extension[=].extension[+].url = "required"
-* rest.resource[=].extension[=].extension[=].valueString = "patient"
-* rest.resource[=].extension[=].extension[+].url = "required"
-* rest.resource[=].extension[=].extension[=].valueString = "_count"
-* rest.resource[=].extension[=].extension[+].url = "required"
-* rest.resource[=].extension[=].extension[=].valueString = "_sort"
-* rest.resource[=].extension[=].extension[+].url = "required"
-* rest.resource[=].extension[=].extension[=].valueString = "status"
 * rest.resource[=].type = #QuestionnaireResponse
 * rest.resource[=].supportedProfile[+] = "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaireresponse"
 * rest.resource[=].supportedProfile[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
@@ -730,14 +680,6 @@ The server **SHALL** support both. "
 The server **SHALL** support both.
 
 The client and server **SHALL** support chained search questionnaire.title using the :contains modifier."
-* rest.resource[=].searchParam[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
-* rest.resource[=].searchParam[=].extension[0].valueCode = #MAY
-* rest.resource[=].searchParam[+].name = "status"
-* rest.resource[=].searchParam[=].definition = "http://hl7.org/fhir/SearchParameter/QuestionnaireResponse-status"
-* rest.resource[=].searchParam[=].type = #token
-* rest.resource[=].searchParam[=].documentation = "The client **SHALL** provide at least a code value and **MAY** provide both the code and system values. 
-
-The server **SHALL** support both."
 * rest.resource[=].searchParam[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].searchParam[=].extension[0].valueCode = #MAY
 * rest.resource[=].searchParam[+].name = "_count"
