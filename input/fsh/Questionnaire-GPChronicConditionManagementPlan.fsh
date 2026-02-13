@@ -68,11 +68,11 @@ Description: "GP Chronic Condition Management Plan"
 
 * extension[variable][+].valueExpression.name = "ObsPulseRate"
 * extension[variable][=].valueExpression.language = #application/x-fhir-query
-* extension[variable][=].valueExpression.expression = "Observation?code=8867-4&_sort=-date&patient={{%patient.id}}"
+* extension[variable][=].valueExpression.expression = "Observation?code=78564009&_sort=-date&patient={{%patient.id}}"
 
 * extension[variable][+].valueExpression.name = "ObsPulseRhythm"
 * extension[variable][=].valueExpression.language = #application/x-fhir-query
-* extension[variable][=].valueExpression.expression = "Observation?code=364074009&_sort=-date&patient={{%patient.id}}"
+* extension[variable][=].valueExpression.expression = "Observation?code=364095004&_sort=-date&patient={{%patient.id}}"
 
 * extension[variable][+].valueExpression.name = "ObsOxygenSaturation"
 * extension[variable][=].valueExpression.language = #application/x-fhir-query
@@ -252,7 +252,7 @@ Description: "GP Chronic Condition Management Plan"
 * status = #draft
 * experimental = false
 * subjectType[+] = #Patient
-* date = "2025-12-05"
+* date = "2026-02-13"
 * jurisdiction.coding = urn:iso:std:iso:3166#AU
 
 //Container
