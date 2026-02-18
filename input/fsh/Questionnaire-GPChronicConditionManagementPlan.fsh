@@ -9,10 +9,12 @@ Usage: #definition
 Title: "GP Chronic Condition Management Plan"
 Description: "GP Chronic Condition Management Plan"
 
-* contained[+] = YesNoNA
-//* contained[+] = YesNo
+//* contained[+] = YesNoNA
+* contained[+] = YesNoPending
+* contained[+] = YesNo
 * contained[+] = pulse-rhythm-1
 * contained[+] = MedicationStatementStatusLimited
+* contained[+] = GoalStatusLimited
 
 //launch context
 * extension[sdc-questionnaire-launchContext][+].extension[name].valueCoding = http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext#patient
@@ -266,10 +268,18 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].type = #group
 * item[=].item[=].repeats = false
 * item[=].item[=].item[+].linkId = "patient-instructions"
-* item[=].item[=].item[=].text = "This form has been prefilled with information that was available from the patient's health record. Upon saving, the form will be stored, but additional information entered will not be used to update the patient's health record."
+* item[=].item[=].item[=].text = "This form has been prefilled with information that was available from the patient's health record. Upon saving, the form will be stored, but additional information entered will not be used to update the patient's health record. Changes to patient demographic information should be made in the source system."
 * item[=].item[=].item[=].text.extension[rendering-xhtml].valueString = "<div xmlns=\"http://www.w3.org/1999/xhtml\">
-    <p><em>This form has been prefilled with information that was available from the patient's health record. Upon saving, the form will be stored, but additional information entered will not be used to update the patient's health record.</em></p></div>"
+    <p><em>This form has been prefilled with information that was available from the patient's health record. Upon saving, the form will be stored, but additional information entered will not be used to update the patient's health record. Changes to patient demographic information should be made in the source system.</em></p></div>"
 * item[=].item[=].item[=].type = #display
+* item[=].item[=].item[+].linkId = "patient-consent"
+* item[=].item[=].item[=].text = "Consent"
+* item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[+].linkId = "patient-consent-consentforplan"
+* item[=].item[=].item[=].item[=].text = "Consent given to proceed with plan after discussion of the purpose, benefits, process and costs"
+* item[=].item[=].item[=].item[=].type = #boolean
+* item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "(%patient.name.where(use='official').select((given.join(' ') | family).join(' ') | text) | %patient.name.select((given.join(' ') | family).join(' ') | text)).first()"
 * item[=].item[=].item[=].linkId = "patient-name"
@@ -353,13 +363,17 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].text = "Registered for My Aged Care"
 * item[=].item[=].item[=].item[=].type = #choice
 * item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].answerValueSet = "#YesNoNA"
+* item[=].item[=].item[=].item[=].answerValueSet = "#YesNoPending"
 * item[=].item[=].item[=].item[+].linkId = "patient-myagedcare-number"
 * item[=].item[=].item[=].item[=].text = "My Aged Care Number"
 * item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].enableWhen[+].question = "patient-myagedcare-registered"
 * item[=].item[=].item[=].item[=].enableWhen[=].operator = #=
 * item[=].item[=].item[=].item[=].enableWhen[=].answerCoding = http://terminology.hl7.org/CodeSystem/v2-0136#Y
+* item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[+].linkId = "patient-myagedcare-comment"
+* item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[+].linkId = "patient-ndis"
 * item[=].item[=].item[=].text = "National Disability Insurance Scheme"
@@ -371,13 +385,17 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].text = "Registered for NDIS"
 * item[=].item[=].item[=].item[=].type = #choice
 * item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].answerValueSet = "#YesNoNA"
+* item[=].item[=].item[=].item[=].answerValueSet = "#YesNoPending"
 * item[=].item[=].item[=].item[+].linkId = "patient-ndis-number"
 * item[=].item[=].item[=].item[=].text = "NDIS Number"
 * item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].enableWhen[+].question = "patient-ndis-registered"
 * item[=].item[=].item[=].item[=].enableWhen[=].operator = #=
 * item[=].item[=].item[=].item[=].enableWhen[=].answerCoding = http://terminology.hl7.org/CodeSystem/v2-0136#Y
+* item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[+].linkId = "patient-ndis-comment"
+* item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[+].extension[sdc-questionnaire-itemPopulationContext].valueExpression.name = "MedicareNumberArray"
 * item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.language = #text/fhirpath
@@ -529,7 +547,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].text = "Postcode"
 * item[=].item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].item[=].repeats = false  
-    // Carer information
+        // Carer information
 * item[=].item[=].item[+].linkId = "patient-carerdetails"
 * item[=].item[=].item[=].text = "Carer information"
 * item[=].item[=].item[=].type = #group
@@ -540,7 +558,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].text = "Do you have a carer?"
 * item[=].item[=].item[=].item[=].type = #choice
 * item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].answerValueSet = "#YesNoNA"
+* item[=].item[=].item[=].item[=].answerValueSet = "#YesNo"
 * item[=].item[=].item[=].item[+].extension[sdc-questionnaire-itemPopulationContext].valueExpression.name = "CarerContactArray"
 * item[=].item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.expression = "%patient.contact.where(relationship.coding.exists(code = '133932002' and system = 'http://snomed.info/sct'))"
@@ -569,13 +587,6 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].text = "Email"
 * item[=].item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].item[=].repeats = true
-* item[=].item[=].item[=].item[+].linkId = "patient-carerinformation-additionaldetails"
-* item[=].item[=].item[=].item[=].text = "Additional details"
-* item[=].item[=].item[=].item[=].type = #text
-* item[=].item[=].item[=].item[=].enableWhen[+].question = "patient-carerinformation-hascarer"
-* item[=].item[=].item[=].item[=].enableWhen[=].operator = #=
-* item[=].item[=].item[=].item[=].enableWhen[=].answerCoding = http://terminology.hl7.org/CodeSystem/v2-0136#Y
-* item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#radio-button
 * item[=].item[=].item[=].item[=].extension[questionnaire-choiceOrientation].valueCode = #horizontal
 * item[=].item[=].item[=].item[=].linkId = "patient-carerinformation-present"
@@ -585,56 +596,54 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].enableWhen[=].operator = #=
 * item[=].item[=].item[=].item[=].enableWhen[=].answerCoding = http://terminology.hl7.org/CodeSystem/v2-0136#Y
 * item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].answerValueSet = "#YesNoNA"
-    // Third party contacts
-* item[=].item[=].item[+].extension[sdc-questionnaire-itemPopulationContext].valueExpression.name = "ThirdPartyContactArray"
+* item[=].item[=].item[=].item[=].answerValueSet = "#YesNo"
+        // Additional contacts
+* item[=].item[=].item[+].extension[sdc-questionnaire-itemPopulationContext].valueExpression.name = "AdditionalContactsArray"
 * item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.expression = "%patient.contact.where(relationship.coding.exists(code = 'C' or code = '1072531000168103' or code = '394619001' or code = '1155871000168103' or code = '1620171000168100' or code = 'CP' or code = 'EP' or code = 'N'))"
-* item[=].item[=].item[=].linkId = "patient-thirdpartycontacts"
-* item[=].item[=].item[=].text = "Third party contacts"
+* item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.expression = "%patient.contact.where(relationship.coding.exists(code = 'C' or code = '394619001' or code = '1620171000168100' or code = 'CP' or code = 'N'))"
+* item[=].item[=].item[=].linkId = "patient-additionalcontacts"
+* item[=].item[=].item[=].text = "Additional contacts"
 * item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ThirdPartyContactArray.relationship.coding"
-* item[=].item[=].item[=].item[=].linkId = "patient-thirdpartycontacts-type"
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%AdditionalContactsArray.relationship.coding"
+* item[=].item[=].item[=].item[=].linkId = "patient-additionalcontacts-type"
 * item[=].item[=].item[=].item[=].text = "Type"
 * item[=].item[=].item[=].item[=].type = #open-choice
 * item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://snomed.info/sct#1072531000168103
 * item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://snomed.info/sct#394619001
-* item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://snomed.info/sct#1155871000168103
 * item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://snomed.info/sct#1620171000168100
 * item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://terminology.hl7.org/CodeSystem/v2-0131#C
 * item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://terminology.hl7.org/CodeSystem/v2-0131#CP
-* item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://terminology.hl7.org/CodeSystem/v2-0131#EP
 * item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://terminology.hl7.org/CodeSystem/v2-0131#N
 * item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ThirdPartyContactArray.name.select((given.join(' ') | family).join(' ') | text)"
-* item[=].item[=].item[=].item[=].linkId = "patient-thirdpartycontacts-name"
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%AdditionalContactsArray.name.select((given.join(' ') | family).join(' ') | text)"
+* item[=].item[=].item[=].item[=].linkId = "patient-additionalcontacts-name"
 * item[=].item[=].item[=].item[=].text = "Name"
 * item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ThirdPartyContactArray.telecom.where(system = 'phone').value"
-* item[=].item[=].item[=].item[=].linkId = "patient-thirdpartycontacts-phone"
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%AdditionalContactsArray.telecom.where(system = 'phone').value"
+* item[=].item[=].item[=].item[=].linkId = "patient-additionalcontacts-phone"
 * item[=].item[=].item[=].item[=].text = "Phone"
 * item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ThirdPartyContactArray.telecom.where(system = 'email').value"
-* item[=].item[=].item[=].item[=].linkId = "patient-thirdpartycontacts-email"
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%AdditionalContactsArray.telecom.where(system = 'email').value"
+* item[=].item[=].item[=].item[=].linkId = "patient-additionalcontacts-email"
 * item[=].item[=].item[=].item[=].text = "Email"
 * item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].repeats = true
 // this is a user entered field and is not equivalent to the relationship coding in the FHIR resource
-* item[=].item[=].item[=].item[+].linkId = "patient-thirdpartycontacts-relationship"
+* item[=].item[=].item[=].item[+].linkId = "patient-additionalcontacts-relationship"
 * item[=].item[=].item[=].item[=].text = "Relationship to patient"
 * item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[+].linkId = "patient-thirdpartycontacts-additionalinformation"
-* item[=].item[=].item[=].item[=].text = "Additional information"
-* item[=].item[=].item[=].item[=].type = #text
-* item[=].item[=].item[=].item[=].repeats = false
+        //Additional information
+* item[=].item[=].item[+].linkId = "patient-additionalinformation"
+* item[=].item[=].item[=].text = "Additional information"
+* item[=].item[=].item[=].type = #text
+* item[=].item[=].item[=].repeats = false
 
 
 //Practitioner details
@@ -704,7 +713,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#autocomplete
-* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-width].valueQuantity = 40 '%'
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-width].valueQuantity = 30 '%'
 * item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ConditionArray.code.select((coding.where(system='http://snomed.info/sct') | coding.where(system!='http://snomed.info/sct').first() | text ).first())"
 * item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses-recordedproblems-condition"
@@ -835,7 +844,7 @@ Description: "GP Chronic Condition Management Plan"
     // Medications
 * item[=].item[=].item[+].extension[sdc-questionnaire-collapsible].valueCode = #default-open    
 * item[=].item[=].item[=].linkId = "clinicaldetails-medications"
-* item[=].item[=].item[=].text = "Medications"
+* item[=].item[=].item[=].text = "Medications (current)"
 * item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].repeats = false
         //Recorded medications
@@ -902,7 +911,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].readOnly = false
         //New medications
 * item[=].item[=].item[=].item[+].linkId = "clinicaldetails-medications-newmedications"
-* item[=].item[=].item[=].item[=].text = "Recorded medications"
+* item[=].item[=].item[=].item[=].text = "New medications"
 * item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#autocomplete
@@ -1255,7 +1264,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
         //Alcohol status
 * item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-substanceusegrid-alcoholstatus"
-* item[=].item[=].item[=].item[=].item[=].text = "Alcohol status"
+* item[=].item[=].item[=].item[=].item[=].text = "Alcohol consumption status"
 * item[=].item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].item[=].repeats = false
             //Last alcohol status
@@ -1282,7 +1291,11 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].item[=].text = "Comment"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-
+        // Additional information
+* item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-additionalinformation"
+* item[=].item[=].item[=].item[=].text = "Additional information"
+* item[=].item[=].item[=].item[=].type = #text
+* item[=].item[=].item[=].item[=].repeats = false
 
 /*
     //Smoking status table
@@ -1425,27 +1438,70 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].item[+].extension[questionnaire-itemControl][+].valueCodeableConcept = $questionnaire-item-control#autocomplete
 * item[=].item[=].item[=].item[=].linkId = "plan-goalstasks-problemneed"
-* item[=].item[=].item[=].item[=].text = "Problem/Need"
+* item[=].item[=].item[=].item[=].text = "Problems/Needs"
 * item[=].item[=].item[=].item[=].type = #open-choice
 * item[=].item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/clinical-condition-1"
+* item[=].item[=].item[=].item[+].linkId = "plan-goalstasks-details-goalsetting"
+* item[=].item[=].item[=].item[=].text = "Goal setting"
+* item[=].item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].item[=].repeats = true
+* item[=].item[=].item[=].item[=].item[+].linkId = "plan-goalstasks-details-goalsetting-goals"
+* item[=].item[=].item[=].item[=].item[=].text = "Goals"
+* item[=].item[=].item[=].item[=].item[=].type = #text
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[+].linkId = "plan-goalstasks-details-goalsetting-initiator"
+* item[=].item[=].item[=].item[=].item[=].text = "Initiator"
+* item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[+].linkId = "plan-goalstasks-details-goalsetting-targetdate"
+* item[=].item[=].item[=].item[=].item[=].text = "Target date"
+* item[=].item[=].item[=].item[=].item[=].type = #date
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[+].linkId = "plan-goalstasks-details-goalsetting-status"
+* item[=].item[=].item[=].item[=].item[=].text = "Status"
+* item[=].item[=].item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].answerValueSet = "#GoalStatusLimited"
+* item[=].item[=].item[=].item[=].item[+].linkId = "plan-goalstasks-details-goalsetting-comment"
+* item[=].item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+/*
 * item[=].item[=].item[=].item[+].extension[questionnaire-itemControl][+].valueCodeableConcept = $questionnaire-item-control#gtable
 * item[=].item[=].item[=].item[=].linkId = "plan-goalstasks-details-goalsetting"
 * item[=].item[=].item[=].item[=].text = "Goal setting"
 * item[=].item[=].item[=].item[=].text.extension[+].url = "https://smartforms.csiro.au/ig/StructureDefinition/QuestionnaireItemTextHidden"
 * item[=].item[=].item[=].item[=].text.extension[=].valueBoolean = true
 * item[=].item[=].item[=].item[=].type = #group
-* item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-width].valueQuantity = 70 '%'
+* item[=].item[=].item[=].item[=].repeats = true
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-width].valueQuantity = 30 '%'
 * item[=].item[=].item[=].item[=].item[=].linkId = "plan-goalstasks-details-goalsetting-goals"
 * item[=].item[=].item[=].item[=].item[=].text = "Goals"
 * item[=].item[=].item[=].item[=].item[=].type = #text
 * item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-width].valueQuantity = 30 '%'
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-width].valueQuantity = 20 '%'
+* item[=].item[=].item[=].item[=].item[=].linkId = "plan-goalstasks-details-goalsetting-initiator"
+* item[=].item[=].item[=].item[=].item[=].text = "Initiator"
+* item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-width].valueQuantity = 15 '%'
 * item[=].item[=].item[=].item[=].item[=].linkId = "plan-goalstasks-details-goalsetting-targetdate"
 * item[=].item[=].item[=].item[=].item[=].text = "Target date"
 * item[=].item[=].item[=].item[=].item[=].type = #date
 * item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-width].valueQuantity = 15 '%'
+* item[=].item[=].item[=].item[=].item[=].linkId = "plan-goalstasks-details-goalsetting-status"
+* item[=].item[=].item[=].item[=].item[=].text = "Status"
+* item[=].item[=].item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].answerValueSet = "#GoalStatusLimited"
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-width].valueQuantity = 20 '%'
+* item[=].item[=].item[=].item[=].item[=].linkId = "plan-goalstasks-details-goalsetting-comment"
+* item[=].item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+*/
 * item[=].item[=].item[=].item[+].extension[questionnaire-itemControl][+].valueCodeableConcept = $questionnaire-item-control#gtable
 * item[=].item[=].item[=].item[=].linkId = "plan-goalstasks-details-interventionsactions"
 * item[=].item[=].item[=].item[=].text = "Interventions and actions"
@@ -1522,22 +1578,34 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].text = "Completion"
 * item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[+].linkId = "completion-consent"
-* item[=].item[=].item[=].item[=].text = "Consent"
+* item[=].item[=].item[=].item[+].linkId = "completion-consentforsharing"
+* item[=].item[=].item[=].item[=].text = "Consent given for sharing of information with relevant healthcare providers"
+* item[=].item[=].item[=].item[=].type = #boolean
+* item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[+].linkId = "completion-proposedreview"
+* item[=].item[=].item[=].item[=].text = "Proposed review"
 * item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[+].linkId = "completion-consent-sharingconsent"
-* item[=].item[=].item[=].item[=].item[=].text = "Consent given for sharing of information with relevant healthcare providers"
-* item[=].item[=].item[=].item[=].item[=].type = #boolean
+* item[=].item[=].item[=].item[=].item[+].linkId = "completion-proposedreview-date"
+* item[=].item[=].item[=].item[=].item[=].text = "Date"
+* item[=].item[=].item[=].item[=].item[=].type = #date
 * item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[+].linkId = "completion-consent-planconsent"
-* item[=].item[=].item[=].item[=].item[=].text = "Consent given to proceed with plan after discussion of the purpose, benefits, process and costs"
-* item[=].item[=].item[=].item[=].item[=].type = #boolean
+* item[=].item[=].item[=].item[=].item[+].linkId = "completion-proposedreview-comment"
+* item[=].item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[+].linkId = "completion-review"
-* item[=].item[=].item[=].item[=].text = "Scheduled review date"
-* item[=].item[=].item[=].item[=].type = #date
+* item[=].item[=].item[=].item[+].linkId = "completion-bookedreview"
+* item[=].item[=].item[=].item[=].text = "Booked review"
+* item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[+].linkId = "completion-bookedreview-date"
+* item[=].item[=].item[=].item[=].item[=].text = "Date"
+* item[=].item[=].item[=].item[=].item[=].type = #date
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[+].linkId = "completion-bookedreview-comment"
+* item[=].item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#radio-button
 * item[=].item[=].item[=].item[=].linkId = "completion-copyoffered"
 * item[=].item[=].item[=].item[=].text = "Patient has been offered a copy of this plan"
@@ -1546,4 +1614,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].answerOption[+].valueString = "Yes, copy provided"
 * item[=].item[=].item[=].item[=].answerOption[+].valueString = "Yes, copy to be provided at a later date"
 * item[=].item[=].item[=].item[=].answerOption[+].valueString = "Yes, but declined"
-* item[=].item[=].item[=].item[=].answerOption[+].valueString = "Not offered, plan to follow up and offer at a later date"
+* item[=].item[=].item[=].item[+].linkId = "completion-comment"
+* item[=].item[=].item[=].item[=].text = "Comment"
+* item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].repeats = false
