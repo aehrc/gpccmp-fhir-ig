@@ -828,7 +828,6 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].text = "Substance"
 * item[=].item[=].item[=].item[=].item[=].type = #open-choice
 * item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].required = true
 * item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/adverse-reaction-agent-1"
 * item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl][+].valueCodeableConcept = http://hl7.org/fhir/questionnaire-item-control#autocomplete
 * item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-allergies-newallergies-manifestation"
@@ -1406,10 +1405,10 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
         // Additional information
-* item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-additionalinformation"
-* item[=].item[=].item[=].item[=].text = "Additional information"
-* item[=].item[=].item[=].item[=].type = #text
-* item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[+].linkId = "clinicaldetails-observations-additionalinformation"
+* item[=].item[=].item[=].text = "Additional information"
+* item[=].item[=].item[=].type = #text
+* item[=].item[=].item[=].repeats = false
 
 /*
     //Smoking status table
@@ -1696,27 +1695,22 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].text = "Consent given for sharing of information with relevant healthcare providers"
 * item[=].item[=].item[=].item[=].type = #boolean
 * item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[+].linkId = "completion-proposedreview"
-* item[=].item[=].item[=].item[=].text = "Proposed review"
+* item[=].item[=].item[=].item[+].linkId = "completion-review"
+* item[=].item[=].item[=].item[=].text = "Review"
 * item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[+].linkId = "completion-proposedreview-date"
+* item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#radio-button
+* item[=].item[=].item[=].item[=].item[=].linkId = "completion-review-appointmentstatus"
+* item[=].item[=].item[=].item[=].item[=].text = "Appointment status"
+* item[=].item[=].item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://hl7.org/fhir/appointmentstatus#booked "Booked"
+* item[=].item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://hl7.org/fhir/appointmentstatus#proposed "Proposed"
+* item[=].item[=].item[=].item[=].item[+].linkId = "completion-review-date"
 * item[=].item[=].item[=].item[=].item[=].text = "Date"
 * item[=].item[=].item[=].item[=].item[=].type = #date
 * item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[+].linkId = "completion-proposedreview-comment"
-* item[=].item[=].item[=].item[=].item[=].text = "Comment"
-* item[=].item[=].item[=].item[=].item[=].type = #string
-* item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[+].linkId = "completion-bookedreview"
-* item[=].item[=].item[=].item[=].text = "Booked review"
-* item[=].item[=].item[=].item[=].type = #group
-* item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[+].linkId = "completion-bookedreview-date"
-* item[=].item[=].item[=].item[=].item[=].text = "Date"
-* item[=].item[=].item[=].item[=].item[=].type = #date
-* item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[+].linkId = "completion-bookedreview-comment"
+* item[=].item[=].item[=].item[=].item[+].linkId = "completion-review-comment"
 * item[=].item[=].item[=].item[=].item[=].text = "Comment"
 * item[=].item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].item[=].repeats = false
