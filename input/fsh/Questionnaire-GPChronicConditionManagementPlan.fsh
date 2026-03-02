@@ -1064,7 +1064,7 @@ Description: "GP Chronic Condition Management Plan"
             //New BMI result
 * item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.description = "BMI calculation"
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "(%weight/((%height/100).power(2))).round(1)"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "iif(%weight.exists() and %height.exists() and %height > 0, (%weight/((%height/100).power(2))).round(1), {})"
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-unit].valueCoding = $UCUM#kg/m2
 * item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-bmi-newresultvalue"
 * item[=].item[=].item[=].item[=].item[=].item[=].text = "New result"
