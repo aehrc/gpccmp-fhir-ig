@@ -1050,12 +1050,12 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-maingrid-bmi-lastresult"
 * item[=].item[=].item[=].item[=].item[=].item[=].text = "Last result"
 * item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.expression = "iif(%ObsBodyWeightValue.exists() and %ObsBodyHeightValue.exists(), (%ObsBodyWeightValue/((%ObsBodyHeightValue/100).power(2))).round(1).toString() + ' kg/m2', 'Not available')"
+* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.expression = "iif(%ObsBodyWeightValue.exists() and %ObsBodyHeightValue.exists() and %ObsBodyHeightValue > 0, (%ObsBodyWeightValue/((%ObsBodyHeightValue/100).power(2))).round(1).toString() + ' kg/m2', 'Not available')"
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[http://hl7.org/fhir/StructureDefinition/rendering-style].valueString = "text-align: left;"
 * item[=].item[=].item[=].item[=].item[=].item[=].type = #display
             //Hidden BMI item to support recording in QuestionnaireResponse
 * item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "(%ObsBodyWeightValue/((%ObsBodyHeightValue/100).power(2))).round(1)"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "iif(%ObsBodyWeightValue.exists() and %ObsBodyHeightValue.exists() and %ObsBodyHeightValue > 0, (%ObsBodyWeightValue/((%ObsBodyHeightValue/100).power(2))).round(1), {})"
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-hidden].valueBoolean = true
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[questionnaire-unit].valueCoding = $UCUM#kg/m2
 * item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-maingrid-bmi-lastresultvalue"
