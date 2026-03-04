@@ -242,8 +242,7 @@ Description: "GP Chronic Condition Management Plan"
 * extension[variable][=].valueExpression.expression = "%ObsBloodPressureDateString.substring(8,2).toInteger().toString() + ' ' + %ObsBloodPressureDateString.substring(5,2).replace('01','Jan').replace('02','Feb').replace('03','Mar').replace('04','Apr').replace('05','May').replace('06','Jun').replace('07','Jul').replace('08','Aug').replace('09','Sep').replace('10','Oct').replace('11','Nov').replace('12','Dec') + ' ' + %ObsBloodPressureDateString.substring(0,4)"
 
 //R5 preadoption extensions
-* extension[+].url = "http://hl7.org/fhir/5.0/StructureDefinition/extension-Questionnaire.versionAlgorithm[x]"
-* extension[=].valueCoding = http://hl7.org/fhir/version-algorithm#semver
+* extension[artifact-versionAlgorithm].valueCoding = http://hl7.org/fhir/version-algorithm#semver
 
 //Questionnaire metadata
 * meta.profile[+] = "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-render"
