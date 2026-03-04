@@ -656,29 +656,29 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].text.extension[rendering-xhtml].valueString = "<div xmlns=\"http://www.w3.org/1999/xhtml\">
     <p><em>This form has been prefilled with information that was available from the patient's health record. Upon saving, the form will be stored, but additional information entered will not be used to update the patient's health record. Changes to practitioner information should be made in the source system.</em></p></div>"
 * item[=].item[=].item[=].type = #display
-* item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "(%user.name.where(use='official').select((given.join(' ') | family).join(' ') | text) | %user.name.select((given.join(' ') | family).join(' ') | text)).first()"
+* item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "(%user.name.where(use='official').select((given.join(' ') | family).join(' ') | text) | %user.name.select((given.join(' ') | family).join(' ') | text)).first()"
 * item[=].item[=].item[=].linkId = "practitioner-name"
 * item[=].item[=].item[=].text = "Name"
 * item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].readOnly = true
-* item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%PractitionerRole.entry.resource.telecom.where(system = 'phone').value"
+* item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "%PractitionerRole.entry.resource.telecom.where(system = 'phone').value"
 * item[=].item[=].item[=].linkId = "practitioner-phone"
 * item[=].item[=].item[=].text = "Phone"
 * item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].readOnly = true
-* item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%PractitionerRole.entry.resource.telecom.where(system = 'email').value"
+* item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "%PractitionerRole.entry.resource.telecom.where(system = 'email').value"
 * item[=].item[=].item[=].linkId = "practitioner-email"
 * item[=].item[=].item[=].text = "Email"
 * item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].readOnly = true
-* item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%PractitionerRole.entry.resource.identifier.where(system = 'http://ns.electronichealth.net.au/id/medicare-provider-number').value"
+* item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "%PractitionerRole.entry.resource.identifier.where(system = 'http://ns.electronichealth.net.au/id/medicare-provider-number').value"
 * item[=].item[=].item[=].linkId = "practitioner-medicareprovidernumber"
 * item[=].item[=].item[=].text = "Medicare provider number"
 * item[=].item[=].item[=].type = #string
