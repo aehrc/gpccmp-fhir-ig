@@ -1,0 +1,44 @@
+{
+  "resourceType": "Observation",
+  "id": "body-weight-foreman-caterina",
+  "meta": {
+    "profile": [
+      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight",
+      "https://gpccmp.csiro.au/ig/StructureDefinition/GPCCMPBodyWeight"
+    ]
+  },
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "vital-signs"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "29463-7"
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "code": "27113001"
+      }
+    ],
+    "text": "Weight"
+  },
+  "subject": {
+    "reference": "Patient/foreman-caterina"
+  },
+  "effectiveDateTime": "2025-11-25",
+  "valueQuantity": {
+    "value": 74,
+    "unit": "kg",
+    "system": "http://unitsofmeasure.org",
+    "code": "kg"
+  }
+}

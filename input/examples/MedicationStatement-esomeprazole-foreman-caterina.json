@@ -1,0 +1,45 @@
+{
+  "resourceType": "MedicationStatement",
+  "id": "esomeprazole-foreman-caterina",
+  "meta": {
+    "profile": [
+      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationstatement",
+      "https://gpccmp.csiro.au/ig/StructureDefinition/GPCCMPMedicationStatement"
+    ]
+  },
+  "status": "active",
+  "medicationCodeableConcept": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "682641000168107"
+      }
+    ],
+    "text": "Esomeprazole 20 mg enteric capsule"
+  },
+  "subject": {
+    "reference": "Patient/foreman-caterina"
+  },
+  "dateAsserted": "2026-02-05",
+  "reasonCode": [
+    {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "235595009"
+        }
+      ],
+      "text": "Gastro-oesophageal reflux disease"
+    }
+  ],
+  "note": [
+    {
+      "text": "Gastroscopy 2013 - mild reflux esophagitis, H pylori negative"
+    }
+  ],
+  "dosage": [
+    {
+      "text": "1 tab daily"
+    }
+  ]
+}

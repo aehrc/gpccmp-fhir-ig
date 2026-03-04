@@ -1,0 +1,34 @@
+{
+  "resourceType": "MedicationStatement",
+  "id": "active-panadolosteo-external-foreman-caterina",
+  "meta": {
+    "profile": [
+      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationstatement",
+      "https://gpccmp.csiro.au/ig/StructureDefinition/GPCCMPMedicationStatement"
+    ]
+  },
+  "status": "active",
+  "medicationReference": {
+    "reference": "Medication/panadolosteo-external-foreman-caterina"
+  },
+  "subject": {
+    "reference": "Patient/foreman-caterina"
+  },
+  "dateAsserted": "2026-02-05",
+  "reasonCode": [
+    {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "278860009",
+          "display": "Chronic lower back pain"
+        }
+      ],
+      "text": "Chronic lower back pain"
+    }],
+  "dosage": [
+    {
+      "text": "2 tabs PRN/TDS"
+    }
+  ]
+}

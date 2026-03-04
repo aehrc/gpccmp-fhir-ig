@@ -1,0 +1,50 @@
+{
+  "resourceType": "MedicationStatement",
+  "id": "active-panadolosteo-internal-foreman-caterina",
+  "meta": {
+    "profile": [
+      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationstatement",
+      "https://gpccmp.csiro.au/ig/StructureDefinition/GPCCMPMedicationStatement"
+    ]
+  },
+  "contained": [
+    {
+      "resourceType": "Medication",
+      "id": "panadolosteo-internal-foreman-caterina",
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "5848011000036106",
+            "display": "Panadol Osteo 665 mg modified release tablet"
+          }
+        ],
+        "text": "Panadol Osteo 665 mg modified release tablet"
+      }
+    }
+  ],
+  "status": "active",
+  "medicationReference": {
+    "reference": "#panadolosteo-internal-foreman-caterina"
+  },
+  "subject": {
+    "reference": "Patient/foreman-caterina"
+  },
+  "dateAsserted": "2026-02-05",
+  "reasonCode": [
+    {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "278860009",
+          "display": "Chronic lower back pain"
+        }
+      ],
+      "text": "Chronic lower back pain"
+    }],
+  "dosage": [
+    {
+      "text": "2 tabs PRN/TDS"
+    }
+  ]
+}

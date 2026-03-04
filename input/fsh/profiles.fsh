@@ -18,6 +18,7 @@ Alias: $au-core-smokingstatus = http://hl7.org.au/fhir/core/StructureDefinition/
 Alias: $au-core-patient = http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient
 Alias: $au-core-practitioner = http://hl7.org.au/fhir/core/StructureDefinition/au-core-practitioner
 Alias: $au-core-practitionerrole = http://hl7.org.au/fhir/core/StructureDefinition/au-core-practitionerrole
+Alias: $au-core-location = http://hl7.org.au/fhir/core/StructureDefinition/au-core-location
 Alias: $sdc-questionnaireresponse = http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaireresponse
 
 Alias: $au-address = http://hl7.org.au/fhir/StructureDefinition/au-address
@@ -228,6 +229,18 @@ Description: "This profile sets the minimum expectations for a PractitionerRole 
 * telecom.system insert obligationClient (2, SHALL:process)
 * telecom.value MS
 * telecom.value insert obligationClient (2, SHALL:process)
+
+Profile: GPCCMPLocation
+Parent: $au-core-location
+Id: GPCCMPLocation
+Title: "GP CCMP Location"
+Description: "This profile sets the minimum expectations for a Location resource to search and retrieve location information when used within the GP Chronic Condition Management Plan."
+* name MS
+* name insert obligationServer (2, SHALL:populate-if-known)
+* name insert obligationClient (3, SHALL:process)
+* address MS
+* address insert obligationServer (2, SHALL:populate-if-known)
+* address insert obligationClient (3, SHALL:process)
 
 Profile: GPCCMPEncounter
 Parent: $au-core-encounter
