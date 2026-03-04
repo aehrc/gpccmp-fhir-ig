@@ -358,6 +358,8 @@ Description: "This profile sets the minimum expectations for a Body Height resou
 * status MS
 * status insert obligationServer (3, SHALL:populate)
 * status insert obligationClient (4, SHALL:process)
+* code MS
+* code insert obligationServer (2, SHALL:populate)
 * code.coding[BodyHeightCode] MS
 * code.coding[BodyHeightCode] insert obligationServer (0, SHALL:populate)
 * subject MS
@@ -388,6 +390,8 @@ Description: "This profile sets the minimum expectations for a Body Weight resou
 * status MS
 * status insert obligationServer (3, SHALL:populate)
 * status insert obligationClient (4, SHALL:process)
+* code MS
+* code insert obligationServer (2, SHALL:populate)
 * code.coding[BodyWeightCode] MS
 * code.coding[BodyWeightCode] insert obligationServer (0, SHALL:populate)
 * subject MS
@@ -418,6 +422,8 @@ Description: "This profile sets the minimum expectations for a Waist Circumferen
 * status MS
 * status insert obligationServer (3, SHALL:populate)
 * status insert obligationClient (4, SHALL:process)
+* code MS
+* code insert obligationServer (2, SHALL:populate)
 * code.coding[loincWaistCircumCode] MS
 * code.coding[loincWaistCircumCode] insert obligationServer (0, SHALL:populate)
 * subject MS
@@ -450,6 +456,8 @@ Description: "This profile sets the minimum expectations for a Pulse Rate resour
 
 * status MS
 * status insert obligationServer (3, SHALL:populate)
+* code MS
+* code insert obligationServer (2, SHALL:populate)
 * code.coding contains snomedPulseRate 1..1 MS
 * code.coding[snomedPulseRate] insert obligationServer (0, SHALL:populate)
 * code.coding[snomedPulseRate].system 1..1
@@ -519,7 +527,8 @@ Description: "This profile sets the minimum expectations for an Observation reso
 * category[vitalSignsCategory] insert obligationServer (0, SHALL:persist)
 * category[vitalSignsCategory] insert obligationClient (1, SHALL:populate)
 */
-* code
+* code MS
+* code insert obligationServer (0, SHALL:populate)
 * code ^short = "Pulse Rhythm"
 * code ^definition = "Pulse Rhythm."
 * code.coding
@@ -585,6 +594,8 @@ Description: "This profile sets the minimum expectations for an Observation reso
 * status MS
 * status insert obligationServer (1, SHALL:populate)
 * status insert obligationClient (2, SHALL:process)
+* code MS
+* code insert obligationServer (0, SHALL:populate)
 * code.coding[OxygenSatCode] MS
 * code.coding[OxygenSatCode] insert obligationServer (0, SHALL:populate)
 * subject 1.. MS
@@ -623,6 +634,8 @@ Description: "This profile sets the minimum expectations for a Blood Pressure re
 
 * status MS
 * status insert obligationServer (3, SHALL:populate)
+* code MS
+* code insert obligationServer (2, SHALL:populate)
 * code.coding[BPCode] MS
 * code.coding[BPCode] insert obligationServer (0, SHALL:populate)
 * subject MS
@@ -664,6 +677,8 @@ Description: "This profile sets the minimum expectations for a Smoking Status re
 * status MS
 * status insert obligationServer (3, SHALL:populate)
 * status insert obligationClient (4, SHALL:process)
+* code MS
+* code insert obligationServer (2, SHALL:populate)
 * code.coding MS
 * code.coding insert obligationServer (0, SHALL:populate)
 * subject MS
@@ -717,7 +732,8 @@ Description: "This profile sets the minimum expectations for an Observation reso
 * category[socialHistory].coding.code 1..1
 * category[socialHistory].coding.code only code
 * category[socialHistory].coding.code = #social-history (exactly)
-* code
+* code MS
+* code insert obligationServer (0, SHALL:populate)
 * code ^short = "Alcohol Use Status"
 * code ^definition = "Alcohol Use Status."
 * code.coding
