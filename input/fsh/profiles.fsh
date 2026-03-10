@@ -263,9 +263,25 @@ Description: "This profile sets the minimum expectations for a Condition resourc
 * verificationStatus MS
 // Server obligation is only AU Core inherited SHALL:populate-if-known (not additional SHALL:populate), as the condition may be recorded without verificationStatus and the expression accounts for non-populated verificationStatus.
 * verificationStatus insert obligationClient (2, SHALL:process)
-* category = http://terminology.hl7.org/CodeSystem/condition-category#problem-list-item
 * category MS
 * category insert obligationServer (2, SHALL:populate)
+* category ^slicing.discriminator[0].type = #value
+* category ^slicing.discriminator[=].path = "coding.code"
+* category ^slicing.discriminator[+].type = #value
+* category ^slicing.discriminator[=].path = "coding.system"
+* category ^slicing.ordered = false
+* category ^slicing.rules = #open
+* category contains problemListCategory 1..1 
+* category[problemListCategory] MS
+* category[problemListCategory] insert obligationServer (0, SHALL:populate)
+* category[problemListCategory].coding 1..*
+* category[problemListCategory].coding only Coding
+* category[problemListCategory].coding.system 1..1
+* category[problemListCategory].coding.system only uri
+* category[problemListCategory].coding.system = "http://terminology.hl7.org/CodeSystem/condition-category" (exactly)
+* category[problemListCategory].coding.code 1..1
+* category[problemListCategory].coding.code only code
+* category[problemListCategory].coding.code = #problem-list-item (exactly)
 * code MS
 * code insert obligationClient (2, SHALL:process)
 * subject MS
@@ -679,8 +695,6 @@ Description: "This profile sets the minimum expectations for a Smoking Status re
 * status insert obligationClient (4, SHALL:process)
 * code MS
 * code insert obligationServer (2, SHALL:populate)
-* code.coding MS
-* code.coding insert obligationServer (0, SHALL:populate)
 * subject MS
 * subject insert obligationServer (2, SHALL:populate)
 * effective[x] MS
