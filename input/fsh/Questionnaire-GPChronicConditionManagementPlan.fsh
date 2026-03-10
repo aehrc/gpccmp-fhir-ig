@@ -400,20 +400,28 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.expression = "%patient.identifier.where(type.coding.exists(system='http://terminology.hl7.org/CodeSystem/v2-0203' and code='MC'))"
 * item[=].item[=].item[=].linkId = "patient-medicare"
-* item[=].item[=].item[=].text = "Medicare number"
+* item[=].item[=].item[=].text = "Medicare card number"
 * item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].readOnly = true
 * item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%MedicareNumberArray.value.substring(0,10)"
-* item[=].item[=].item[=].item[=].extension[regex].valueString = "matches('^[0-9]{10}$')"
+* item[=].item[=].item[=].item[=].extension[targetConstraint].extension[key].valueId = "constraint-regex-medicarecardnumber-1"
+* item[=].item[=].item[=].item[=].extension[targetConstraint].extension[severity].valueCode = #warning
+* item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.expression = "matches('^[0-9]{10}$')"
+* item[=].item[=].item[=].item[=].extension[targetConstraint].extension[human].valueString = "Medicare card number must be 10 digits"
 * item[=].item[=].item[=].item[=].linkId = "patient-medicare-number"
 * item[=].item[=].item[=].item[=].text = "Number"
 * item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%MedicareNumberArray.value.substring(10,1)"
-* item[=].item[=].item[=].item[=].extension[regex].valueString = "matches('^[0-9]{1}$')"
+* item[=].item[=].item[=].item[=].extension[targetConstraint].extension[key].valueId = "constraint-regex-medicarecardnumber-2"
+* item[=].item[=].item[=].item[=].extension[targetConstraint].extension[severity].valueCode = #warning
+* item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.expression = "matches('^[0-9]{1}$')"
+* item[=].item[=].item[=].item[=].extension[targetConstraint].extension[human].valueString = "Medicare card reference number must be 1 digit"
 * item[=].item[=].item[=].item[=].linkId = "patient-medicare-referencenumber"
 * item[=].item[=].item[=].item[=].text = "Reference number"
 * item[=].item[=].item[=].item[=].type = #string
@@ -496,7 +504,11 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%HomeAddressArray.postalCode"
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[regex].valueString = "matches('^[0-9]{4}$')"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[key].valueId = "constraint-regex-postcode"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[severity].valueCode = #warning
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.expression = "matches('^[0-9]{4}$')"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[human].valueString = "Postcode must be 4 digits"
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[entryFormat].valueString = "####"
 * item[=].item[=].item[=].item[=].item[=].item[=].linkId = "patient-contact-homeaddress-details-postcode"
 * item[=].item[=].item[=].item[=].item[=].item[=].text = "Postcode"
