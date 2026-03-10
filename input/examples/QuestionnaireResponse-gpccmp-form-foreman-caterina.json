@@ -1,1880 +1,1986 @@
 {
-    "resourceType": "QuestionnaireResponse",
-    "id": "gpccmp-form-foreman-caterina",
-    "meta": {
-        "profile": [
-            "https://gpccmp.csiro.au/ig/StructureDefinition/GPCCMPQuestionnaireResponse"
-        ]
-    },
-    "questionnaire": "http://www.health.gov.au/assessments/GPChronicConditionManagementPlan|0.1.0",
-    "_questionnaire": {
-        "extension": [
-            {
-                "url": "http://hl7.org/fhir/StructureDefinition/display",
-                "valueString": "GP Chronic Condition Management Plan"
-            }
-        ]
-    },
-    "status": "in-progress",
-    "subject": {
-        "reference": "Patient/foreman-caterina",
-        "type": "Patient",
-        "display": "Caterina FOREMAN"
-    },
-    "authored": "2026-02-20T15:05:27+10:00",
-    "author": {
-        "reference": "Practitioner/primary-peter",
-        "type": "Practitioner",
-        "display": "Dr Peter Primary"
-    },
-    "item": [
-        {
-            "linkId": "container",
-            "item": [
-                {
-                    "linkId": "patient",
-                    "text": "Patient details",
-                    "item": [
-                        {
-                            "linkId": "patient-consent",
-                            "text": "Consent",
-                            "item": [
-                                {
-                                    "linkId": "patient-consent-consentforplan",
-                                    "text": "Consent given to proceed with plan after discussion of the purpose, benefits, process and costs",
-                                    "answer": [
-                                        {
-                                            "valueBoolean": true
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "patient-name",
-                            "text": "Name",
-                            "answer": [
-                                {
-                                    "valueString": "Caterina FOREMAN"
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "patient-preferredpronouns",
-                            "text": "Preferred pronouns",
-                            "answer": [
-                                {
-                                    "valueCoding": {
-                                        "system": "http://loinc.org",
-                                        "code": "LA29519-8",
-                                        "display": "she/her/her/hers/herself"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "patient-dob",
-                            "text": "Date of birth",
-                            "answer": [
-                                {
-                                    "valueDate": "1970-07-24"
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "patient-age",
-                            "text": "Age",
-                            "answer": [
-                                {
-                                    "valueInteger": 55
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "patient-sexatbirth",
-                            "text": "Sex assigned at birth",
-                            "answer": [
-                                {
-                                    "valueCoding": {
-                                        "system": "http://snomed.info/sct",
-                                        "code": "248152002",
-                                        "display": "Female"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "patient-genderidentity",
-                            "text": "Gender identity",
-                            "answer": [
-                                {
-                                    "valueCoding": {
-                                        "system": "http://snomed.info/sct",
-                                        "code": "446141000124107",
-                                        "display": "Identifies as female gender"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "patient-firstnationsstatus",
-                            "text": "Aboriginal and/or Torres Strait Islander status",
-                            "answer": [
-                                {
-                                    "valueCoding": {
-                                        "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
-                                        "code": "4",
-                                        "display": "Neither Aboriginal nor Torres Strait Islander origin"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "patient-myagedcare",
-                            "text": "My Aged Care",
-                            "item": [
-                                {
-                                    "linkId": "patient-myagedcare-registered",
-                                    "text": "Registered for My Aged Care",
-                                    "answer": [
-                                        {
-                                            "valueCoding": {
-                                                "system": "http://terminology.hl7.org/CodeSystem/v2-0532",
-                                                "code": "N",
-                                                "display": "No"
-                                            }
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "patient-ndis",
-                            "text": "National Disability Insurance Scheme",
-                            "item": [
-                                {
-                                    "linkId": "patient-ndis-registered",
-                                    "text": "Registered for NDIS",
-                                    "answer": [
-                                        {
-                                            "valueCoding": {
-                                                "system": "http://terminology.hl7.org/CodeSystem/v2-0532",
-                                                "code": "N",
-                                                "display": "No"
-                                            }
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "patient-medicare",
-                            "text": "Medicare number",
-                            "item": [
-                                {
-                                    "linkId": "patient-medicare-number",
-                                    "text": "Number",
-                                    "answer": [
-                                        {
-                                            "valueString": "3951333701"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "patient-medicare-referencenumber",
-                                    "text": "Reference number",
-                                    "answer": [
-                                        {
-                                            "valueString": "1"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "patient-contact",
-                            "text": "Contact information",
-                            "item": [
-                                {
-                                    "linkId": "patient-contact-homephone",
-                                    "text": "Home phone",
-                                    "answer": [
-                                        {
-                                            "valueString": "0370109077"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "patient-contact-mobilephone",
-                                    "text": "Mobile phone",
-                                    "answer": [
-                                        {
-                                            "valueString": "0491576801"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "patient-contact-email",
-                                    "text": "Email",
-                                    "answer": [
-                                        {
-                                            "valueString": "caterina.foreman@my-own-personal-domain.com"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "patient-contact-homeaddress",
-                                    "text": "Home address",
-                                    "item": [
-                                        {
-                                            "linkId": "patient-contact-homeaddress-details",
-                                            "text": "Home address",
-                                            "item": [
-                                                {
-                                                    "linkId": "patient-contact-homeaddress-details-streetaddress",
-                                                    "text": "Street address",
-                                                    "answer": [
-                                                        {
-                                                            "valueString": "149 Farmer Cnr"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "patient-contact-homeaddress-details-city",
-                                                    "text": "City",
-                                                    "answer": [
-                                                        {
-                                                            "valueString": "Sunshine"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "patient-contact-homeaddress-details-state",
-                                                    "text": "State",
-                                                    "answer": [
-                                                        {
-                                                            "valueCoding": {
-                                                                "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-states-territories-1",
-                                                                "code": "VIC",
-                                                                "display": "Victoria"
-                                                            }
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "patient-contact-homeaddress-details-postcode",
-                                                    "text": "Postcode",
-                                                    "answer": [
-                                                        {
-                                                            "valueString": "3020"
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "patient-carerdetails",
-                            "text": "Carer information",
-                            "item": [
-                                {
-                                    "linkId": "patient-carerinformation-hascarer",
-                                    "text": "Do you have a carer?",
-                                    "answer": [
-                                        {
-                                            "valueCoding": {
-                                                "system": "http://terminology.hl7.org/CodeSystem/v2-0532",
-                                                "code": "N",
-                                                "display": "No"
-                                            }
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "patient-additionalcontacts",
-                            "text": "Additional contacts",
-                            "item": [
-                                {
-                                    "linkId": "patient-additionalcontacts-type",
-                                    "text": "Type",
-                                    "answer": [
-                                        {
-                                            "valueCoding": {
-                                                "system": "http://terminology.hl7.org/CodeSystem/v2-0131",
-                                                "code": "N",
-                                                "display": "Next-of-Kin"
-                                            }
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "patient-additionalcontacts-name",
-                                    "text": "Name",
-                                    "answer": [
-                                        {
-                                            "valueString": "George Foreman"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "patient-additionalcontacts-phone",
-                                    "text": "Phone",
-                                    "answer": [
-                                        {
-                                            "id": "patient-additionalcontacts-phone-repeat-xKr2vs6DJHDDGn_FttWAq",
-                                            "valueString": "0401234567"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "patient-additionalcontacts-email",
-                                    "text": "Email",
-                                    "answer": [
-                                        {
-                                            "id": "patient-additionalcontacts-email-repeat-BZMbbgJLWncFZbbnSr0EA",
-                                            "valueString": "george@foreman.com"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "patient-additionalcontacts-relationship",
-                                    "text": "Relationship to patient",
-                                    "answer": [
-                                        {
-                                            "valueString": "Spouse"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "linkId": "practitioner",
-                    "text": "Practitioner details",
-                    "item": [
-                        {
-                            "linkId": "practitioner-name",
-                            "text": "Name",
-                            "answer": [
-                                {
-                                    "valueString": "David Lee Roth"
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "practitioner-phone",
-                            "text": "Phone",
-                            "answer": [
-                                {
-                                    "valueString": "(08) 7010 5556"
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "practitioner-email",
-                            "text": "Email",
-                            "answer": [
-                                {
-                                    "valueString": "PPP@example.org"
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "practitioner-medicareprovidernumber",
-                            "text": "Medicare provider number",
-                            "answer": [
-                                {
-                                    "valueString": "2426621B"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "linkId": "clinicaldetails",
-                    "text": "Clinical details",
-                    "item": [
-                        {
-                            "linkId": "clinicaldetails-problemsdiagnoses",
-                            "text": "Problems/Diagnoses",
-                            "item": [
-                                {
-                                    "linkId": "clinicaldetails-problemsdiagnoses-recordedproblems",
-                                    "text": "Recorded problems/diagnoses",
-                                    "item": [
-                                        {
-                                            "linkId": "clinicaldetails-problemsdiagnoses-recordedproblems-condition",
-                                            "text": "Condition",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "278860009",
-                                                        "display": "Chronic lower back pain"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-problemsdiagnoses-recordedproblems-clinicalstatus",
-                                            "text": "Clinical status",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-                                                        "code": "active",
-                                                        "display": "Active"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-problemsdiagnoses-recordedproblems-onsetdate",
-                                            "text": "Onset date",
-                                            "answer": [
-                                                {
-                                                    "valueDate": "2001-01-01"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "clinicaldetails-problemsdiagnoses-recordedproblems",
-                                    "text": "Recorded problems/diagnoses",
-                                    "item": [
-                                        {
-                                            "linkId": "clinicaldetails-problemsdiagnoses-recordedproblems-condition",
-                                            "text": "Condition",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "235595009",
-                                                        "display": "Gastro-oesophageal reflux disease"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-problemsdiagnoses-recordedproblems-clinicalstatus",
-                                            "text": "Clinical status",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-                                                        "code": "active",
-                                                        "display": "Active"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-problemsdiagnoses-recordedproblems-onsetdate",
-                                            "text": "Onset date",
-                                            "answer": [
-                                                {
-                                                    "valueDate": "2013-08-01"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "clinicaldetails-problemsdiagnoses-newproblems",
-                                    "text": "New problems/diagnoses",
-                                    "item": [
-                                        {
-                                            "linkId": "clinicaldetails-problemsdiagnoses-newproblems-condition",
-                                            "text": "Condition",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "443694000",
-                                                        "display": "Type 2 diabetes mellitus uncontrolled"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-problemsdiagnoses-newproblems-onsetdate",
-                                            "text": "Onset date",
-                                            "answer": [
-                                                {
-                                                    "valueDate": "2026-01-25"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "clinicaldetails-problemsdiagnoses-newproblems",
-                                    "text": "New problems/diagnoses",
-                                    "item": [
-                                        {
-                                            "linkId": "clinicaldetails-problemsdiagnoses-newproblems-condition",
-                                            "text": "Condition",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "424736006",
-                                                        "display": "Diabetic peripheral neuropathy"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-problemsdiagnoses-newproblems-onsetdate",
-                                            "text": "Onset date",
-                                            "answer": [
-                                                {
-                                                    "valueDate": "2026-02-20"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "clinicaldetails-problemsdiagnoses-newproblems",
-                                    "text": "New problems/diagnoses",
-                                    "item": [
-                                        {
-                                            "linkId": "clinicaldetails-problemsdiagnoses-newproblems-condition",
-                                            "text": "Condition",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "238131007",
-                                                        "display": "Overweight"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-problemsdiagnoses-newproblems-onsetdate",
-                                            "text": "Onset date",
-                                            "answer": [
-                                                {
-                                                    "valueDate": "2025-11-25"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "clinicaldetails-allergies",
-                            "text": "Adverse reaction risks",
-                            "item": [
-                                {
-                                    "linkId": "clinicaldetails-allergies-recordedallergies",
-                                    "text": "Recorded adverse reaction risks",
-                                    "item": [
-                                        {
-                                            "linkId": "clinicaldetails-allergies-recordedallergies-substance",
-                                            "text": "Substance",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "111088007",
-                                                        "display": "Latex"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-allergies-recordedallergies-status",
-                                            "text": "Status",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
-                                                        "code": "active",
-                                                        "display": "Active"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-allergies-recordedallergies-manifestation",
-                                            "text": "Manifestation",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "271807003",
-                                                        "display": "Rash"
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "clinicaldetails-medications",
-                            "text": "Medications (current)",
-                            "item": [
-                                {
-                                    "linkId": "clinicaldetails-medications-recordedmedications",
-                                    "text": "Recorded medications",
-                                    "item": [
-                                        {
-                                            "linkId": "clinicaldetails-medications-recordedmedications-medication",
-                                            "text": "Medication",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "682641000168107",
-                                                        "display": "Esomeprazole 20 mg enteric capsule"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-medications-recordedmedications-status",
-                                            "text": "Status",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-                                                        "code": "active",
-                                                        "display": "Active"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-medications-recordedmedications-dosage",
-                                            "text": "Dosage",
-                                            "answer": [
-                                                {
-                                                    "valueString": "1 tab daily"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-medications-recordedmedications-indication",
-                                            "text": "Indication",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "235595009",
-                                                        "display": "Gastro-oesophageal reflux disease"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-medications-recordedmedications-comment",
-                                            "text": "Comment",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Gastroscopy 2013 - mild reflux esophagitis, H pylori negative"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "clinicaldetails-medications-recordedmedications",
-                                    "text": "Recorded medications",
-                                    "item": [
-                                        {
-                                            "linkId": "clinicaldetails-medications-recordedmedications-medication",
-                                            "text": "Medication",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "5848011000036106",
-                                                        "display": "Panadol Osteo 665 mg modified release tablet"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-medications-recordedmedications-status",
-                                            "text": "Status",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-                                                        "code": "active",
-                                                        "display": "Active"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-medications-recordedmedications-dosage",
-                                            "text": "Dosage",
-                                            "answer": [
-                                                {
-                                                    "valueString": "2 tabs PRN/TDS"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-medications-recordedmedications-indication",
-                                            "text": "Indication",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "278860009",
-                                                        "display": "Chronic lower back pain"
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "clinicaldetails-medications-newmedications",
-                                    "text": "New medications",
-                                    "item": [
-                                        {
-                                            "linkId": "clinicaldetails-medications-newmedications-medication",
-                                            "text": "Medication",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "23358011000036102",
-                                                        "display": "Metformin hydrochloride 500 mg tablet"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-medications-newmedications-dosage",
-                                            "text": "Dosage",
-                                            "answer": [
-                                                {
-                                                    "valueString": "1 tab BD"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-medications-newmedications-indication",
-                                            "text": "Indication",
-                                            "answer": [
-                                                {
-                                                    "id": "clinicaldetails-medications-newmedications-indication-repeat--7vU4gf2-6FWVxqT5pVJr",
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "443694000",
-                                                        "display": "Type 2 diabetes mellitus uncontrolled"
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "clinicaldetails-medications-newmedications",
-                                    "text": "New medications",
-                                    "item": [
-                                        {
-                                            "linkId": "clinicaldetails-medications-newmedications-medication",
-                                            "text": "Medication",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "77436011000036106",
-                                                        "display": "Fish oil"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-medications-newmedications-dosage",
-                                            "text": "Dosage",
-                                            "answer": [
-                                                {
-                                                    "valueString": "2 caps daily"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-medications-newmedications-indication",
-                                            "text": "Indication",
-                                            "answer": [
-                                                {
-                                                    "id": "clinicaldetails-medications-newmedications-indication-repeat-zixKIqje7tWk7T6IBYOEg"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-medications-newmedications-comment",
-                                            "text": "Comment",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Self-initiated for heart health"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "clinicaldetails-observations",
-                            "text": "Observations",
-                            "item": [
-                                {
-                                    "linkId": "clinicaldetails-observations-maingrid",
-                                    "text": "Observations",
-                                    "item": [
-                                        {
-                                            "linkId": "clinicaldetails-observations-maingrid-height",
-                                            "text": "Height",
-                                            "item": [
-                                                {
-                                                    "linkId": "clinicaldetails-observations-maingrid-height-lastresultvalue",
-                                                    "answer": [
-                                                        {
-                                                            "valueDecimal": 165
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "clinicaldetails-observations-maingrid-height-lastresultdate",
-                                                    "answer": [
-                                                        {
-                                                            "valueDate": "2025-11-25"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "clinicaldetails-observations-maingrid-height-newresult",
-                                                    "text": "New result",
-                                                    "answer": [
-                                                        {
-                                                            "valueDecimal": 165
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "clinicaldetails-observations-maingrid-height-date",
-                                                    "text": "New result date",
-                                                    "answer": [
-                                                        {
-                                                            "id": "clinicaldetails-observations-maingrid-height-date-calculatedExpression-MThpFfRMi-eaWol607f0w",
-                                                            "valueDate": "2026-02-20"
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-observations-maingrid-weight",
-                                            "text": "Weight",
-                                            "item": [
-                                                {
-                                                    "linkId": "clinicaldetails-observations-maingrid-weight-lastresultvalue",
-                                                    "answer": [
-                                                        {
-                                                            "valueDecimal": 74
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "clinicaldetails-observations-maingrid-weight-lastresultdate",
-                                                    "answer": [
-                                                        {
-                                                            "valueDate": "2025-11-25"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "clinicaldetails-observations-maingrid-weight-newresult",
-                                                    "text": "New result",
-                                                    "answer": [
-                                                        {
-                                                            "valueDecimal": 75.2
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "clinicaldetails-observations-maingrid-weight-date",
-                                                    "text": "New result date",
-                                                    "answer": [
-                                                        {
-                                                            "id": "clinicaldetails-observations-maingrid-weight-date-calculatedExpression-dO1qKF1Mzq4Rxfdbzn1_v",
-                                                            "valueDate": "2026-02-20"
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-observations-maingrid-waistcircumference",
-                                            "text": "Waist circumference",
-                                            "item": [
-                                                {
-                                                    "linkId": "clinicaldetails-observations-maingrid-waistcircumference-newresult",
-                                                    "text": "New result",
-                                                    "answer": [
-                                                        {
-                                                            "valueDecimal": 82.5
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "clinicaldetails-observations-maingrid-waistcircumference-newdate",
-                                                    "text": "New result date",
-                                                    "answer": [
-                                                        {
-                                                            "id": "clinicaldetails-observations-maingrid-waistcircumference-newdate-calculatedExpression-q4BO0ajC3dfOm9T_PBJ5x",
-                                                            "valueDate": "2026-02-20"
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-observations-maingrid-pulserate",
-                                            "text": "Pulse rate",
-                                            "item": [
-                                                {
-                                                    "linkId": "clinicaldetails-observations-maingrid-pulserate-newresult",
-                                                    "text": "New result",
-                                                    "answer": [
-                                                        {
-                                                            "valueInteger": 76
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "clinicaldetails-observations-maingrid-pulserate-newdate",
-                                                    "text": "New result date",
-                                                    "answer": [
-                                                        {
-                                                            "id": "clinicaldetails-observations-maingrid-pulserate-newdate-calculatedExpression-w-jAenX6BizhzDzas0A8G",
-                                                            "valueDate": "2026-02-20"
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-observations-maingrid-pulserhythm",
-                                            "text": "Pulse rhythm",
-                                            "item": [
-                                                {
-                                                    "linkId": "clinicaldetails-observations-maingrid-pulserhythm-newresult",
-                                                    "text": "New result",
-                                                    "answer": [
-                                                        {
-                                                            "valueCoding": {
-                                                                "system": "http://snomed.info/sct",
-                                                                "code": "271636001",
-                                                                "display": "Pulse regular"
-                                                            }
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "clinicaldetails-observations-maingrid-pulserhythm-newdate",
-                                                    "text": "New result date",
-                                                    "answer": [
-                                                        {
-                                                            "id": "clinicaldetails-observations-maingrid-pulserhythm-newdate-calculatedExpression-tCTuTIeN9AnMpDwW-T8ZL",
-                                                            "valueDate": "2026-02-20"
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-observations-maingrid-oxygensaturation",
-                                            "text": "Oxygen saturation",
-                                            "item": [
-                                                {
-                                                    "linkId": "clinicaldetails-observations-maingrid-oxygensaturation-newresult",
-                                                    "text": "New result",
-                                                    "answer": [
-                                                        {
-                                                            "valueInteger": 98
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "clinicaldetails-observations-maingrid-oxygensaturation-newdate",
-                                                    "text": "New result date",
-                                                    "answer": [
-                                                        {
-                                                            "id": "clinicaldetails-observations-maingrid-oxygensaturation-newdate-calculatedExpression-hcyGLCVx7N-guMdeYyt4a",
-                                                            "valueDate": "2026-02-20"
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "clinicaldetails-observations-bpgrid",
-                                    "text": "Blood pressure",
-                                    "item": [
-                                        {
-                                            "linkId": "clinicaldetails-observations-bpgrid-bp",
-                                            "text": "Blood pressure",
-                                            "item": [
-                                                {
-                                                    "linkId": "clinicaldetails-observations-bpgrid-bp-newresultsystolic",
-                                                    "text": "Systolic",
-                                                    "answer": [
-                                                        {
-                                                            "valueInteger": 130
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "clinicaldetails-observations-bpgrid-bp-newresultdiastolic",
-                                                    "text": "Diastolic",
-                                                    "answer": [
-                                                        {
-                                                            "valueInteger": 72
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "clinicaldetails-observations-bpgrid-bp-newresultdate",
-                                                    "text": "Date performed",
-                                                    "answer": [
-                                                        {
-                                                            "id": "clinicaldetails-observations-bpgrid-bp-newresultdate-calculatedExpression-50_eYMktmaxhOuDDdu-R3",
-                                                            "valueDate": "2026-02-20"
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "clinicaldetails-observations-substanceusegrid",
-                                    "text": "Substance use",
-                                    "item": [
-                                        {
-                                            "linkId": "clinicaldetails-observations-substanceusegrid-smokingstatus",
-                                            "text": "Smoking status",
-                                            "item": [
-                                                {
-                                                    "linkId": "clinicaldetails-observations-substanceusegrid-smokingstatus-newstatus",
-                                                    "text": "New status",
-                                                    "answer": [
-                                                        {
-                                                            "valueCoding": {
-                                                                "system": "http://snomed.info/sct",
-                                                                "code": "77176002",
-                                                                "display": "Current smoker"
-                                                            }
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "clinicaldetails-observations-substanceusegrid-smokingstatus-newdate",
-                                                    "text": "New status date",
-                                                    "answer": [
-                                                        {
-                                                            "id": "clinicaldetails-observations-substanceusegrid-smokingstatus-newdate-calculatedExpression-qHaQfsFwcOS7BYZ2SEjMs",
-                                                            "valueDate": "2026-02-20"
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "clinicaldetails-observations-substanceusegrid-alcoholstatus",
-                                            "text": "Alcohol consumption status",
-                                            "item": [
-                                                {
-                                                    "linkId": "clinicaldetails-observations-substanceusegrid-alcoholstatus-newstatus",
-                                                    "text": "New status",
-                                                    "answer": [
-                                                        {
-                                                            "valueCoding": {
-                                                                "system": "http://snomed.info/sct",
-                                                                "code": "219006",
-                                                                "display": "Current drinker"
-                                                            }
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "linkId": "clinicaldetails-observations-substanceusegrid-alcoholstatus-newdate",
-                                                    "text": "New status date",
-                                                    "answer": [
-                                                        {
-                                                            "id": "clinicaldetails-observations-substanceusegrid-alcoholstatus-newdate-calculatedExpression-QK5KDVOWIvMGk8ZTf8itT",
-                                                            "valueDate": "2026-02-20"
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "clinicaldetails-observations-additionalinformation",
-                                    "text": "Additional information",
-                                    "answer": [
-                                        {
-                                            "valueString": "Smoking - 20 cigarettes per day since 17yo\nAlcohol - 2 drinks, 2 days per week (on weekends)"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "linkId": "plan",
-                    "text": "Plan",
-                    "item": [
-                        {
-                            "linkId": "plandetails-commenceddate",
-                            "text": "Date this plan commenced",
-                            "answer": [
-                                {
-                                    "valueDate": "2026-02-20"
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "plandetails-inprogress",
-                            "text": "Incomplete draft plan already exists?",
-                            "answer": [
-                                {
-                                    "valueBoolean": true
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "plan-conditions",
-                            "text": "Conditions addressed",
-                            "item": [
-                                {
-                                    "linkId": "plan-conditions-condition",
-                                    "text": "Condition",
-                                    "answer": [
-                                        {
-                                            "valueCoding": {
-                                                "system": "http://snomed.info/sct",
-                                                "code": "443694000",
-                                                "display": "Type 2 diabetes mellitus uncontrolled"
-                                            }
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-conditions-onsetdate",
-                                    "text": "Onset date",
-                                    "answer": [
-                                        {
-                                            "valueDate": "2026-01-25"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "plan-conditions",
-                            "text": "Conditions addressed",
-                            "item": [
-                                {
-                                    "linkId": "plan-conditions-condition",
-                                    "text": "Condition",
-                                    "answer": [
-                                        {
-                                            "valueCoding": {
-                                                "system": "http://snomed.info/sct",
-                                                "code": "278860009",
-                                                "display": "Chronic lower back pain"
-                                            }
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-conditions-onsetdate",
-                                    "text": "Onset date",
-                                    "answer": [
-                                        {
-                                            "valueDate": "2021-01-01"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "plan-conditions",
-                            "text": "Conditions addressed",
-                            "item": [
-                                {
-                                    "linkId": "plan-conditions-condition",
-                                    "text": "Condition",
-                                    "answer": [
-                                        {
-                                            "valueCoding": {
-                                                "system": "http://snomed.info/sct",
-                                                "code": "235595009",
-                                                "display": "Gastro-oesophageal reflux disease"
-                                            }
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-conditions-onsetdate",
-                                    "text": "Onset date",
-                                    "answer": [
-                                        {
-                                            "valueDate": "2013-08-01"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "plan-conditions",
-                            "text": "Conditions addressed",
-                            "item": [
-                                {
-                                    "linkId": "plan-conditions-condition",
-                                    "text": "Condition",
-                                    "answer": [
-                                        {
-                                            "valueCoding": {
-                                                "system": "http://snomed.info/sct",
-                                                "code": "238131007",
-                                                "display": "Overweight"
-                                            }
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-conditions-onsetdate",
-                                    "text": "Onset date",
-                                    "answer": [
-                                        {
-                                            "valueDate": "2025-11-25"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "plan-goalstasks",
-                            "text": "Goals and tasks",
-                            "item": [
-                                {
-                                    "linkId": "plan-goalstasks-problemneed",
-                                    "text": "Problems/Needs",
-                                    "answer": [
-                                        {
-                                            "id": "plan-goalstasks-problemneed-repeat-T9hljHp5bpwqPouwCQsbm",
-                                            "valueCoding": {
-                                                "system": "http://snomed.info/sct",
-                                                "code": "443694000",
-                                                "display": "Type 2 diabetes mellitus uncontrolled"
-                                            }
-                                        },
-                                        {
-                                            "id": "plan-goalstasks-problemneed-repeat-IXe0Hs_Jgt_mUdWhYnnzF",
-                                            "valueCoding": {
-                                                "system": "http://snomed.info/sct",
-                                                "code": "238131007",
-                                                "display": "Overweight"
-                                            }
-                                        },
-                                        {
-                                            "id": "plan-goalstasks-problemneed-repeat-GKu8bOGT-fM_GBhsb0R9g",
-                                            "valueCoding": {
-                                                "system": "http://snomed.info/sct",
-                                                "code": "235595009",
-                                                "display": "Gastro-oesophageal reflux disease"
-                                            }
-                                        },
-                                        {
-                                            "id": "plan-goalstasks-problemneed-repeat-XDuVFTM8piXAKELHQiHIR",
-                                            "valueCoding": {
-                                                "system": "http://snomed.info/sct",
-                                                "code": "278860009",
-                                                "display": "Chronic lower back pain"
-                                            }
-                                        },
-                                        {
-                                            "id": "plan-goalstasks-problemneed-repeat-y4YprHzVKsl2Sf-JH2j_f",
-                                            "valueString": "Low self-esteem"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-goalstasks-details-goalsetting",
-                                    "text": "Goal setting",
-                                    "item": [
-                                        {
-                                            "linkId": "plan-goalstasks-details-goalsetting-goals",
-                                            "text": "Goals",
-                                            "answer": [
-                                                {
-                                                    "valueString": "5-10% weight loss (target weight 73.8-77.9kg) and decrease waist circumference (long term target <80cm)"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-goalsetting-initiator",
-                                            "text": "Initiator",
-                                            "answer": [
-                                                {
-                                                    "valueString": "GP"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-goalsetting-targetdate",
-                                            "text": "Target date",
-                                            "answer": [
-                                                {
-                                                    "valueDate": "2027-02-24"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-goalsetting-status",
-                                            "text": "Status",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://hl7.org/fhir/goal-status",
-                                                        "code": "active",
-                                                        "display": "active"
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-goalstasks-details-goalsetting",
-                                    "text": "Goal setting",
-                                    "item": [
-                                        {
-                                            "linkId": "plan-goalstasks-details-goalsetting-goals",
-                                            "text": "Goals",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Comfortably wear dress purchase for niece's wedding next year"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-goalsetting-initiator",
-                                            "text": "Initiator",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Caterina"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-goalsetting-targetdate",
-                                            "text": "Target date",
-                                            "answer": [
-                                                {
-                                                    "valueDate": "2027-02-24"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-goalsetting-status",
-                                            "text": "Status",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://hl7.org/fhir/goal-status",
-                                                        "code": "active",
-                                                        "display": "active"
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-goalstasks-details-interventionsactions",
-                                    "text": "Interventions and actions",
-                                    "item": [
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
-                                            "text": "Interventions/Actions",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "183065007",
-                                                        "display": "Low carbohydrate diet education"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-owner",
-                                            "text": "Owner",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Caterina, dietitian"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-duedate",
-                                            "text": "Due date",
-                                            "answer": [
-                                                {
-                                                    "valueDate": "2026-05-24"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-goalstasks-details-interventionsactions",
-                                    "text": "Interventions and actions",
-                                    "item": [
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
-                                            "text": "Interventions/Actions",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Reduce ratio of carbohydrates in each meal – ¼ plate carbs, ¼ plate protein, ½ plate vegetables/salad"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-owner",
-                                            "text": "Owner",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Caterina"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-duedate",
-                                            "text": "Due date",
-                                            "answer": [
-                                                {
-                                                    "valueDate": "2026-05-24"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-goalstasks-details-interventionsactions",
-                                    "text": "Interventions and actions",
-                                    "item": [
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
-                                            "text": "Interventions/Actions",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Substitute high GI for low GI carbohydrates where possible"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-owner",
-                                            "text": "Owner",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Caterina"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-duedate",
-                                            "text": "Due date",
-                                            "answer": [
-                                                {
-                                                    "valueDate": "2026-05-24"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-goalstasks-details-interventionsactions",
-                                    "text": "Interventions and actions",
-                                    "item": [
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
-                                            "text": "Interventions/Actions",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "819961005",
-                                                        "display": "Physical activity guidance"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-owner",
-                                            "text": "Owner",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Caterina, exercise physiologist"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-duedate",
-                                            "text": "Due date",
-                                            "answer": [
-                                                {
-                                                    "valueDate": "2026-08-24"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-goalstasks-details-interventionsactions",
-                                    "text": "Interventions and actions",
-                                    "item": [
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
-                                            "text": "Interventions/Actions",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Aim for 150 mins of aerobic activity per week"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-owner",
-                                            "text": "Owner",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Caterina"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-duedate",
-                                            "text": "Due date",
-                                            "answer": [
-                                                {
-                                                    "valueDate": "2026-08-24"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-goalstasks-details-interventionsactions",
-                                    "text": "Interventions and actions",
-                                    "item": [
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
-                                            "text": "Interventions/Actions",
-                                            "answer": [
-                                                {
-                                                    "valueString": "2-3 sessions of resistance exercise per week"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-owner",
-                                            "text": "Owner",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Caterina"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-duedate",
-                                            "text": "Due date",
-                                            "answer": [
-                                                {
-                                                    "valueDate": "2026-08-24"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-goalstasks-details-interventionsactions",
-                                    "text": "Interventions and actions",
-                                    "item": [
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
-                                            "text": "Interventions/Actions",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Management of impulse control"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-owner",
-                                            "text": "Owner",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Caterina"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-duedate",
-                                            "text": "Due date",
-                                            "answer": [
-                                                {
-                                                    "valueDate": "2026-08-24"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-interventionsactions-comment",
-                                            "text": "Comment",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Manage impulsivity/desire to eat when not actually hungry\nConsider psychology input in future"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-goalstasks-details-servicestreatments",
-                                    "text": "Services and treatments",
-                                    "item": [
-                                        {
-                                            "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
-                                            "text": "Required services and treatments",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "310090003",
-                                                        "display": "Dietetics service"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-servicestreatments-activity",
-                                            "text": "Activity",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "103699006",
-                                                        "display": "Referral to dietitian"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-servicestreatments-provider",
-                                            "text": "Provider",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Dietitian"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-goalstasks-details-servicestreatments",
-                                    "text": "Services and treatments",
-                                    "item": [
-                                        {
-                                            "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
-                                            "text": "Required services and treatments",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "310090003",
-                                                        "display": "Dietetics service"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-servicestreatments-activity",
-                                            "text": "Activity",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "11816003",
-                                                        "display": "Diet education"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-servicestreatments-provider",
-                                            "text": "Provider",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Exercise physiologist"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-goalstasks-details-servicestreatments",
-                                    "text": "Services and treatments",
-                                    "item": [
-                                        {
-                                            "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
-                                            "text": "Required services and treatments",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "1240761000168106",
-                                                        "display": "Exercise physiology service"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-servicestreatments-activity",
-                                            "text": "Activity",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "1100681000168103",
-                                                        "display": "Referral to exercise physiologist"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-servicestreatments-provider",
-                                            "text": "Provider",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Exercise physiologist"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "plan-goalstasks-details-servicestreatments",
-                                    "text": "Services and treatments",
-                                    "item": [
-                                        {
-                                            "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
-                                            "text": "Required services and treatments",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "1240761000168106",
-                                                        "display": "Exercise physiology service"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-servicestreatments-activity",
-                                            "text": "Activity",
-                                            "answer": [
-                                                {
-                                                    "valueCoding": {
-                                                        "system": "http://snomed.info/sct",
-                                                        "code": "229080003",
-                                                        "display": "Exercise regime"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "linkId": "plan-goalstasks-details-servicestreatments-provider",
-                                            "text": "Provider",
-                                            "answer": [
-                                                {
-                                                    "valueString": "Exercise physiologist"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "linkId": "completion",
-                            "text": "Completion",
-                            "item": [
-                                {
-                                    "linkId": "completion-consentforsharing",
-                                    "text": "Consent given for sharing of information with relevant healthcare providers",
-                                    "answer": [
-                                        {
-                                            "valueBoolean": true
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "completion-proposedreview",
-                                    "text": "Proposed review",
-                                    "item": [
-                                        {
-                                            "linkId": "completion-proposedreview-date",
-                                            "text": "Date",
-                                            "answer": [
-                                                {
-                                                    "valueDate": "2026-05-20"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "linkId": "completion-copyoffered",
-                                    "text": "Patient has been offered a copy of this plan",
-                                    "answer": [
-                                        {
-                                            "valueString": "Yes, copy provided"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
+  "resourceType": "QuestionnaireResponse",
+  "id": "gpccmp-form-foreman-caterina",
+  "meta": {
+    "profile": [
+      "https://gpccmp.csiro.au/ig/StructureDefinition/GPCCMPQuestionnaireResponse"
     ]
+  },
+  "questionnaire": "http://www.health.gov.au/assessments/GPChronicConditionManagementPlan",
+  "status": "in-progress",
+  "subject": {
+    "reference": "Patient/foreman-caterina",
+    "type": "Patient",
+    "display": "Caterina FOREMAN"
+  },
+  "authored": "2026-03-09T13:10:27+10:00",
+  "author": {
+    "reference": "Practitioner/primary-peter",
+    "type": "Practitioner",
+    "display": "Dr Peter Primary"
+  },
+  "item": [
+    {
+      "linkId": "container",
+      "item": [
+        {
+          "linkId": "patient",
+          "text": "Patient details",
+          "item": [
+            {
+              "linkId": "patient-consent",
+              "text": "Consent",
+              "item": [
+                {
+                  "linkId": "patient-consent-consentforplan",
+                  "text": "Consent given to proceed with plan after discussion of the purpose, benefits, process and costs",
+                  "answer": [
+                    {
+                      "valueBoolean": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "patient-name",
+              "text": "Name",
+              "answer": [
+                {
+                  "valueString": "Caterina FOREMAN"
+                }
+              ]
+            },
+            {
+              "linkId": "patient-preferredpronouns",
+              "text": "Preferred pronouns",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://loinc.org",
+                    "code": "LA29519-8",
+                    "display": "she/her/her/hers/herself"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "patient-dob",
+              "text": "Date of birth",
+              "answer": [
+                {
+                  "valueDate": "1970-07-24"
+                }
+              ]
+            },
+            {
+              "linkId": "patient-age",
+              "text": "Age",
+              "answer": [
+                {
+                  "valueInteger": 55
+                }
+              ]
+            },
+            {
+              "linkId": "patient-sexatbirth",
+              "text": "Sex assigned at birth",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "248152002",
+                    "display": "Female"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "patient-genderidentity",
+              "text": "Gender identity",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "446141000124107",
+                    "display": "Identifies as female gender"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "patient-firstnationsstatus",
+              "text": "Aboriginal and/or Torres Strait Islander status",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+                    "code": "4",
+                    "display": "Neither Aboriginal nor Torres Strait Islander origin"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "patient-medicare",
+              "text": "Medicare card number",
+              "item": [
+                {
+                  "linkId": "patient-medicare-number",
+                  "text": "Number",
+                  "answer": [
+                    {
+                      "valueString": "3951333701"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "patient-medicare-referencenumber",
+                  "text": "Reference number",
+                  "answer": [
+                    {
+                      "valueString": "1"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "patient-medicare-expiry",
+                  "text": "Expiry",
+                  "answer": [
+                    {
+                      "valueString": "2028-08"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "patient-contact",
+              "text": "Contact information",
+              "item": [
+                {
+                  "linkId": "patient-contact-homephone",
+                  "text": "Home phone",
+                  "answer": [
+                    {
+                      "valueString": "0370109077"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "patient-contact-mobilephone",
+                  "text": "Mobile phone",
+                  "answer": [
+                    {
+                      "valueString": "0491576801"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "patient-contact-email",
+                  "text": "Email",
+                  "answer": [
+                    {
+                      "valueString": "caterina.foreman@my-own-personal-domain.com"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "patient-contact-homeaddress",
+                  "text": "Home address",
+                  "item": [
+                    {
+                      "linkId": "patient-contact-homeaddress-details",
+                      "text": "Home address",
+                      "item": [
+                        {
+                          "linkId": "patient-contact-homeaddress-details-streetaddress",
+                          "text": "Street address",
+                          "answer": [
+                            {
+                              "valueString": "149 Farmer Cnr"
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "patient-contact-homeaddress-details-city",
+                          "text": "City",
+                          "answer": [
+                            {
+                              "valueString": "Sunshine"
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "patient-contact-homeaddress-details-state",
+                          "text": "State",
+                          "answer": [
+                            {
+                              "valueCoding": {
+                                "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-states-territories-1",
+                                "code": "VIC",
+                                "display": "Victoria"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "patient-contact-homeaddress-details-postcode",
+                          "text": "Postcode",
+                          "answer": [
+                            {
+                              "valueString": "3020"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "practitioner",
+          "text": "Practitioner details",
+          "item": [
+            {
+              "linkId": "practitioner-name",
+              "text": "Name",
+              "answer": [
+                {
+                  "id": "practitioner-name-calculatedExpression-F2BRILo92ml4xZ6O1o6HH",
+                  "valueString": "Peter Primary"
+                }
+              ]
+            },
+            {
+              "linkId": "practitioner-phone",
+              "text": "Phone",
+              "answer": [
+                {
+                  "id": "practitioner-phone-calculatedExpression-L59yX9cO6DYFpwoE04nY4",
+                  "valueString": "(08) 7010 5556"
+                }
+              ]
+            },
+            {
+              "linkId": "practitioner-email",
+              "text": "Email",
+              "answer": [
+                {
+                  "id": "practitioner-email-calculatedExpression-fy4tkkhIaG8QQMNcC99JL",
+                  "valueString": "PPP@example.org"
+                }
+              ]
+            },
+            {
+              "linkId": "practitioner-medicareprovidernumber",
+              "text": "Medicare provider number",
+              "answer": [
+                {
+                  "id": "practitioner-medicareprovidernumber-calculatedExpression-hb_z1zBKlCoth4P5mbZkJ",
+                  "valueString": "2426621B"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "clinicaldetails",
+          "text": "Clinical details",
+          "item": [
+            {
+              "linkId": "clinicaldetails-problemsdiagnoses",
+              "text": "Problems/Diagnoses",
+              "item": [
+                {
+                  "linkId": "clinicaldetails-problemsdiagnoses-recordedproblems",
+                  "text": "Recorded problems/diagnoses",
+                  "item": [
+                    {
+                      "linkId": "clinicaldetails-problemsdiagnoses-recordedproblems-condition",
+                      "text": "Condition",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "278860009",
+                            "display": "Chronic lower back pain"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-problemsdiagnoses-recordedproblems-clinicalstatus",
+                      "text": "Clinical status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                            "code": "active",
+                            "display": "Active"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-problemsdiagnoses-recordedproblems-onsetdate",
+                      "text": "Onset date",
+                      "answer": [
+                        {
+                          "valueDate": "2021-01-01"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "clinicaldetails-problemsdiagnoses-recordedproblems",
+                  "text": "Recorded problems/diagnoses",
+                  "item": [
+                    {
+                      "linkId": "clinicaldetails-problemsdiagnoses-recordedproblems-condition",
+                      "text": "Condition",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "235595009",
+                            "display": "Gastro-oesophageal reflux disease"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-problemsdiagnoses-recordedproblems-clinicalstatus",
+                      "text": "Clinical status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                            "code": "active",
+                            "display": "Active"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-problemsdiagnoses-recordedproblems-onsetdate",
+                      "text": "Onset date",
+                      "answer": [
+                        {
+                          "valueDate": "2013-08-01"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "clinicaldetails-problemsdiagnoses-newproblems",
+                  "text": "New problems/diagnoses",
+                  "item": [
+                    {
+                      "linkId": "clinicaldetails-problemsdiagnoses-newproblems-condition",
+                      "text": "Condition",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "443694000",
+                            "display": "Type 2 diabetes mellitus uncontrolled"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-problemsdiagnoses-newproblems-onsetdate",
+                      "text": "Onset date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-01-25"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "clinicaldetails-problemsdiagnoses-newproblems",
+                  "text": "New problems/diagnoses",
+                  "item": [
+                    {
+                      "linkId": "clinicaldetails-problemsdiagnoses-newproblems-condition",
+                      "text": "Condition",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "424736006",
+                            "display": "Diabetic peripheral neuropathy"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-problemsdiagnoses-newproblems-onsetdate",
+                      "text": "Onset date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-02-20"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "clinicaldetails-problemsdiagnoses-newproblems",
+                  "text": "New problems/diagnoses",
+                  "item": [
+                    {
+                      "linkId": "clinicaldetails-problemsdiagnoses-newproblems-condition",
+                      "text": "Condition",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "238131007",
+                            "display": "Overweight"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-problemsdiagnoses-newproblems-onsetdate",
+                      "text": "Onset date",
+                      "answer": [
+                        {
+                          "valueDate": "2025-11-25"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "clinicaldetails-allergies",
+              "text": "Adverse reaction risks",
+              "item": [
+                {
+                  "linkId": "clinicaldetails-allergies-recordedallergies",
+                  "text": "Recorded adverse reaction risks",
+                  "item": [
+                    {
+                      "linkId": "clinicaldetails-allergies-recordedallergies-substance",
+                      "text": "Substance",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "111088007",
+                            "display": "Latex"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-allergies-recordedallergies-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+                            "code": "active",
+                            "display": "Active"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-allergies-recordedallergies-manifestation",
+                      "text": "Manifestation",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "271807003",
+                            "display": "Rash"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-allergies-recordedallergies-comment",
+                      "text": "Comment",
+                      "answer": [
+                        {
+                          "valueString": "Has reacted soon after exposure as well as a delayed reaction to latex, with a rash appearing 24 hours after exposure."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "clinicaldetails-medications",
+              "text": "Medications (current)",
+              "item": [
+                {
+                  "linkId": "clinicaldetails-medications-recordedmedications",
+                  "text": "Recorded medications",
+                  "item": [
+                    {
+                      "linkId": "clinicaldetails-medications-recordedmedications-medication",
+                      "text": "Medication",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "5848011000036106",
+                            "display": "Panadol Osteo 665 mg modified release tablet"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-medications-recordedmedications-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/CodeSystem/medication-statement-status",
+                            "code": "active",
+                            "display": "Active"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-medications-recordedmedications-dosage",
+                      "text": "Dosage",
+                      "answer": [
+                        {
+                          "valueString": "2 tabs PRN/TDS"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-medications-recordedmedications-indication",
+                      "text": "Indication",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "278860009",
+                            "display": "Chronic lower back pain"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "clinicaldetails-medications-recordedmedications",
+                  "text": "Recorded medications",
+                  "item": [
+                    {
+                      "linkId": "clinicaldetails-medications-recordedmedications-medication",
+                      "text": "Medication",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "5848011000036106",
+                            "display": "Panadol Osteo 665 mg modified release tablet"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-medications-recordedmedications-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/CodeSystem/medication-statement-status",
+                            "code": "active",
+                            "display": "Active"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-medications-recordedmedications-dosage",
+                      "text": "Dosage",
+                      "answer": [
+                        {
+                          "valueString": "2 tabs PRN/TDS"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-medications-recordedmedications-indication",
+                      "text": "Indication",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "278860009",
+                            "display": "Chronic lower back pain"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "clinicaldetails-medications-recordedmedications",
+                  "text": "Recorded medications",
+                  "item": [
+                    {
+                      "linkId": "clinicaldetails-medications-recordedmedications-medication",
+                      "text": "Medication",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "682641000168107"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-medications-recordedmedications-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/CodeSystem/medication-statement-status",
+                            "code": "active",
+                            "display": "Active"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-medications-recordedmedications-dosage",
+                      "text": "Dosage",
+                      "answer": [
+                        {
+                          "valueString": "1 tab daily"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-medications-recordedmedications-indication",
+                      "text": "Indication",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "235595009",
+                            "display": "Gastro-oesophageal reflux disease"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-medications-recordedmedications-comment",
+                      "text": "Comment",
+                      "answer": [
+                        {
+                          "valueString": "Gastroscopy 2013 - mild reflux esophagitis, H pylori negative"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "clinicaldetails-medications-newmedications",
+                  "text": "New medications",
+                  "item": [
+                    {
+                      "linkId": "clinicaldetails-medications-newmedications-medication",
+                      "text": "Medication",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "23358011000036102",
+                            "display": "Metformin hydrochloride 500 mg tablet"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-medications-newmedications-dosage",
+                      "text": "Dosage",
+                      "answer": [
+                        {
+                          "valueString": "1 tab BD"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-medications-newmedications-indication",
+                      "text": "Indication",
+                      "answer": [
+                        {
+                          "id": "clinicaldetails-medications-newmedications-indication-repeat-WwcfY69K7gXKwXGjmkaKN",
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "443694000",
+                            "display": "Type 2 diabetes mellitus uncontrolled"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "clinicaldetails-medications-newmedications",
+                  "text": "New medications",
+                  "item": [
+                    {
+                      "linkId": "clinicaldetails-medications-newmedications-medication",
+                      "text": "Medication",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "77436011000036106",
+                            "display": "Fish oil"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-medications-newmedications-dosage",
+                      "text": "Dosage",
+                      "answer": [
+                        {
+                          "valueString": "2 caps daily"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-medications-newmedications-comment",
+                      "text": "Comment",
+                      "answer": [
+                        {
+                          "valueString": "Self-initiated for heart health"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "clinicaldetails-observations",
+              "text": "Observations",
+              "item": [
+                {
+                  "linkId": "clinicaldetails-observations-maingrid",
+                  "text": "Observations",
+                  "item": [
+                    {
+                      "linkId": "clinicaldetails-observations-maingrid-height",
+                      "text": "Height",
+                      "item": [
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-height-lastresultvalue",
+                          "answer": [
+                            {
+                              "valueDecimal": 165
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-height-lastresultdate",
+                          "answer": [
+                            {
+                              "valueDate": "2025-11-25"
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-height-newresultvalue",
+                          "text": "New result",
+                          "answer": [
+                            {
+                              "valueDecimal": 165
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-height-newresultdate",
+                          "text": "New result date",
+                          "answer": [
+                            {
+                              "id": "clinicaldetails-observations-maingrid-height-newresultdate-calculatedExpression-k2w8T76BwMTHBVlbvticH",
+                              "valueDate": "2026-03-09"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-observations-maingrid-weight",
+                      "text": "Weight",
+                      "item": [
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-weight-lastresultvalue",
+                          "answer": [
+                            {
+                              "valueDecimal": 74
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-weight-lastresultdate",
+                          "answer": [
+                            {
+                              "valueDate": "2025-11-25"
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-weight-newresultvalue",
+                          "text": "New result",
+                          "answer": [
+                            {
+                              "valueDecimal": 75.2
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-weight-newresultdate",
+                          "text": "New result date",
+                          "answer": [
+                            {
+                              "id": "clinicaldetails-observations-maingrid-weight-newresultdate-calculatedExpression-486zdKU3UDFV9I9YtAzjA",
+                              "valueDate": "2026-03-09"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-observations-maingrid-bmi",
+                      "text": "BMI (calculated)",
+                      "item": [
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-bmi-lastresultvalue",
+                          "answer": [
+                            {
+                              "valueDecimal": 27.2
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-bmi-newresultvalue",
+                          "text": "New result",
+                          "answer": [
+                            {
+                              "id": "clinicaldetails-observations-maingrid-bmi-newresultvalue-calculatedExpression-Lxabqtd4SZRSneBSwuGia",
+                              "valueDecimal": 27.6
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-observations-maingrid-waistcircumference",
+                      "text": "Waist circumference",
+                      "item": [
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-waistcircumference-lastresultvalue",
+                          "answer": [
+                            {
+                              "valueDecimal": 82
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-waistcircumference-lastresultdate",
+                          "answer": [
+                            {
+                              "valueDate": "2025-11-25"
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-waistcircumference-newresultvalue",
+                          "text": "New result",
+                          "answer": [
+                            {
+                              "valueDecimal": 82.5
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-waistcircumference-newdate",
+                          "text": "New result date",
+                          "answer": [
+                            {
+                              "id": "clinicaldetails-observations-maingrid-waistcircumference-newdate-calculatedExpression-iX5j5lBgCcxm2dxiaCPGs",
+                              "valueDate": "2026-03-09"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-observations-maingrid-pulserate",
+                      "text": "Pulse rate",
+                      "item": [
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-pulserate-lastresultvalue",
+                          "answer": [
+                            {
+                              "valueDecimal": 74
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-pulserate-lastresultdate",
+                          "answer": [
+                            {
+                              "valueDate": "2025-11-25"
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-pulserate-newresultvalue",
+                          "text": "New result",
+                          "answer": [
+                            {
+                              "valueInteger": 76
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-pulserate-newresultdate",
+                          "text": "New result date",
+                          "answer": [
+                            {
+                              "id": "clinicaldetails-observations-maingrid-pulserate-newresultdate-calculatedExpression-cPL4gu3d2BWLOBGo52DtA",
+                              "valueDate": "2026-03-09"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-observations-maingrid-pulserhythm",
+                      "text": "Pulse rhythm",
+                      "item": [
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-pulserhythm-lastresultvalue",
+                          "answer": [
+                            {
+                              "valueCoding": {
+                                "system": "http://snomed.info/sct",
+                                "code": "271636001",
+                                "display": "Pulse regular"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-pulserhythm-lastresultdate",
+                          "answer": [
+                            {
+                              "valueDate": "2025-11-25"
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-pulserhythm-newresultvalue",
+                          "text": "New result",
+                          "answer": [
+                            {
+                              "valueCoding": {
+                                "system": "http://snomed.info/sct",
+                                "code": "271636001",
+                                "display": "Pulse regular"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-pulserhythm-newresultdate",
+                          "text": "New result date",
+                          "answer": [
+                            {
+                              "id": "clinicaldetails-observations-maingrid-pulserhythm-newresultdate-calculatedExpression-dgSCTpArvpUru2J58XgLW",
+                              "valueDate": "2026-03-09"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-observations-maingrid-oxygensaturation",
+                      "text": "Oxygen saturation",
+                      "item": [
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-oxygensaturation-lastresultvalue",
+                          "answer": [
+                            {
+                              "valueDecimal": 98
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-oxygensaturation-lastresultdate",
+                          "answer": [
+                            {
+                              "valueDate": "2026-06-20"
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-oxygensaturation-newresultvalue",
+                          "text": "New result",
+                          "answer": [
+                            {
+                              "valueInteger": 98
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-maingrid-oxygensaturation-newresultdate",
+                          "text": "New result date",
+                          "answer": [
+                            {
+                              "id": "clinicaldetails-observations-maingrid-oxygensaturation-newresultdate-calculatedExpression-EHZZpJ3_aKftPSgMCAW2M",
+                              "valueDate": "2026-03-09"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "clinicaldetails-observations-bpgrid",
+                  "text": "Blood pressure",
+                  "item": [
+                    {
+                      "linkId": "clinicaldetails-observations-bpgrid-bp",
+                      "text": "Blood pressure",
+                      "item": [
+                        {
+                          "linkId": "clinicaldetails-observations-bpgrid-bp-lastresultvaluesystolic",
+                          "answer": [
+                            {
+                              "valueDecimal": 128
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-bpgrid-bp-lastresultvaluediastolic",
+                          "answer": [
+                            {
+                              "valueDecimal": 72
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-bpgrid-bp-lastresultdate",
+                          "answer": [
+                            {
+                              "valueDate": "2025-11-25"
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-bpgrid-bp-newresultsystolic",
+                          "text": "Systolic",
+                          "answer": [
+                            {
+                              "valueInteger": 130
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-bpgrid-bp-newresultdiastolic",
+                          "text": "Diastolic",
+                          "answer": [
+                            {
+                              "valueInteger": 72
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-bpgrid-bp-newresultdate",
+                          "text": "Date performed",
+                          "answer": [
+                            {
+                              "id": "clinicaldetails-observations-bpgrid-bp-newresultdate-calculatedExpression-DrfndEi0lYOSNikSX1k88",
+                              "valueDate": "2026-03-09"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "clinicaldetails-observations-substanceusegrid",
+                  "text": "Substance use",
+                  "item": [
+                    {
+                      "linkId": "clinicaldetails-observations-substanceusegrid-smokingstatus",
+                      "text": "Smoking status",
+                      "item": [
+                        {
+                          "linkId": "clinicaldetails-observations-substanceusegrid-smokingstatus-lastresultvalue",
+                          "answer": [
+                            {
+                              "valueCoding": {
+                                "system": "http://snomed.info/sct",
+                                "code": "77176002",
+                                "display": "Current smoker"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-substanceusegrid-smokingstatus-lastresultdate",
+                          "answer": [
+                            {
+                              "valueDate": "2026-02-20"
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-substanceusegrid-smokingstatus-newresultdate",
+                          "text": "New status date",
+                          "answer": [
+                            {
+                              "id": "clinicaldetails-observations-substanceusegrid-smokingstatus-newresultdate-calculatedExpression-ChphPRAMHlBUt_ACXcBpk"
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-smokingstatusgrid-smokingstatus-newresultcomment",
+                          "text": "Comment",
+                          "answer": [
+                            {
+                              "valueString": "Smoking - 20 cigarettes per day since 17yo"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "clinicaldetails-observations-substanceusegrid-alcoholstatus",
+                      "text": "Alcohol consumption status",
+                      "item": [
+                        {
+                          "linkId": "clinicaldetails-observations-substanceusegrid-alcoholstatus-lastresultvalue",
+                          "answer": [
+                            {
+                              "valueCoding": {
+                                "system": "http://snomed.info/sct",
+                                "code": "219006",
+                                "display": "Current drinker"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-substanceusegrid-alcoholstatus-lastresultdate",
+                          "answer": [
+                            {
+                              "valueDate": "2026-02-20"
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-substanceusegrid-alcoholstatus-newresultdate",
+                          "text": "New status date",
+                          "answer": [
+                            {
+                              "id": "clinicaldetails-observations-substanceusegrid-alcoholstatus-newresultdate-calculatedExpression-PgssMavx2sHIWJw_aHhak"
+                            }
+                          ]
+                        },
+                        {
+                          "linkId": "clinicaldetails-observations-substanceusegrid-alcoholstatus-newresultcomment",
+                          "text": "Comment",
+                          "answer": [
+                            {
+                              "valueString": "2 drinks, 2 days per week (on weekends"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "plan",
+          "text": "Plan",
+          "item": [
+            {
+              "linkId": "plandetails-commenceddate",
+              "text": "Date this plan commenced",
+              "answer": [
+                {
+                  "valueDate": "2026-02-20"
+                }
+              ]
+            },
+            {
+              "linkId": "plandetails-inprogress",
+              "text": "Incomplete draft plan already exists?",
+              "answer": [
+                {
+                  "valueBoolean": true
+                }
+              ]
+            },
+            {
+              "linkId": "plan-conditions",
+              "text": "Conditions addressed",
+              "item": [
+                {
+                  "linkId": "plan-conditions-condition",
+                  "text": "Condition",
+                  "answer": [
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "443694000",
+                        "display": "Type 2 diabetes mellitus uncontrolled"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-conditions-onsetdate",
+                  "text": "Onset date",
+                  "answer": [
+                    {
+                      "valueDate": "2026-01-25"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "plan-conditions",
+              "text": "Conditions addressed",
+              "item": [
+                {
+                  "linkId": "plan-conditions-condition",
+                  "text": "Condition",
+                  "answer": [
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "278860009",
+                        "display": "Chronic lower back pain"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-conditions-onsetdate",
+                  "text": "Onset date",
+                  "answer": [
+                    {
+                      "valueDate": "2021-01-01"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "plan-conditions",
+              "text": "Conditions addressed",
+              "item": [
+                {
+                  "linkId": "plan-conditions-condition",
+                  "text": "Condition",
+                  "answer": [
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "235595009",
+                        "display": "Gastro-oesophageal reflux disease"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-conditions-onsetdate",
+                  "text": "Onset date",
+                  "answer": [
+                    {
+                      "valueDate": "2013-08-01"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "plan-conditions",
+              "text": "Conditions addressed",
+              "item": [
+                {
+                  "linkId": "plan-conditions-condition",
+                  "text": "Condition",
+                  "answer": [
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "238131007",
+                        "display": "Overweight"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-conditions-onsetdate",
+                  "text": "Onset date",
+                  "answer": [
+                    {
+                      "valueDate": "2025-11-25"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "plan-goalstasks",
+              "text": "Goals and tasks",
+              "item": [
+                {
+                  "linkId": "plan-goalstasks-problemneed",
+                  "text": "Problems/Needs",
+                  "answer": [
+                    {
+                      "id": "plan-goalstasks-problemneed-repeat-WUTBR95itEuICchXC1O5q",
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "443694000",
+                        "display": "Type 2 diabetes mellitus uncontrolled"
+                      }
+                    },
+                    {
+                      "id": "plan-goalstasks-problemneed-repeat-QQBgCwz6cWxNViIgZR2Uh",
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "235595009",
+                        "display": "Gastro-oesophageal reflux disease"
+                      }
+                    },
+                    {
+                      "id": "plan-goalstasks-problemneed-repeat-ObUstinPvtEK7Jzk9Rmz3",
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "278860009",
+                        "display": "Chronic lower back pain"
+                      }
+                    },
+                    {
+                      "id": "plan-goalstasks-problemneed-repeat-fXuutGspV6Zc8ZnKjOLYk",
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "238131007",
+                        "display": "Overweight"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-goalsetting",
+                  "text": "Goal setting",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-goalsetting-goals",
+                      "text": "Goals",
+                      "answer": [
+                        {
+                          "valueString": "5-10% weight loss (target weight 73.8-77.9kg) and decrease waist circumference (long term target <80cm)"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-goalsetting-initiator",
+                      "text": "Initiator",
+                      "answer": [
+                        {
+                          "valueString": "GP"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-goalsetting-targetdate",
+                      "text": "Target date",
+                      "answer": [
+                        {
+                          "valueDate": "2027-02-24"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-goalsetting-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/goal-status",
+                            "code": "active",
+                            "display": "active"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "183065007",
+                            "display": "Low carbohydrate diet education"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina, dietitian"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-duedate",
+                      "text": "Due date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-05-24"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueString": "Reduce ratio of carbohydrates in each meal - ¼ plate carbs, ¼ plate protein, ½ plate vegetables/salad"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-duedate",
+                      "text": "Due date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-05-24"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueString": "Substitute high GI for low GI carbohydrates where possible"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-duedate",
+                      "text": "Due date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-05-24"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueString": "Physical activity guidance"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina, exercise physiologist"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-duedate",
+                      "text": "Due date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-24"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueString": "Aim for 150 mins of aerobic activity per week"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-duedate",
+                      "text": "Due date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-24"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueString": "2-3 sessions of resistance exercise per week"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-duedate",
+                      "text": "Due date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-24"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueString": "Management of impulse control"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-duedate",
+                      "text": "Due date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-24"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-comment",
+                      "text": "Comment",
+                      "answer": [
+                        {
+                          "valueString": "Manage impulsivity/desire to eat when not actually hungry. Consider psychology input in future."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-servicestreatments",
+                  "text": "Services and treatments",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
+                      "text": "Required services and treatments",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "310090003",
+                            "display": "Dietetics service"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-activity",
+                      "text": "Activity",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "103699006",
+                            "display": "Referral to dietitian"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-provider",
+                      "text": "Provider",
+                      "answer": [
+                        {
+                          "valueString": "Dietitian"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-servicestreatments",
+                  "text": "Services and treatments",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
+                      "text": "Required services and treatments",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "310090003",
+                            "display": "Dietetics service"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-activity",
+                      "text": "Activity",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "11816003",
+                            "display": "Diet education"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-provider",
+                      "text": "Provider",
+                      "answer": [
+                        {
+                          "valueString": "Dietitian"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-servicestreatments",
+                  "text": "Services and treatments",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
+                      "text": "Required services and treatments",
+                      "answer": [
+                        {
+                          "valueString": "Exercise physiologist"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-activity",
+                      "text": "Activity",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "1100681000168103",
+                            "display": "Referral to exercise physiologist"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-provider",
+                      "text": "Provider",
+                      "answer": [
+                        {
+                          "valueString": "Exercise physiologist"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-servicestreatments",
+                  "text": "Services and treatments",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
+                      "text": "Required services and treatments",
+                      "answer": [
+                        {
+                          "valueString": "Exercise physiologist"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-activity",
+                      "text": "Activity",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "229080003",
+                            "display": "Exercise regime"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-provider",
+                      "text": "Provider",
+                      "answer": [
+                        {
+                          "valueString": "Exercise physiologist"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "plan-goalstasks",
+              "text": "Goals and tasks",
+              "item": [
+                {
+                  "linkId": "plan-goalstasks-problemneed",
+                  "text": "Problems/Needs",
+                  "answer": [
+                    {
+                      "id": "plan-goalstasks-problemneed-repeat-I_tA22UUDxjiFRb66cX35",
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "286647002",
+                        "display": "Low self-esteem"
+                      }
+                    },
+                    {
+                      "id": "plan-goalstasks-problemneed-repeat-s_uSBQ3OC8phpIHE68Cwu",
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "238131007",
+                        "display": "Overweight"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-goalsetting",
+                  "text": "Goal setting",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-goalsetting-goals",
+                      "text": "Goals",
+                      "answer": [
+                        {
+                          "valueString": "Comfortably wear dress purchased for niece’s wedding next year"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-goalsetting-initiator",
+                      "text": "Initiator",
+                      "answer": [
+                        {
+                          "valueString": "Caterina"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-goalsetting-targetdate",
+                      "text": "Target date",
+                      "answer": [
+                        {
+                          "valueDate": "2027-02-24"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-goalsetting-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/goal-status",
+                            "code": "active",
+                            "display": "active"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "completion",
+              "text": "Completion",
+              "item": [
+                {
+                  "linkId": "completion-consentforsharing",
+                  "text": "Consent given for sharing of information with relevant healthcare providers",
+                  "answer": [
+                    {
+                      "valueBoolean": true
+                    }
+                  ]
+                },
+                {
+                  "linkId": "completion-review",
+                  "text": "Review",
+                  "item": [
+                    {
+                      "linkId": "completion-review-appointmentstatus",
+                      "text": "Appointment status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/appointmentstatus",
+                            "code": "proposed",
+                            "display": "Proposed"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "completion-review-date",
+                      "text": "Date",
+                      "answer": [
+                        {
+                          "valueDate": "2027-03-09"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "completion-copyoffered",
+                  "text": "Patient has been offered a copy of this plan",
+                  "answer": [
+                    {
+                      "valueString": "Yes, copy provided"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
