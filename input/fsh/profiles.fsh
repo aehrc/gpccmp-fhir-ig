@@ -263,8 +263,6 @@ Description: "This profile sets the minimum expectations for a Condition resourc
 * verificationStatus MS
 // Server obligation is only AU Core inherited SHALL:populate-if-known (not additional SHALL:populate), as the condition may be recorded without verificationStatus and the expression accounts for non-populated verificationStatus.
 * verificationStatus insert obligationClient (2, SHALL:process)
-* category MS
-* category insert obligationServer (2, SHALL:populate)
 * category ^slicing.discriminator[0].type = #value
 * category ^slicing.discriminator[=].path = "coding.code"
 * category ^slicing.discriminator[+].type = #value
@@ -273,7 +271,7 @@ Description: "This profile sets the minimum expectations for a Condition resourc
 * category ^slicing.rules = #open
 * category contains problemListCategory 1..1 
 * category[problemListCategory] MS
-* category[problemListCategory] insert obligationServer (0, SHALL:populate)
+* category[problemListCategory] insert obligationServer (2, SHALL:populate)
 * category[problemListCategory].coding 1..*
 * category[problemListCategory].coding only Coding
 * category[problemListCategory].coding.system 1..1
