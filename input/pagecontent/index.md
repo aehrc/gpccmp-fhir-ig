@@ -31,6 +31,7 @@ It is expected the GP CCMP will be available for use within the context of a pat
 ### Dependencies
 
 {% include dependency-table.xhtml %}
+{% include expansion-params.xhtml %}
 
 This guide is also dependent on:
 - Terminology published in Australia's [National Clinical Terminology Service](https://www.healthterminologies.gov.au/access-clinical-terminology/access-fhir-terminology-resources/)
