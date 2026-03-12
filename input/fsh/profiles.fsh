@@ -26,32 +26,32 @@ Alias: $au-address = http://hl7.org.au/fhir/StructureDefinition/au-address
 RuleSet: obligationClient(index, clientCode)
 * ^extension[{index}].url = $obligation
 * ^extension[=].extension[+].url = "code"
-* ^extension[=].extension[=].valueCode = #"{clientCode}"
+* ^extension[=].extension[=].valueCode = #{clientCode}
 * ^extension[=].extension[+].url = "actor"
 * ^extension[=].extension[=].valueCanonical = Canonical(GPCCMPClient)
 
 RuleSet: obligation2Client(index, clientCode1, clientCode2)
 * ^extension[{index}].url = $obligation
 * ^extension[=].extension[+].url = "code"
-* ^extension[=].extension[=].valueCode = #"{clientCode1}"
+* ^extension[=].extension[=].valueCode = #{clientCode1}
 * ^extension[=].extension[+].url = "code"
-* ^extension[=].extension[=].valueCode = #"{clientCode2}"
+* ^extension[=].extension[=].valueCode = #{clientCode2}
 * ^extension[=].extension[+].url = "actor"
 * ^extension[=].extension[=].valueCanonical = Canonical(GPCCMPClient)
 
 RuleSet: obligationServer(index, serverCode)
 * ^extension[{index}].url = $obligation
 * ^extension[=].extension[+].url = "code"
-* ^extension[=].extension[=].valueCode = #"{serverCode}"
+* ^extension[=].extension[=].valueCode = #{serverCode}
 * ^extension[=].extension[+].url = "actor"
 * ^extension[=].extension[=].valueCanonical = Canonical(GPCCMPServer)
 
 RuleSet: obligation2Server(index, serverCode1, serverCode2)
 * ^extension[{index}].url = $obligation
 * ^extension[=].extension[+].url = "code"
-* ^extension[=].extension[=].valueCode = #"{serverCode1}"
+* ^extension[=].extension[=].valueCode = #{serverCode1}
 * ^extension[=].extension[+].url = "code"
-* ^extension[=].extension[=].valueCode = #"{serverCode2}"
+* ^extension[=].extension[=].valueCode = #{serverCode2}
 * ^extension[=].extension[+].url = "actor"
 * ^extension[=].extension[=].valueCanonical = Canonical(GPCCMPServer)
 
