@@ -34,11 +34,6 @@
         {
             "coding": [
                 {
-                    "system": "http://nucc.org/provider-taxonomy",
-                    "code": "208D00000X",
-                    "display": "General Practice Physician"
-                },
-                {
                     "system": "http://snomed.info/sct",
                     "code": "62247001"
                 },
@@ -52,11 +47,6 @@
     "specialty": [
         {
             "coding": [
-                {
-                    "system": "http://nucc.org/provider-taxonomy",
-                    "code": "2083P0901X",
-                    "display": "Public Health & General Preventive Medicine Physician"
-                },
                 {
                     "system": "http://snomed.info/sct",
                     "code": "394814009",

@@ -47,6 +47,10 @@ The concepts in the value set include have not been validated because the termin
 # INFORMATION: Generated due to inherited slicing in the base profile. profile remains valid without redeclaring the slicing discriminator.
 This element does not match any known slice defined in the profile http://hl7.org/fhir/StructureDefinition/bp|4.0.1 (this may not be a problem, but you should check that it's not intended to match a slice)
 
+# INFORMATION: Questionnaire item type is open-choice and uses answerValueSet. String answer will not be validated, but is valid.
+Cannot validate string answer option because no option list is provided
+
+
 # WARNING: No definition found for expansion identifiers. Value set expansion identifier is a UUID as a URL obtained either from an expansion request on a terminology server or from the expansions pack in a previous output and do not have a definition.
 No definition could be found for URL value 'urn:uuid:% 
 

@@ -94,6 +94,11 @@ Description: "GP Chronic Condition Management Plan"
 
 
 //fhirpath variables
+
+* extension[variable][+].valueExpression.name = "HomeAddressNoFixedAddress"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "repeat(item).where(linkId='patient-contact-homeaddress-nofixedaddress').answer.value"
+
 * extension[variable][+].valueExpression.name = "age"
 * extension[variable][=].valueExpression.language = #text/fhirpath
 * extension[variable][=].valueExpression.expression = "repeat(item).where(linkId='patient-age').answer.value"
@@ -473,7 +478,9 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].text = "No fixed address"
 * item[=].item[=].item[=].item[=].item[=].type = #boolean
 * item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[+].linkId = "patient-contact-homeaddress-details"
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-enableWhenExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-enableWhenExpression].valueExpression.expression = "%HomeAddressNoFixedAddress.empty() or %HomeAddressNoFixedAddress = false"
+* item[=].item[=].item[=].item[=].item[=].linkId = "patient-contact-homeaddress-details"
 * item[=].item[=].item[=].item[=].item[=].text = "Home address"
 * item[=].item[=].item[=].item[=].item[=].text.extension[+].url = "https://smartforms.csiro.au/ig/StructureDefinition/QuestionnaireItemTextHidden"
 * item[=].item[=].item[=].item[=].item[=].text.extension[=].valueBoolean = true
