@@ -40,10 +40,11 @@ Description: "GP Chronic Condition Management Plan"
 * extension[variable][=].valueExpression.expression = "QuestionnaireResponse?questionnaire=http://www.health.gov.au/assessments/GPChronicConditionManagementPlan&status=completed&_count=1&_sort=-authored&patient={{%patient.id}}"
 
 // This needs to be removed once support for PractitionerRole launch context is supported. This is a workaround, however, it could lead to issues if the user has multiple PractitionerRoles.
+/*
 * extension[variable][+].valueExpression.name = "PractitionerRole"
 * extension[variable][=].valueExpression.language = #application/x-fhir-query
 * extension[variable][=].valueExpression.expression = "PractitionerRole?practitioner={{%user.id}}"
-
+*/
 * extension[variable][+].valueExpression.name = "Condition"
 * extension[variable][=].valueExpression.language = #application/x-fhir-query
 * extension[variable][=].valueExpression.expression = "Condition?patient={{%patient.id}}&category=http://terminology.hl7.org/CodeSystem/condition-category|problem-list-item"
@@ -682,21 +683,21 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].readOnly = true
 * item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "%PractitionerRole.entry.resource.telecom.where(system = 'phone').value"
+* item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "%gpccmppractitionerrole.telecom.where(system = 'phone').value"
 * item[=].item[=].item[=].linkId = "practitioner-phone"
 * item[=].item[=].item[=].text = "Phone"
 * item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].readOnly = true
 * item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "%PractitionerRole.entry.resource.telecom.where(system = 'email').value"
+* item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "%gpccmppractitionerrole.telecom.where(system = 'email').value"
 * item[=].item[=].item[=].linkId = "practitioner-email"
 * item[=].item[=].item[=].text = "Email"
 * item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].readOnly = true
 * item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "%PractitionerRole.entry.resource.identifier.where(system = 'http://ns.electronichealth.net.au/id/medicare-provider-number').value"
+* item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "%gpccmppractitionerrole.identifier.where(system = 'http://ns.electronichealth.net.au/id/medicare-provider-number').value"
 * item[=].item[=].item[=].linkId = "practitioner-medicareprovidernumber"
 * item[=].item[=].item[=].text = "Medicare provider number"
 * item[=].item[=].item[=].type = #string
