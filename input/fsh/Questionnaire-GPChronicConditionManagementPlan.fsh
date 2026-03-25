@@ -45,6 +45,10 @@ Description: "GP Chronic Condition Management Plan"
 * extension[variable][=].valueExpression.language = #application/x-fhir-query
 * extension[variable][=].valueExpression.expression = "PractitionerRole?practitioner={{%user.id}}"
 */
+* extension[variable][+].valueExpression.name = "PractitionerRoleLocation"
+* extension[variable][=].valueExpression.language = #application/x-fhir-query
+* extension[variable][=].valueExpression.expression = "PractitionerRole?_id={{%gpccmppractitionerrole.id}}&_include=PractitionerRole:location"
+
 * extension[variable][+].valueExpression.name = "Condition"
 * extension[variable][=].valueExpression.language = #application/x-fhir-query
 * extension[variable][=].valueExpression.expression = "Condition?patient={{%patient.id}}&category=http://terminology.hl7.org/CodeSystem/condition-category|problem-list-item"
@@ -95,6 +99,11 @@ Description: "GP Chronic Condition Management Plan"
 
 
 //fhirpath variables
+
+
+* extension[variable][+].valueExpression.name = "ClinicLocation"
+* extension[variable][=].valueExpression.language = #text/fhirpath
+* extension[variable][=].valueExpression.expression = "%PractitionerRoleLocation.entry.resource.ofType(Location)"
 
 * extension[variable][+].valueExpression.name = "HomeAddressNoFixedAddress"
 * extension[variable][=].valueExpression.language = #text/fhirpath
@@ -487,9 +496,6 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].text.extension[=].valueBoolean = true
 * item[=].item[=].item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].item[=].item[=].repeats = true
-* item[=].item[=].item[=].item[=].item[=].enableWhen[+].question = "patient-contact-homeaddress-nofixedaddress"
-* item[=].item[=].item[=].item[=].item[=].enableWhen[=].operator = #!=
-* item[=].item[=].item[=].item[=].item[=].enableWhen[=].answerBoolean = true
 * item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%HomeAddressArray.select(line.join(', '))"
 * item[=].item[=].item[=].item[=].item[=].item[=].linkId = "patient-contact-homeaddress-details-streetaddress"
@@ -703,6 +709,66 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].readOnly = true
+
+* item[=].item[=].item[+].linkId = "practitioner-clinicdetails"
+* item[=].item[=].item[=].text = "Clinic details"
+* item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].readOnly = true
+* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "%ClinicLocation.name"
+* item[=].item[=].item[=].item[=].linkId = "practitioner-clinicdetails-name"
+* item[=].item[=].item[=].item[=].text = "Name"
+* item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].readOnly = true
+* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-enableWhenExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-enableWhenExpression].valueExpression.expression = "%ClinicLocation.address.text.empty()"
+* item[=].item[=].item[=].item[=].linkId = "practitioner-clinicdetails-address"
+* item[=].item[=].item[=].item[=].text = "Address"
+* item[=].item[=].item[=].item[=].type = #group
+* item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ClinicLocation.address.select(line.join(', '))"
+* item[=].item[=].item[=].item[=].item[=].linkId = "practitioner-clinicdetails-address-streetaddress"
+* item[=].item[=].item[=].item[=].item[=].text = "Street address"
+* item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ClinicLocation.address.city"
+* item[=].item[=].item[=].item[=].item[=].linkId = "practitioner-clinicdetails-address-city"
+* item[=].item[=].item[=].item[=].item[=].text = "City"
+* item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ClinicLocation.address.state"
+* item[=].item[=].item[=].item[=].item[=].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#drop-down
+* item[=].item[=].item[=].item[=].item[=].linkId = "practitioner-clinicdetails-address-state"
+* item[=].item[=].item[=].item[=].item[=].text = "State"
+* item[=].item[=].item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/australian-states-territories-2"
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ClinicLocation.address.postalCode"
+* item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[key].valueId = "constraint-regex-postcode"
+* item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[severity].valueCode = #warning
+* item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.expression = "matches('^[0-9]{4}$')"
+* item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[human].valueString = "Postcode must be 4 digits"
+* item[=].item[=].item[=].item[=].item[=].extension[entryFormat].valueString = "####"
+* item[=].item[=].item[=].item[=].item[=].linkId = "practitioner-clinicdetails-address-postcode"
+* item[=].item[=].item[=].item[=].item[=].text = "Postcode"
+* item[=].item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-enableWhenExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-enableWhenExpression].valueExpression.expression = "%ClinicLocation.address.line.empty() and %ClinicLocation.address.text.exists()"
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ClinicLocation.address.text"
+* item[=].item[=].item[=].item[=].linkId = "practitioner-clinicdetails-addresstext"
+* item[=].item[=].item[=].item[=].text = "Address"
+* item[=].item[=].item[=].item[=].type = #string
+* item[=].item[=].item[=].item[=].repeats = false
+
 
 //Clinical details
 * item[=].item[+].linkId = "clinicaldetails"

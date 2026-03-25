@@ -3,7 +3,7 @@ Alias: $LOINC = http://loinc.org
 
 Alias: $v2-0532 = http://terminology.hl7.org/CodeSystem/v2-0532|3.0.0
 Alias: $goal-status = http://hl7.org/fhir/goal-status|4.0.1
-Alias: $medication-statement-status = http://hl7.org/fhir/CodeSystem/medication-statement-status
+Alias: $medication-statement-status = http://hl7.org/fhir/CodeSystem/medication-statement-status|4.0.1
 
 CodeSystem: LaunchContextExtended
 Id: LaunchContextExtended

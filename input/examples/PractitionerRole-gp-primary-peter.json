@@ -55,6 +55,12 @@
             ]
         }
     ],
+    "location": [
+        {
+            "reference": "Location/quinninup-medical-clinic",
+            "display": "Quinninup Medical Clinic"
+        }
+    ],
     "telecom": [
         {
             "system": "phone",
