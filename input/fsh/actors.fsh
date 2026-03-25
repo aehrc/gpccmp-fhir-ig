@@ -9,8 +9,9 @@ Description: "The GPCCMP Client is a system that can display the GPCCPM form, pr
 * experimental = false
 * type = #system
 * documentation = """The GPCCMP Client: 
-- **SHALL** invoke read Practitioner request
 - **SHALL** invoke read Patient request
+- **SHALL** invoke read Practitioner request
+- **SHALL** invoke read PractitionerRole request
 - **MAY** invoke read Encounter request
 - **SHALL** invoke search QuestionnaireResponse request
 - **SHALL** invoke read QuestionnaireResponse request
@@ -30,8 +31,9 @@ Description: "The GPCCMP Server allows the GPCCMP Client to retrieve patient hea
 * experimental = false
 * type = #system
 * documentation = """The GPCCMP Server: 
-- **SHALL** respond to read Practitioner request
 - **SHALL** respond to read Patient request
+- **SHALL** respond to read Practitioner request
+- **SHALL** respond to read PractitionerRole request
 - **MAY** respond to read Encounter request
 - **SHALL** respond to search QuestionnaireResponse request
 - **SHALL** respond to read QuestionnaireResponse request

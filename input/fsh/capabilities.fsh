@@ -20,6 +20,7 @@ Usage: #definition
 1. Support the [GP CCMP AllergyIntolerance resource profile](StructureDefinition-GPCCMPAllergyIntolerance.html)
 1. Support the [GP CCMP Condition resource profile](StructureDefinition-GPCCMPCondition.html)
 1. Support the [GP CCMP Encounter resource profile](StructureDefinition-GPCCMPEncounter.html)
+1. Support the [GP CCMP Location resource profile](StructureDefinition-GPCCMPLocation.html)
 1. Support the [GP CCMP Medication profile](StructureDefinition-GPCCMPMedication.html)
 1. Support the [GP CCMP MedicationStatement profile](StructureDefinition-GPCCMPMedicationStatement.html)
 1. Support the [GP CCMP Observation resource profiles](profiles-and-extensions.html#observation)
@@ -105,6 +106,18 @@ The server **SHALL** support both."
 * rest.resource[=].supportedProfile[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].supportedProfile[=].extension[0].valueCode = #SHALL
 * rest.resource[=].documentation = "The server **MAY** support the Encounter resource. If it does, it **SHALL** support the GP CCMP profile and the conformance expectations for the Encounter resource."
+* rest.resource[=].interaction[0].code = #read
+* rest.resource[=].interaction[0].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].interaction[0].extension[0].valueCode = #SHALL
+
+//Location
+* rest.resource[+].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].extension[0].valueCode = #SHALL
+* rest.resource[=].type = #Location
+* rest.resource[=].supportedProfile[+] = Canonical(GPCCMPLocation)
+* rest.resource[=].supportedProfile[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].supportedProfile[=].extension[0].valueCode = #SHALL
+* rest.resource[=].documentation = "The server **SHALL** support the Location resource, the GP CCMP profile and the conformance expectations for the Location resource."
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[0].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].interaction[0].extension[0].valueCode = #SHALL
@@ -273,14 +286,33 @@ The server **SHALL** support both."
 //PractitionerRole
 * rest.resource[+].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].extension[0].valueCode = #SHALL
+* rest.resource[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-search-parameter-combination"
+* rest.resource[=].extension[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].extension[=].extension[=].valueCode = #SHALL
+* rest.resource[=].extension[=].extension[+].url = "required"
+* rest.resource[=].extension[=].extension[=].valueString = "_id"
+* rest.resource[=].extension[=].extension[+].url = "required"
+* rest.resource[=].extension[=].extension[=].valueString = "_include"
 * rest.resource[=].type = #PractitionerRole
 * rest.resource[=].supportedProfile[+] = Canonical(GPCCMPPractitionerRole)
 * rest.resource[=].supportedProfile[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].supportedProfile[=].extension[0].valueCode = #SHALL
-* rest.resource[=].documentation = "The server **SHALL** support the Practitioner resource, GP CCMP profile and the conformance expectations for the Practitioner resource."
+* rest.resource[=].documentation = "The server **SHALL** support the PractitionerRole resource, GP CCMP profile and the conformance expectations for the PractitionerRole resource."
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[0].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].interaction[0].extension[0].valueCode = #SHALL
+* rest.resource[=].interaction[+].code = #search-type
+* rest.resource[=].interaction[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].interaction[=].extension[0].valueCode = #SHALL
+* rest.resource[=].searchParam[+].name = "_id"
+* rest.resource[=].searchParam[=].type = #token
+* rest.resource[=].searchParam[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].searchParam[=].extension[0].valueCode = #MAY
+* rest.resource[=].searchParam[+].name = "_include"
+* rest.resource[=].searchParam[=].type = #reference
+* rest.resource[=].searchParam[=].documentation = "`_include` parameter for searching location (`PractitionerRole:location`)."
+* rest.resource[=].searchParam[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].searchParam[=].extension[0].valueCode = #MAY
 
 //QuestionnaireResponse
 * rest.resource[+].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
@@ -321,7 +353,7 @@ The server **SHALL** support both."
 * rest.resource[=].searchParam[=].type = #reference
 * rest.resource[=].searchParam[=].documentation = "The client **SHALL** provide at least a id value and **MAY** provide both the Type and id values. 
 
-The server **SHALL** support both. "
+The server **SHALL** support both."
 * rest.resource[=].searchParam[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].searchParam[=].extension[0].valueCode = #MAY
 * rest.resource[=].searchParam[+].name = "questionnaire"
@@ -456,6 +488,18 @@ The server **SHALL** support both."
 * rest.resource[=].supportedProfile[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].supportedProfile[=].extension[0].valueCode = #SHALL
 * rest.resource[=].documentation = "The client **MAY** support the Encounter resource. If it does, it **SHALL** support the GP CCMP profile and the conformance expectations for the Encounter resource."
+* rest.resource[=].interaction[0].code = #read
+* rest.resource[=].interaction[0].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].interaction[0].extension[0].valueCode = #SHALL
+
+//Location
+* rest.resource[+].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].extension[0].valueCode = #SHALL
+* rest.resource[=].type = #Location
+* rest.resource[=].supportedProfile[+] = Canonical(GPCCMPLocation)
+* rest.resource[=].supportedProfile[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].supportedProfile[=].extension[0].valueCode = #SHALL
+* rest.resource[=].documentation = "The client **SHALL** support the Location resource, the GP CCMP profile and the conformance expectations for the Location resource."
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[0].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].interaction[0].extension[0].valueCode = #SHALL
@@ -624,14 +668,33 @@ The server **SHALL** support both."
 //PractitionerRole
 * rest.resource[+].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].extension[0].valueCode = #SHALL
+* rest.resource[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-search-parameter-combination"
+* rest.resource[=].extension[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].extension[=].extension[=].valueCode = #SHALL
+* rest.resource[=].extension[=].extension[+].url = "required"
+* rest.resource[=].extension[=].extension[=].valueString = "_id"
+* rest.resource[=].extension[=].extension[+].url = "required"
+* rest.resource[=].extension[=].extension[=].valueString = "_include"
 * rest.resource[=].type = #PractitionerRole
 * rest.resource[=].supportedProfile[+] = Canonical(GPCCMPPractitionerRole)
 * rest.resource[=].supportedProfile[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].supportedProfile[=].extension[0].valueCode = #SHALL
-* rest.resource[=].documentation = "The client **SHALL** support the Practitioner resource, GP CCMP profile and the conformance expectations for the Practitioner resource."
+* rest.resource[=].documentation = "The client **SHALL** support the PractitionerRole resource, GP CCMP profile and the conformance expectations for the PractitionerRole resource."
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[0].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].interaction[0].extension[0].valueCode = #SHALL
+* rest.resource[=].interaction[+].code = #search-type
+* rest.resource[=].interaction[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].interaction[=].extension[0].valueCode = #SHALL
+* rest.resource[=].searchParam[+].name = "_id"
+* rest.resource[=].searchParam[=].type = #token
+* rest.resource[=].searchParam[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].searchParam[=].extension[0].valueCode = #MAY
+* rest.resource[=].searchParam[+].name = "_include"
+* rest.resource[=].searchParam[=].type = #reference
+* rest.resource[=].searchParam[=].documentation = "`_include` parameter for searching location (`PractitionerRole:location`)."
+* rest.resource[=].searchParam[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].searchParam[=].extension[0].valueCode = #MAY
 
 //QuestionnaireResponse
 * rest.resource[+].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
