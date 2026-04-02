@@ -35,9 +35,9 @@ Description: "GP Chronic Condition Management Plan"
 * extension[variable][=].valueExpression.language = #application/x-fhir-query
 * extension[variable][=].valueExpression.expression = "QuestionnaireResponse?questionnaire=http://www.health.gov.au/assessments/GPChronicConditionManagementPlan&_count=1&_sort=-authored&patient={{%patient.id}}"
 
-* extension[variable][+].valueExpression.name = "GPCCMPLatestCompleted"
+* extension[variable][+].valueExpression.name = "GPCCMPLatestCompletedAmended"
 * extension[variable][=].valueExpression.language = #application/x-fhir-query
-* extension[variable][=].valueExpression.expression = "QuestionnaireResponse?questionnaire=http://www.health.gov.au/assessments/GPChronicConditionManagementPlan&status=completed&_count=1&_sort=-authored&patient={{%patient.id}}"
+* extension[variable][=].valueExpression.expression = "QuestionnaireResponse?questionnaire=http://www.health.gov.au/assessments/GPChronicConditionManagementPlan&status=completed,amended&_count=1&_sort=-authored&patient={{%patient.id}}"
 
 // This needs to be removed once support for PractitionerRole launch context is supported. This is a workaround, however, it could lead to issues if the user has multiple PractitionerRoles.
 /*
@@ -817,14 +817,14 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[=].item[=].readOnly = false
 * item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ConditionArray.onset.ofType(dateTime).toDate()"
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ConditionArray.onset.ofType(dateTime).toString().substring(0,10).toDate()"
 * item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses-recordedproblems-onsetdate"
 * item[=].item[=].item[=].item[=].item[=].text = "Onset date"
 * item[=].item[=].item[=].item[=].item[=].type = #date
 * item[=].item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[=].item[=].readOnly = true
 * item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ConditionArray.abatement.ofType(dateTime).toDate()"
+* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ConditionArray.abatement.ofType(dateTime).toString().substring(0,10).toDate()"
 * item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-problemsdiagnoses-recordedproblems-abatementdate"
 * item[=].item[=].item[=].item[=].item[=].text = "Abatement date"
 * item[=].item[=].item[=].item[=].item[=].type = #date
@@ -1591,12 +1591,6 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].repeats = false
     //Management plan details
 * item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "today()"
-* item[=].item[=].item[=].linkId = "plandetails-commenceddate"
-* item[=].item[=].item[=].text = "Date this plan commenced"
-* item[=].item[=].item[=].type = #date
-* item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%GPCCMPLatest.entry.resource.where(status='in-progress').exists()"
 * item[=].item[=].item[=].linkId = "plandetails-inprogress"
 * item[=].item[=].item[=].text = "Incomplete draft plan already exists?"
@@ -1604,11 +1598,12 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].readOnly = true
 * item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%GPCCMPLatestCompleted.entry.resource.authored"
+* item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%GPCCMPLatestCompletedAmended.entry.resource.authored.toString().substring(0,10).toDate()"
 * item[=].item[=].item[=].linkId = "plandetails-lastcompleteddate"
-* item[=].item[=].item[=].text = "Date of last completed plan"
-* item[=].item[=].item[=].type = #dateTime
+* item[=].item[=].item[=].text = "Date of most recent plan"
+* item[=].item[=].item[=].type = #date
 * item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].readOnly = true
     //Chronic condition
 * item[=].item[=].item[+].linkId = "plan-conditions"
 * item[=].item[=].item[=].text = "Conditions addressed"

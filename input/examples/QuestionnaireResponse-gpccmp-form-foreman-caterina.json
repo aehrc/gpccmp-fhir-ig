@@ -1233,15 +1233,6 @@
           "text": "Plan",
           "item": [
             {
-              "linkId": "plandetails-commenceddate",
-              "text": "Date this plan commenced",
-              "answer": [
-                {
-                  "valueDate": "2026-02-20"
-                }
-              ]
-            },
-            {
               "linkId": "plandetails-inprogress",
               "text": "Incomplete draft plan already exists?",
               "answer": [
