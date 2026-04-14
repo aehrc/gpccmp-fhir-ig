@@ -571,99 +571,57 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].linkId = "patient-contact-postaladdress-postcode"
 * item[=].item[=].item[=].item[=].item[=].text = "Postcode"
 * item[=].item[=].item[=].item[=].item[=].type = #string
-* item[=].item[=].item[=].item[=].item[=].repeats = false  
-        // Carer information
-* item[=].item[=].item[+].linkId = "patient-carerdetails"
-* item[=].item[=].item[=].text = "Carer information"
-* item[=].item[=].item[=].type = #group
-* item[=].item[=].item[=].repeats = true
-* item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#radio-button
-* item[=].item[=].item[=].item[=].extension[questionnaire-choiceOrientation].valueCode = #horizontal
-* item[=].item[=].item[=].item[=].linkId = "patient-carerinformation-hascarer"
-* item[=].item[=].item[=].item[=].text = "Do you have a carer?"
-* item[=].item[=].item[=].item[=].type = #choice
-* item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].answerValueSet = "#YesNo"
-* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-itemPopulationContext].valueExpression.name = "CarerContactArray"
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.expression = "%patient.contact.where(relationship.coding.exists(code = '133932002' and system = 'http://snomed.info/sct'))"
-* item[=].item[=].item[=].item[=].linkId = "patient-carerinformation-contact"
-* item[=].item[=].item[=].item[=].text = "Carer contact"
-* item[=].item[=].item[=].item[=].type = #group
-* item[=].item[=].item[=].item[=].enableWhen[+].question = "patient-carerinformation-hascarer"
-* item[=].item[=].item[=].item[=].enableWhen[=].operator = #=
-* item[=].item[=].item[=].item[=].enableWhen[=].answerCoding = http://terminology.hl7.org/CodeSystem/v2-0136#Y
-* item[=].item[=].item[=].item[=].repeats = true
-* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%CarerContactArray.name.select((given.join(' ') | family).join(' ') | text)"
-* item[=].item[=].item[=].item[=].item[=].linkId = "patient-carerinformation-contact-name"
-* item[=].item[=].item[=].item[=].item[=].text = "Name"
-* item[=].item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%CarerContactArray.telecom.where(system = 'phone').value"
-* item[=].item[=].item[=].item[=].item[=].linkId = "patient-carerinformation-contact-phone"
-* item[=].item[=].item[=].item[=].item[=].text = "Phone"
-* item[=].item[=].item[=].item[=].item[=].type = #string
-* item[=].item[=].item[=].item[=].item[=].repeats = true
-* item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%CarerContactArray.telecom.where(system = 'email').value"
-* item[=].item[=].item[=].item[=].item[=].linkId = "patient-carerinformation-contact-email"
-* item[=].item[=].item[=].item[=].item[=].text = "Email"
-* item[=].item[=].item[=].item[=].item[=].type = #string
-* item[=].item[=].item[=].item[=].item[=].repeats = true
-* item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#radio-button
-* item[=].item[=].item[=].item[=].extension[questionnaire-choiceOrientation].valueCode = #horizontal
-* item[=].item[=].item[=].item[=].linkId = "patient-carerinformation-present"
-* item[=].item[=].item[=].item[=].text = "Carer present at appointment"
-* item[=].item[=].item[=].item[=].type = #choice
-* item[=].item[=].item[=].item[=].enableWhen[+].question = "patient-carerinformation-hascarer"
-* item[=].item[=].item[=].item[=].enableWhen[=].operator = #=
-* item[=].item[=].item[=].item[=].enableWhen[=].answerCoding = http://terminology.hl7.org/CodeSystem/v2-0136#Y
-* item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].answerValueSet = "#YesNo"
-        // Additional contacts
-* item[=].item[=].item[+].extension[sdc-questionnaire-itemPopulationContext].valueExpression.name = "AdditionalContactsArray"
+        // Contacts
+* item[=].item[=].item[+].extension[sdc-questionnaire-itemPopulationContext].valueExpression.name = "ContactsArray"
 * item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.expression = "%patient.contact.where(relationship.coding.exists(code = 'C' or code = '394619001' or code = '1620171000168100' or code = 'CP' or code = 'N'))"
-* item[=].item[=].item[=].linkId = "patient-additionalcontacts"
-* item[=].item[=].item[=].text = "Additional contacts"
+* item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.expression = "%patient.contact.where(relationship.coding.exists(code = 'C' or code = '394619001' or code = '133932002' or code = '1620171000168100' or code = 'CP' or code = 'N'))"
+* item[=].item[=].item[=].linkId = "patient-contacts"
+* item[=].item[=].item[=].text = "Carer and key contacts"
 * item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%AdditionalContactsArray.relationship.coding"
-* item[=].item[=].item[=].item[=].linkId = "patient-additionalcontacts-type"
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ContactsArray.relationship.coding.where(exists(code = 'C' or code = '394619001' or code = '133932002' or code = '1620171000168100' or code = 'CP' or code = 'N'))"
+* item[=].item[=].item[=].item[=].linkId = "patient-contacts-type"
 * item[=].item[=].item[=].item[=].text = "Type"
 * item[=].item[=].item[=].item[=].type = #open-choice
-* item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].repeats = true
+* item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://snomed.info/sct#133932002
 * item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://snomed.info/sct#394619001
 * item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://snomed.info/sct#1620171000168100
 * item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://terminology.hl7.org/CodeSystem/v2-0131#C
 * item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://terminology.hl7.org/CodeSystem/v2-0131#CP
 * item[=].item[=].item[=].item[=].answerOption[+].valueCoding = http://terminology.hl7.org/CodeSystem/v2-0131#N
 * item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%AdditionalContactsArray.name.select((given.join(' ') | family).join(' ') | text)"
-* item[=].item[=].item[=].item[=].linkId = "patient-additionalcontacts-name"
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ContactsArray.name.select((given.join(' ') | family).join(' ') | text)"
+* item[=].item[=].item[=].item[=].linkId = "patient-contacts-name"
 * item[=].item[=].item[=].item[=].text = "Name"
 * item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%AdditionalContactsArray.telecom.where(system = 'phone').value"
-* item[=].item[=].item[=].item[=].linkId = "patient-additionalcontacts-phone"
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ContactsArray.telecom.where(system = 'phone').value"
+* item[=].item[=].item[=].item[=].linkId = "patient-contacts-phone"
 * item[=].item[=].item[=].item[=].text = "Phone"
 * item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].repeats = true
 * item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%AdditionalContactsArray.telecom.where(system = 'email').value"
-* item[=].item[=].item[=].item[=].linkId = "patient-additionalcontacts-email"
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ContactsArray.telecom.where(system = 'email').value"
+* item[=].item[=].item[=].item[=].linkId = "patient-contacts-email"
 * item[=].item[=].item[=].item[=].text = "Email"
 * item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].repeats = true
 // this is a user entered field and is not equivalent to the relationship coding in the FHIR resource
-* item[=].item[=].item[=].item[+].linkId = "patient-additionalcontacts-relationship"
+* item[=].item[=].item[=].item[+].linkId = "patient-contacts-relationship"
 * item[=].item[=].item[=].item[=].text = "Relationship to patient"
 * item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#radio-button
+* item[=].item[=].item[=].item[=].extension[questionnaire-choiceOrientation].valueCode = #horizontal
+* item[=].item[=].item[=].item[=].linkId = "patient-contacts-present"
+* item[=].item[=].item[=].item[=].text = "Present at appointment"
+* item[=].item[=].item[=].item[=].type = #choice
+* item[=].item[=].item[=].item[=].repeats = false
+* item[=].item[=].item[=].item[=].answerValueSet = "#YesNo"
         //Additional information
 * item[=].item[=].item[+].linkId = "patient-additionalinformation"
 * item[=].item[=].item[=].text = "Additional information"
@@ -1600,7 +1558,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%GPCCMPLatestCompletedAmended.entry.resource.authored.toString().substring(0,10).toDate()"
 * item[=].item[=].item[=].linkId = "plandetails-lastcompleteddate"
-* item[=].item[=].item[=].text = "Date of most recent plan"
+* item[=].item[=].item[=].text = "Date of most recent plan or review"
 * item[=].item[=].item[=].type = #date
 * item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].readOnly = true

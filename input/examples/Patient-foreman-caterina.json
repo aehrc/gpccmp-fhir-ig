@@ -2,7 +2,6 @@
     "resourceType": "Patient",
     "id": "foreman-caterina",
     "meta": {
-        
         "profile": [
             "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient",
             "https://gpccmp.csiro.au/ig/StructureDefinition/GPCCMPPatient"
@@ -173,6 +172,89 @@
             "state": "VIC",
             "postalCode": "3020",
             "country": "AU"
+        }
+    ],
+    "contact": [
+        {
+            "relationship": [
+                {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/v2-0131",
+                            "code": "CP"
+                        }
+                    ]
+                },
+                {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "133932002"
+                        }
+                    ]
+                }
+            ],
+            "name": {
+                "use": "official",
+                "text": "Mia Leanne Banks",
+                "family": "BANKS",
+                "given": [
+                    "Mia",
+                    "LEANNE"
+                ]
+            },
+            "telecom": [
+                {
+                    "system": "phone",
+                    "value": "0270107520",
+                    "use": "home"
+                },
+                {
+                    "system": "phone",
+                    "value": "0491574632",
+                    "use": "mobile"
+                },
+                {
+                    "system": "phone",
+                    "value": "0270102724",
+                    "use": "work"
+                }
+            ]
+        },
+        {
+            "relationship": [
+                {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/v2-0131",
+                            "code": "C"
+                        }
+                    ]
+                }
+            ],
+            "name": {
+                "family": "MACKAY",
+                "given": [
+                    "Heather"
+                ]
+            },
+            "telecom": [
+                {
+                    "system": "phone",
+                    "value": "0370108075",
+                    "use": "home"
+                },
+                {
+                    "system": "phone",
+                    "value": "0491578148",
+                    "use": "mobile"
+                },
+                {
+                    "system": "phone",
+                    "value": "0370103228",
+                    "use": "work"
+                }
+            ]
         }
     ]
 }
