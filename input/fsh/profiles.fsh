@@ -236,17 +236,15 @@ Id: GPCCMPLocation
 Title: "GP CCMP Location"
 Description: "This profile sets the minimum expectations for a Location resource to search and retrieve location information when used within the GP Chronic Condition Management Plan."
 * name MS
-* name insert obligationServer (2, SHALL:populate-if-known)
-* name insert obligationClient (3, SHALL:process)
+* name insert obligationClient (2, SHALL:process)
 * address MS
-* address insert obligationServer (2, SHALL:populate-if-known)
-* address insert obligationClient (3, SHALL:process)
+* address insert obligationClient (2, SHALL:process)
 
 Profile: GPCCMPEncounter
 Parent: $au-core-encounter
 Id: GPCCMPEncounter
 Title: "GP CCMP Encounter"
-Description: "This profile sets the minimum expectations for a Encounter resource to search and retrieve encounter information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for an Encounter resource to retrieve encounter information when used within the GP Chronic Condition Management Plan."
 * id MS
 * id insert obligationServer (0, SHALL:populate)
 * id insert obligationClient (1, SHALL:process)
@@ -287,18 +285,18 @@ Description: "This profile sets the minimum expectations for a Condition resourc
 * onset[x] MS
 * onset[x] insert obligationClient (2, SHALL:process)
 * onsetDateTime MS
-* onsetDateTime insert obligationClient (2, SHALL:process)
+* onsetDateTime insert obligationClient (0, SHALL:process)
 * abatement[x] MS
 * abatement[x] insert obligationClient (2, SHALL:process)
 * abatementDateTime MS
-* abatementDateTime insert obligationClient (2, SHALL:process)
+* abatementDateTime insert obligationClient (0, SHALL:process)
 
 
 Profile: GPCCMPAllergyIntolerance
 Parent: $au-core-allergyintolerance
 Id: GPCCMPAllergyIntolerance
 Title: "GP CCMP AllergyIntolerance"
-Description: "This profile sets the minimum expectations for an AllergyIntolerance resource to record and search allergy or intolerance information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for an AllergyIntolerance resource to record and search allergy or adverse reaction information when used within the GP Chronic Condition Management Plan."
 
 * patient MS
 * patient insert obligationServer (2, SHALL:populate)
