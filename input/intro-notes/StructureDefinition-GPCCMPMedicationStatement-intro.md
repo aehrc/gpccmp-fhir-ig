@@ -1,6 +1,6 @@
 ### Usage Scenarios
 The following are supported usage scenarios for this profile:
-* Search for a patient's medication use statements for the purposes of prepopulating the GP Chronic Condition Management Plan form 
+* Search for a patient's medication use statements for the purposes of prepopulating the GP Chronic Condition Management Plan form
 * Record a patient's medication use in the GP Chronic Condition Management Plan form.
 
 ### Profile Specific Implementation Guidance
