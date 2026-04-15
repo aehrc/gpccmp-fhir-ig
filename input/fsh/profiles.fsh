@@ -234,7 +234,7 @@ Profile: GPCCMPLocation
 Parent: $au-core-location
 Id: GPCCMPLocation
 Title: "GP CCMP Location"
-Description: "This profile sets the minimum expectations for a Location resource to search and retrieve location information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for a Location resource to record and search location information when used within the GP Chronic Condition Management Plan."
 * name MS
 * name insert obligationClient (2, SHALL:process)
 * address MS
