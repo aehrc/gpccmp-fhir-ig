@@ -115,7 +115,7 @@ Profile: GPCCMPPatient
 Parent: $au-core-patient
 Id: GPCCMPPatient
 Title: "GP CCMP Patient"
-Description: "This profile sets the minimum expectations for a Patient resource to search and retrieve patient information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for a Patient resource to retrieve and record patient information when used within the GP Chronic Condition Management Plan."
 
 * extension[indigenousStatus] MS
 * extension[indigenousStatus] insert obligationClient (2, SHALL:process)
@@ -201,7 +201,7 @@ Profile: GPCCMPPractitioner
 Parent: $au-core-practitioner
 Id: GPCCMPPractitioner
 Title: "GP CCMP Practitioner"
-Description: "This profile sets the minimum expectations for a Practitioner resource to search and retrieve practitioner information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for a Practitioner resource to retrieve and record practitioner information when used within the GP Chronic Condition Management Plan."
 * id MS
 * id insert obligationServer (0, SHALL:populate)
 * id insert obligationClient (1, SHALL:process)
@@ -212,7 +212,7 @@ Profile: GPCCMPPractitionerRole
 Parent: $au-core-practitionerrole
 Id: GPCCMPPractitionerRole
 Title: "GP CCMP Practitioner Role"
-Description: "This profile sets the minimum expectations for a PractitionerRole resource to search and retrieve practitioner role information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for a PractitionerRole resource to retrieve, search and record practitioner role information when used within the GP Chronic Condition Management Plan."
 * id MS
 * id insert obligationServer (0, SHALL:populate)
 * id insert obligationClient (1, SHALL:process)
@@ -234,7 +234,7 @@ Profile: GPCCMPLocation
 Parent: $au-core-location
 Id: GPCCMPLocation
 Title: "GP CCMP Location"
-Description: "This profile sets the minimum expectations for a Location resource to record and search location information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for a Location resource to retrieve, search and record location information when used within the GP Chronic Condition Management Plan."
 * name MS
 * name insert obligationClient (2, SHALL:process)
 * address MS
@@ -244,7 +244,7 @@ Profile: GPCCMPEncounter
 Parent: $au-core-encounter
 Id: GPCCMPEncounter
 Title: "GP CCMP Encounter"
-Description: "This profile sets the minimum expectations for an Encounter resource to retrieve encounter information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for an Encounter resource to retrieve and record encounter information when used within the GP Chronic Condition Management Plan."
 * id MS
 * id insert obligationServer (0, SHALL:populate)
 * id insert obligationClient (1, SHALL:process)
@@ -254,7 +254,7 @@ Profile: GPCCMPCondition
 Parent: $au-core-condition
 Id: GPCCMPCondition
 Title: "GP CCMP Condition"
-Description: "This profile sets the minimum expectations for a Condition resource to record and search condition information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for a Condition resource to search and record condition information when used within the GP Chronic Condition Management Plan."
 
 * clinicalStatus MS
 * clinicalStatus insert obligationClient (2, SHALL:process)
@@ -296,7 +296,7 @@ Profile: GPCCMPAllergyIntolerance
 Parent: $au-core-allergyintolerance
 Id: GPCCMPAllergyIntolerance
 Title: "GP CCMP AllergyIntolerance"
-Description: "This profile sets the minimum expectations for an AllergyIntolerance resource to record and search allergy or adverse reaction information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for an AllergyIntolerance resource to search and record allergy or adverse reaction information when used within the GP Chronic Condition Management Plan."
 
 * patient MS
 * patient insert obligationServer (2, SHALL:populate)
@@ -322,7 +322,7 @@ Profile: GPCCMPMedicationStatement
 Parent: $au-core-medicationstatement
 Id: GPCCMPMedicationStatement
 Title: "GP CCMP MedicationStatement"
-Description: "This profile sets the minimum expectations for a MedicationStatement resource to record and search medication information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for a MedicationStatement resource to search and record medication information when used within the GP Chronic Condition Management Plan."
 
 * status MS
 * status insert obligationServer (2, SHALL:populate)
@@ -354,7 +354,7 @@ Profile: GPCCMPMedication
 Parent: $au-core-medication
 Id: GPCCMPMedication
 Title: "GP CCMP Medication"
-Description: "This profile sets the minimum expectations for a Medication resource to search and retrieve medication information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for a Medication resource to retrieve, search and record medication information when used within the GP Chronic Condition Management Plan."
 * id MS
 * id insert obligationServer (0, SHALL:populate)
 * id insert obligationClient (1, SHALL:process)
@@ -365,7 +365,7 @@ Profile: GPCCMPBodyHeight
 Parent: $au-core-bodyheight
 Id: GPCCMPBodyHeight
 Title: "GP CCMP Body Height"
-Description: "This profile sets the minimum expectations for a Body Height resource to record and search body height information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for a Body Height resource to search and record body height information when used within the GP Chronic Condition Management Plan."
 
 * status MS
 * status insert obligationServer (3, SHALL:populate)
@@ -397,7 +397,7 @@ Profile: GPCCMPBodyWeight
 Parent: $au-core-bodyweight 
 Id: GPCCMPBodyWeight
 Title: "GP CCMP Body Weight"
-Description: "This profile sets the minimum expectations for a Body Weight resource to record and search body weight information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for a Body Weight resource to search and record body weight information when used within the GP Chronic Condition Management Plan."
 
 * status MS
 * status insert obligationServer (3, SHALL:populate)
@@ -429,7 +429,7 @@ Profile: GPCCMPWaistCircumference
 Parent: $au-core-waistcircum
 Id: GPCCMPWaistCircumference
 Title: "GP CCMP Waist Circumference"
-Description: "This profile sets the minimum expectations for a Waist Circumference resource to record and search waist circumference information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for a Waist Circumference resource to search and record waist circumference information when used within the GP Chronic Condition Management Plan."
 
 * status MS
 * status insert obligationServer (3, SHALL:populate)
@@ -464,7 +464,7 @@ Profile: GPCCMPPulseRate
 Parent: $au-core-heartrate
 Id: GPCCMPPulseRate
 Title: "GP CCMP Pulse Rate"
-Description: "This profile sets the minimum expectations for a Pulse Rate resource to record and search pulse rate information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for a Pulse Rate resource to search and record pulse rate information when used within the GP Chronic Condition Management Plan."
 
 * status MS
 * status insert obligationServer (3, SHALL:populate)
@@ -511,7 +511,7 @@ Profile: GPCCMPPulseRhythm
 Parent: Observation
 Id: GPCCMPPulseRhythm
 Title: "GP CCMP Pulse Rhythm"
-Description: "This profile sets the minimum expectations for an Observation resource to record and search pulse rhythm observation information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for an Observation resource to search and record pulse rhythm observation information when used within the GP Chronic Condition Management Plan."
 
 * . ^short = "Pulse Rhythm"
 * . ^definition = "Measurement of a patient's pulse rhythm at a point in time."
@@ -598,7 +598,7 @@ Profile: GPCCMPOxygenSaturation
 Parent: http://hl7.org/fhir/StructureDefinition/oxygensat
 Id: GPCCMPOxygenSaturation
 Title: "GP CCMP Oxygen Saturation"
-Description: "This profile sets the minimum expectations for an Observation resource to record and search oxygen saturation observation information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for an Observation resource to search and record oxygen saturation observation information when used within the GP Chronic Condition Management Plan."
 
 * . ^short = "Oxygen Saturation"
 * . ^definition = "Measurement of a patient's oxygen saturation at a point in time."
@@ -642,7 +642,7 @@ Profile: GPCCMPBloodPressure
 Parent: $au-core-bloodpressure
 Id: GPCCMPBloodPressure
 Title: "GP CCMP Blood Pressure"
-Description: "This profile sets the minimum expectations for a Blood Pressure resource to record and search blood pressure information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for a Blood Pressure resource to search and record blood pressure information when used within the GP Chronic Condition Management Plan."
 
 * status MS
 * status insert obligationServer (3, SHALL:populate)
@@ -684,7 +684,7 @@ Profile: GPCCMPSmokingStatus
 Parent: $au-core-smokingstatus
 Id: GPCCMPSmokingStatus
 Title: "GP CCMP Smoking Status"
-Description: "This profile sets the minimum expectations for a Smoking Status resource to record and search smoking status information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for a Smoking Status resource to search and record smoking status information when used within the GP Chronic Condition Management Plan."
 
 * status MS
 * status insert obligationServer (3, SHALL:populate)
@@ -720,7 +720,7 @@ Profile: GPCCMPAlcoholUseStatus
 Parent: Observation
 Id: GPCCMPAlcoholUseStatus
 Title: "GP CCMP Alcohol Use Status"
-Description: "This profile sets the minimum expectations for an Observation resource to record and search alcohol use status information when used within the GP Chronic Condition Management Plan."
+Description: "This profile sets the minimum expectations for an Observation resource to search and record alcohol use status information when used within the GP Chronic Condition Management Plan."
 * . ^short = "Alcohol Use Status"
 * . ^definition = "Measurement of a patient's alcohol use status at a point in time."
 * obeys gpccmp-alcoholusestatus-01
