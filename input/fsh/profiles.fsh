@@ -60,7 +60,7 @@ Profile: GPCCMPQuestionnaireResponse
 Parent: $sdc-questionnaireresponse
 Id: GPCCMPQuestionnaireResponse
 Title: "GP CCMP QuestionnaireResponse"
-Description: "This profile sets the minimum expectations for a QuestionnaireResponse resource to record, search and save GP Chronic Condition Management Plan information."
+Description: "This profile sets the minimum expectations for a QuestionnaireResponse resource to record, retrieve, search and save GP Chronic Condition Management Plan information."
 
 * id MS
 * id insert obligation2Server (0, SHALL:populate, SHALL:persist)
