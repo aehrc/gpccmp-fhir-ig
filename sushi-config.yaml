@@ -161,23 +161,23 @@ menu:
 resources:
   AllergyIntolerance/latex-foreman-caterina:
     name: AllergyIntolerance - Latex
-    description: Example of allergy intolerance for the *GP CCMP AllergyIntolerance* profile. Represents an active allergy using coded data for patient, Caterina Foreman. This could represent a resource provided by a GPCCMP Server actor for prepopulation.
+    description: Example of allergy intolerance for the *GP CCMP AllergyIntolerance* profile. Represents an active allergy using coded data for patient, Caterina Foreman. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   Condition/back-pain-foreman-caterina:
     name: Condition - Back Pain
-    description: Example of condition for the *GP CCMP Condition* profile. Represents an active back pain condition using coded data for patient, Caterina Foreman. This could represent a resource provided by a GPCCMP Server actor for prepopulation.
+    description: Example of condition for the *GP CCMP Condition* profile. Represents an active back pain condition using coded data for patient, Caterina Foreman. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   Condition/gord-foreman-caterina:
     name: Condition - GORD
-    description: Example of condition for the *GP CCMP Condition* profile. Represents an active gastroesophageal reflux disease condition using coded data for patient, Caterina Foreman. This could represent a resource provided by a GPCCMP Server actor for prepopulation.
+    description: Example of condition for the *GP CCMP Condition* profile. Represents an active gastroesophageal reflux disease condition using coded data for patient, Caterina Foreman. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   Encounter/gpccmp-foreman-caterina:
     name: Encounter - GP Chronic Care Consultation
-    description: Example of encounter for the *GP CCMP Encounter* profile. Represents a care plan development consultation encounter for patient, Caterina Foreman. This could represent a resource provided by a GPCCMP Server actor as launch context.
+    description: Example of encounter for the *GP CCMP Encounter* profile. Represents a care plan development consultation encounter for patient, Caterina Foreman. This could represent a resource provided by a GP CCMP Server actor as launch context.
     exampleBoolean: true
   Location/quinninup-medical-clinic:
     name: Location - Medical Clinic
-    description: Example of location for the *GP CCMP Location* profile. Represents a medical clinic location for Quinninup Medical Clinic. This could represent a resource provided by a GPCCMP Server actor for prepopulation.
+    description: Example of location for the *GP CCMP Location* profile. Represents a medical clinic location for Quinninup Medical Clinic. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   Medication/panadolosteo-external-foreman-caterina:
     name: Medication - Panadol Osteo External
@@ -185,63 +185,63 @@ resources:
     exampleBoolean: true
   MedicationStatement/active-panadolosteo-external-foreman-caterina:
     name: MedicationStatement - Active Panadol Osteo External
-    description: Example of medication statement for the *GP CCMP MedicationStatement* profile. Represents an active medication statement for patient, Caterina Foreman with an external medication reference to the Medication example, *Medication - Panadol Osteo External*. This could represent a resource provided by a GPCCMP Server actor for prepopulation.
+    description: Example of medication statement for the *GP CCMP MedicationStatement* profile. Represents an active medication statement for patient, Caterina Foreman with an external medication reference to the Medication example, *Medication - Panadol Osteo External*. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   MedicationStatement/active-panadolosteo-internal-foreman-caterina:
     name: MedicationStatement - Active Panadol Osteo Internal
-    description: Example of medication statement for the *GP CCMP MedicationStatement* profile. Represents an active medication statement for patient, Caterina Foreman with a internal contained medication reference. This could represent a resource provided by a GPCCMP Server actor for prepopulation.
+    description: Example of medication statement for the *GP CCMP MedicationStatement* profile. Represents an active medication statement for patient, Caterina Foreman with an internal contained medication reference. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   MedicationStatement/esomeprazole-foreman-caterina:
     name: MedicationStatement - Esomeprazole
-    description: Example of medication statement for the *GP CCMP MedicationStatement* profile. Represents a coded medication statement for patient, Caterina Foreman. This could represent a resource provided by a GPCCMP Server actor for prepopulation.
+    description: Example of medication statement for the *GP CCMP MedicationStatement* profile. Represents a coded medication statement for patient, Caterina Foreman. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   Observation/alcohol-use-foreman-caterina:
     name: Observation - Alcohol Use
-    description: Example of observation for the *GP CCMP Alcohol Use Status* profile. Represents an alcohol use observation for patient, Caterina Foreman. This could represent a resource provided by a GPCCMP Server actor for prepopulation.
+    description: Example of observation for the *GP CCMP Alcohol Use Status* profile. Represents an alcohol use observation for patient, Caterina Foreman. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   Observation/blood-pressure-foreman-caterina:
     name: Observation - Blood Pressure
-    description: Example of observation for the *GP CCMP Blood Pressure* profile. Represents a vital signs blood pressure measure for patient, Caterina Foreman. This could represent a resource provided by a GPCCMP Server actor for prepopulation.
+    description: Example of observation for the *GP CCMP Blood Pressure* profile. Represents a vital signs blood pressure measure for patient, Caterina Foreman. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   Observation/body-height-foreman-caterina:
     name: Observation - Body Height
-    description: Example of observation for the *GP CCMP Body Height* profile. Represents a vital signs body height observation for patient, Caterina Foreman. This could represent a resource provided by a GPCCMP Server actor for prepopulation.
+    description: Example of observation for the *GP CCMP Body Height* profile. Represents a vital signs body height observation for patient, Caterina Foreman. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   Observation/body-weight-foreman-caterina:
     name: Observation - Body Weight
-    description: Example of observation for the *GP CCMP Body Weight* profile. Represents a vital signs body weight observation for patient, Caterina Foreman. This could represent a resource provided by a GPCCMP Server actor for prepopulation.
+    description: Example of observation for the *GP CCMP Body Weight* profile. Represents a vital signs body weight observation for patient, Caterina Foreman. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   Observation/heart-rhythm-foreman-caterina:
     name: Observation - Heart Rhythm
-    description: Example of observation for the *GP CCMP Heart Rhythm* profile. Represents a vital signs heart rhythm observation for patient, Caterina Foreman. This could represent a resource provided by a GPCCMP Server actor for prepopulation.
+    description: Example of observation for the *GP CCMP Heart Rhythm* profile. Represents a vital signs heart rhythm observation for patient, Caterina Foreman. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   Observation/oxygen-saturation-foreman-caterina:
     name: Observation - Oxygen Saturation
-    description: Example of observation for the *GP CCMP Oxygen Saturation* profile. Represents a vital signs oxygen saturation observation for patient, Caterina Foreman. This could represent a resource provided by a GPCCMP Server actor for prepopulation.
+    description: Example of observation for the *GP CCMP Oxygen Saturation* profile. Represents a vital signs oxygen saturation observation for patient, Caterina Foreman. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   Observation/pulse-rate-foreman-caterina:
     name: Observation - Pulse Rate
-    description: Example of observation for the *GP CCMP Pulse Rate* profile. Represents a vital signs pulse rate observation for patient, Caterina Foreman. This could represent a resource provided by a GPCCMP Server actor for prepopulation.
+    description: Example of observation for the *GP CCMP Pulse Rate* profile. Represents a vital signs pulse rate observation for patient, Caterina Foreman. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   Observation/smoking-status-foreman-caterina:
     name: Observation - Smoking Status
-    description: Example of observation for the *GP CCMP Smoking Status* profile. Represents a smoking status observation for patient, Caterina Foreman. This could represent a resource provided by a GPCCMP Server actor for prepopulation.
+    description: Example of observation for the *GP CCMP Smoking Status* profile. Represents a smoking status observation for patient, Caterina Foreman. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   Observation/waist-circumference-foreman-caterina:
     name: Observation - Waist Circumference
-    description: Example of observation for the *GP CCMP Waist Circumference* profile. Represents a vital signs waist circumference observation for patient, Caterina Foreman. This could represent a resource provided by a GPCCMP Server actor for prepopulation.
+    description: Example of observation for the *GP CCMP Waist Circumference* profile. Represents a vital signs waist circumference observation for patient, Caterina Foreman. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   Patient/foreman-caterina:
     name: Patient - Caterina Foreman
-    description: Example of patient for the *GP CCMP Patient* profile. Represents a patient for Caterina Foreman. This could represent a resource provided by a GPCCMP Server actor as launch context.
+    description: Example of patient for the *GP CCMP Patient* profile. Represents a patient for Caterina Foreman. This could represent a resource provided by a GP CCMP Server actor as launch context.
     exampleBoolean: true
   Practitioner/primary-peter:
     name: Practitioner - Dr. Peter Primary
-    description: Example of practitioner for the *GP CCMP Practitioner* profile. Represents a general practitioner for Dr. Peter Primary. This could represent a resource provided by a GPCCMP Server actor as launch context.
+    description: Example of practitioner for the *GP CCMP Practitioner* profile. Represents a general practitioner for Dr. Peter Primary. This could represent a resource provided by a GP CCMP Server actor as launch context.
     exampleBoolean: true
   PractitionerRole/gp-primary-peter:
     name: PractitionerRole - General Practitioner
-    description: Example of practitioner role for the *GP CCMP PractitionerRole* profile. Represents a general practitioner role for Dr. Peter Primary. This could represent a resource provided by a GPCCMP Server actor as launch context.
+    description: Example of practitioner role for the *GP CCMP PractitionerRole* profile. Represents a general practitioner role for Dr. Peter Primary. This could represent a resource provided by a GP CCMP Server actor as launch context.
     exampleBoolean: true
   QuestionnaireResponse/gpccmp-form-foreman-caterina:
     name: QuestionnaireResponse - GP Chronic Care Form
