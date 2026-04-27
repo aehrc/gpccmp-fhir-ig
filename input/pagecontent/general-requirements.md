@@ -155,5 +155,5 @@ If the [GP CCMP Server](ActorDefinition-GPCCMPServer.html) does not have data to
        - use the appropriate exceptional concept code from the value set
 
 ##### Accepting and Processing Must Support Elements With Missing Data
-A [GP CCMP Client](ActorDefinition-GPCCMPClient.html) **SHALL** be able to accept resource instances containing data elements asserting missing data without error. This is *except* for when the *Must Support* element has an [GP CCMP Client](ActorDefinition-GPCCMPClient.html) obligation of `SHALL:process` and a [GP CCMP Server](ActorDefinition-GPCCMPServer.html) obligation of `SHALL:populate`, where the [GP CCMP Client](ActorDefinition-GPCCMPClient.html) **MAY** report an error due to not being able to perform the prepropulation process.
+A [GP CCMP Client](ActorDefinition-GPCCMPClient.html) **SHALL** be able to accept resource instances containing data elements asserting missing data without error. This is *except* for when the *Must Support* element has a [GP CCMP Client](ActorDefinition-GPCCMPClient.html) obligation of `SHALL:process` and a [GP CCMP Server](ActorDefinition-GPCCMPServer.html) obligation of `SHALL:populate`, where the [GP CCMP Client](ActorDefinition-GPCCMPClient.html) **MAY** report an error due to not being able to perform the prepropulation process.
 
