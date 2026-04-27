@@ -211,7 +211,7 @@ Description: "This profile sets the minimum expectations for a Practitioner reso
 Profile: GPCCMPPractitionerRole
 Parent: $au-core-practitionerrole
 Id: GPCCMPPractitionerRole
-Title: "GP CCMP Practitioner Role"
+Title: "GP CCMP PractitionerRole"
 Description: "This profile sets the minimum expectations for a PractitionerRole resource to retrieve, search and record practitioner role information when used within the GP Chronic Condition Management Plan."
 * id MS
 * id insert obligationServer (0, SHALL:populate)
