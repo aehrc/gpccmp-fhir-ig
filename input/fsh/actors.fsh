@@ -1,7 +1,7 @@
 Instance: GPCCMPClient
 InstanceOf: ActorDefinition
 Usage: #definition
-Description: "The GP CCMP Client is a system that can display the GPCCPM form, prepopulate it with patient health information retrieved from the GP CCMP Server, allow a user to fill out the form and save the form to the GP CCMP Server."
+Description: "The GP CCMP Client is a system that can display the GP CCMP form, prepopulate it with patient health information retrieved from the GP CCMP Server, allow a user to fill out the form and save the form to the GP CCMP Server."
 
 * name = "GPCCMPClient"
 * title = "GP CCMP Client"
