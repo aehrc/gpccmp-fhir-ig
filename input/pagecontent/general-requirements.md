@@ -21,7 +21,7 @@ The [capability statement](capability-statements.html) page lists the capability
 In FHIR, resources are commonly exchanged in multiple formats including JSON and XML. At a minimum JSON **SHALL** be supported. 
 
 ### Profile and Interaction Support
-The GPCCMP systems support the GPCCMP *profiles* to represent clinical information and the GPCCMP REST API *interactions* to access that information. Therefore, the [GP CCMP Server](ActorDefinition-GPCCMPServer.html) must implement and support GPCCMP profiles AND interactions to be compatible with a [GP CCMP Client](ActorDefinition-GPCCMPClient.html).
+The GPCCMP systems support the GPCCMP *profiles* to represent clinical information and the GPCCMP REST API *interactions* to access that information. Therefore, the [GP CCMP Server](ActorDefinition-GPCCMPServer.html) **SHALL** implement and support GPCCMP profiles AND interactions to be compatible with a [GP CCMP Client](ActorDefinition-GPCCMPClient.html).
 
 #### Profile Support
 Profile support refers to the support of the GPCCMP profiles, such that the system exposes FHIR resources that adhere to the GPCCMP profiles' content model. Specifically, a [GP CCMP Server](ActorDefinition-GPCCMPServer.html) with GPCCMP profile support:
