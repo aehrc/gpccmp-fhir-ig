@@ -5,4 +5,4 @@ The following are supported usage scenarios for this profile:
 
 ### Profile Specific Implementation Guidance
 
-Medication resources **MAY** be used to represent medication detail when referenced from a [GP CCMP MedicationStatement](StructureDefinition-GPCCMPMedicationStatement.html) resource. [GPCCMP Server](ActorDefinition-GPCCMPServer.html) actors that represent medication detail with an external reference to a Medication resource **SHALL** support returning Medication resources in response to a MedicationStatement search with `_include=MedicationStatement:medication`.
+Medication resources **MAY** be used to represent medication detail when referenced from a [GP CCMP MedicationStatement](StructureDefinition-GPCCMPMedicationStatement.html) resource. [GP CCMP Server](ActorDefinition-GPCCMPServer.html) actors that represent medication detail with an external reference to a Medication resource **SHALL** support returning Medication resources in response to a MedicationStatement search with `_include=MedicationStatement:medication`.

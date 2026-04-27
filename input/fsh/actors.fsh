@@ -1,14 +1,14 @@
 Instance: GPCCMPClient
 InstanceOf: ActorDefinition
 Usage: #definition
-Description: "The GPCCMP Client is a system that can display the GPCCPM form, prepopulate it with patient health information retrieved from the GPCCMP Server, allow a user to fill out the form and save the form to the GPCCMP Server."
+Description: "The GP CCMP Client is a system that can display the GPCCPM form, prepopulate it with patient health information retrieved from the GP CCMP Server, allow a user to fill out the form and save the form to the GP CCMP Server."
 
 * name = "GPCCMPClient"
-* title = "GPCCMP Client"
+* title = "GP CCMP Client"
 * status = #draft
 * experimental = false
 * type = #system
-* documentation = """The GPCCMP Client: 
+* documentation = """The GP CCMP Client: 
 - **SHALL** invoke read Patient request
 - **SHALL** invoke read Practitioner request
 - **SHALL** invoke read PractitionerRole request
@@ -24,13 +24,13 @@ Description: "The GPCCMP Client is a system that can display the GPCCPM form, pr
 Instance: GPCCMPServer
 InstanceOf: ActorDefinition
 Usage: #definition
-Description: "The GPCCMP Server allows the GPCCMP Client to retrieve patient health information and writeback completed or partially completed forms."
+Description: "The GP CCMP Server allows the GP CCMP Client to retrieve patient health information and writeback completed or partially completed forms."
 * name = "GPCCMPServer"
-* title = "GPCCMP Server"
+* title = "GP CCMP Server"
 * status = #draft
 * experimental = false
 * type = #system
-* documentation = """The GPCCMP Server: 
+* documentation = """The GP CCMP Server: 
 - **SHALL** respond to read Patient request
 - **SHALL** respond to read Practitioner request
 - **SHALL** respond to read PractitionerRole request

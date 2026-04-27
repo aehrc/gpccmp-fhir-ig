@@ -2,7 +2,7 @@ Instance: GPCCMPServerCapabilityStatement
 InstanceOf: CapabilityStatement
 Usage: #definition
 * name = "GPCCMPServerCapabilityStatement"
-* title = "GPCCMP Server Capability Statement"
+* title = "GP CCMP Server Capability Statement"
 * description = "This CapabilityStatement describes the expected capabilities for systems to exchange the data needed to support the [GP Chronic Condition Management Plan](Questionnaire-GPChronicConditionManagementPlan.html). It lists the server's conformance expectations for the resource types required as Questionnaire launch context, resource types required to support prepopulation of the form and QuestionnaireResponse requirements for managing form responses. These expectations include supported FHIR profiles, RESTful operations, and search parameters."
 * status = #draft
 * experimental = false
@@ -386,7 +386,7 @@ Instance: GPCCMPClientCapabilityStatement
 InstanceOf: CapabilityStatement
 Usage: #definition
 * name = "GPCCMPClientCapabilityStatement"
-* title = "GPCCMP Client Capability Statement"
+* title = "GP CCMP Client Capability Statement"
 * description = "This CapabilityStatement describes the expected capabilities for systems to exchange the data needed to support the [GP Chronic Condition Management Plan](Questionnaire-GPChronicConditionManagementPlan.html). It lists the client's conformance expectations for the resource types required as Questionnaire launch context, resource types required to support prepopulation of the form and QuestionnaireResponse requirements for managing form responses. These expectations include supported FHIR profiles, RESTful operations, and search parameters."
 * status = #draft
 * experimental = false
