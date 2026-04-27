@@ -189,7 +189,7 @@ resources:
     exampleBoolean: true
   MedicationStatement/active-panadolosteo-internal-foreman-caterina:
     name: MedicationStatement - Active Panadol Osteo Internal
-    description: Example of medication statement for the *GP CCMP MedicationStatement* profile. Represents an active medication statement for patient, Caterina Foreman with a internal contained medication reference. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
+    description: Example of medication statement for the *GP CCMP MedicationStatement* profile. Represents an active medication statement for patient, Caterina Foreman with an internal contained medication reference. This could represent a resource provided by a GP CCMP Server actor for prepopulation.
     exampleBoolean: true
   MedicationStatement/esomeprazole-foreman-caterina:
     name: MedicationStatement - Esomeprazole
