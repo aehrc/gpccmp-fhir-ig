@@ -50,7 +50,7 @@ This guide is divided into several pages which are listed at the top of each pag
 - [Home](index.html): This page provides the introduction and scope for this guide.
 - Guidance
   - [General Requirements](general-requirements.html): This page documents how CapabilityStatements declare conformance to profiles and their FHIR interactions. It also defines the expectations for mandatory and *Must Support* elements.
-  - [Implementation Considerations](implementation-considerations.html): This page provides guidance on implementation considerations for systems implementing the GPCCMP actors, including clinical workflow and design decisions for the GP CCMP Client.
+  - [Implementation Considerations](implementation-considerations.html): This page provides guidance on implementation considerations for systems implementing the GP CCMP actors, including clinical workflow and design decisions for the GP CCMP Client.
 - FHIR Artefacts: These pages provide detailed descriptions and formal definitions for all the FHIR artefacts defined in this guide.
   - [Artefact Summary](artifacts.html): This page lists all of the FHIR artefacts defined in this guide.
   - [Questionnaires](questionnaires.html): This page lists all of the Questionnaire resources defined in this guide.
