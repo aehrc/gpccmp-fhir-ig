@@ -93,6 +93,7 @@ menu:
   Home: index.html
   Guidance:
       General Requirements: general-requirements.html
+      Implementation Considerations: implementation-considerations.html
   FHIR Artefacts:
       Artefact Summary: artifacts.html
       Questionnaires: questionnaires.html

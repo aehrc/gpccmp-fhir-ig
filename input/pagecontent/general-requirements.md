@@ -1,4 +1,3 @@
-### General Requirements
 Systems compatible with the GP Chronic Condition Management Plan (GPCCMP) are required to support healthcare client and provider information conforming to profiles, AND implement the interaction requirements of relevant actor's capability statements defined in this implementation guide.
 
 The requirements of the FHIR standard and [FHIR Conformance Rules](http://hl7.org/fhir/conformance-rules.html) apply, and define the conformance verbs - **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**, **MAY**.
