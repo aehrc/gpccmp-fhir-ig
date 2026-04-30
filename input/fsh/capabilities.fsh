@@ -332,7 +332,7 @@ The server **SHALL** support both."
 * rest.resource[=].supportedProfile[+] = Canonical(GPCCMPQuestionnaireResponse)
 * rest.resource[=].supportedProfile[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].supportedProfile[=].extension[0].valueCode = #SHALL
-* rest.resource[=].documentation = "The server **SHALL** support the QuestionnaireResponse resource, SDC profile and the conformance expectations for the QuestionnaireResponse resource."
+* rest.resource[=].documentation = "The server **SHALL** support the QuestionnaireResponse resource, SDC profile and the conformance expectations for the QuestionnaireResponse resource. The server **SHALL** support versioned updates to QuestionnaireResponse resources."
 * rest.resource[=].interaction[+].code = #read
 * rest.resource[=].interaction[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].interaction[=].extension[0].valueCode = #SHALL
@@ -345,7 +345,7 @@ The server **SHALL** support both."
 * rest.resource[=].interaction[+].code = #update
 * rest.resource[=].interaction[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].interaction[=].extension[0].valueCode = #SHALL
-* rest.resource[=].versioning = #versioned-update
+* rest.resource[=].versioning = #versioned
 * rest.resource[=].versioning.extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].versioning.extension[0].valueCode = #SHALL
 * rest.resource[=].searchParam[+].name = "patient"
@@ -714,7 +714,7 @@ The server **SHALL** support both."
 * rest.resource[=].supportedProfile[+] = Canonical(GPCCMPQuestionnaireResponse)
 * rest.resource[=].supportedProfile[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].supportedProfile[=].extension[0].valueCode = #SHALL
-* rest.resource[=].documentation = "The client **SHALL** support the QuestionnaireResponse resource, SDC profile and the conformance expectations for the QuestionnaireResponse resource."
+* rest.resource[=].documentation = "The client **SHALL** support the QuestionnaireResponse resource, SDC profile and the conformance expectations for the QuestionnaireResponse resource. The client **SHALL** support versioned updates to QuestionnaireResponse resources."
 * rest.resource[=].interaction[+].code = #read
 * rest.resource[=].interaction[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].interaction[=].extension[0].valueCode = #SHALL
@@ -727,7 +727,7 @@ The server **SHALL** support both."
 * rest.resource[=].interaction[+].code = #update
 * rest.resource[=].interaction[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].interaction[=].extension[0].valueCode = #SHALL
-* rest.resource[=].versioning = #versioned-update
+* rest.resource[=].versioning = #versioned
 * rest.resource[=].versioning.extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].versioning.extension[0].valueCode = #SHALL
 * rest.resource[=].searchParam[+].name = "patient"
