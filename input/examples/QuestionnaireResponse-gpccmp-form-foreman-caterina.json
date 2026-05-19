@@ -1233,7 +1233,7 @@
           "text": "Plan",
           "item": [
             {
-              "linkId": "plandetails-inprogress",
+              "linkId": "plan-inprogress",
               "text": "Incomplete draft plan already exists?",
               "answer": [
                 {
