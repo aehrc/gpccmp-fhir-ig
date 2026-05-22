@@ -6,14 +6,22 @@
       "https://gpccmp.csiro.au/ig/StructureDefinition/GPCCMPQuestionnaireResponse"
     ]
   },
-  "questionnaire": "http://www.health.gov.au/assessments/GPChronicConditionManagementPlan",
+  "questionnaire": "http://www.health.gov.au/assessments/GPChronicConditionManagementPlan|0.1.0",
+  "_questionnaire": {
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/StructureDefinition/display",
+        "valueString": "GP Chronic Condition Management Plan"
+      }
+    ]
+  },
   "status": "in-progress",
   "subject": {
     "reference": "Patient/foreman-caterina",
     "type": "Patient",
     "display": "Caterina FOREMAN"
   },
-  "authored": "2026-03-09T13:10:27+10:00",
+  "authored": "2026-05-20T12:15:32+10:00",
   "author": {
     "reference": "Practitioner/primary-peter",
     "type": "Practitioner",
@@ -118,6 +126,44 @@
                     "code": "4",
                     "display": "Neither Aboriginal nor Torres Strait Islander origin"
                   }
+                }
+              ]
+            },
+            {
+              "linkId": "patient-myagedcare",
+              "text": "My Aged Care",
+              "item": [
+                {
+                  "linkId": "patient-myagedcare-registered",
+                  "text": "Registered for My Aged Care",
+                  "answer": [
+                    {
+                      "valueCoding": {
+                        "system": "http://terminology.hl7.org/CodeSystem/v2-0532",
+                        "code": "N",
+                        "display": "No"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "patient-ndis",
+              "text": "National Disability Insurance Scheme",
+              "item": [
+                {
+                  "linkId": "patient-ndis-registered",
+                  "text": "Registered for NDIS",
+                  "answer": [
+                    {
+                      "valueCoding": {
+                        "system": "http://terminology.hl7.org/CodeSystem/v2-0532",
+                        "code": "N",
+                        "display": "No"
+                      }
+                    }
+                  ]
                 }
               ]
             },
@@ -238,6 +284,108 @@
                   ]
                 }
               ]
+            },
+            {
+              "linkId": "patient-contacts",
+              "text": "Carers and key contacts",
+              "item": [
+                {
+                  "linkId": "patient-contacts-preferred",
+                  "text": "Preferred contact",
+                  "answer": [
+                    {
+                      "valueBoolean": true
+                    }
+                  ]
+                },
+                {
+                  "linkId": "patient-contacts-role",
+                  "text": "Role",
+                  "answer": [
+                    {
+                      "valueCoding": {
+                        "system": "http://terminology.hl7.org/CodeSystem/v2-0131",
+                        "code": "CP",
+                        "display": "Contact person"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "133932002",
+                        "display": "Carer"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "patient-contacts-name",
+                  "text": "Name",
+                  "answer": [
+                    {
+                      "valueString": "Mia LEANNE BANKS"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "patient-contacts-phone",
+                  "text": "Phone",
+                  "answer": [
+                    {
+                      "valueString": "0270107520"
+                    },
+                    {
+                      "valueString": "0491574632"
+                    },
+                    {
+                      "valueString": "0270102724"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "patient-contacts",
+              "text": "Carers and key contacts",
+              "item": [
+                {
+                  "linkId": "patient-contacts-role",
+                  "text": "Role",
+                  "answer": [
+                    {
+                      "valueCoding": {
+                        "system": "http://terminology.hl7.org/CodeSystem/v2-0131",
+                        "code": "C",
+                        "display": "Emergency Contact"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "patient-contacts-name",
+                  "text": "Name",
+                  "answer": [
+                    {
+                      "valueString": "Heather MACKAY"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "patient-contacts-phone",
+                  "text": "Phone",
+                  "answer": [
+                    {
+                      "valueString": "0370108075"
+                    },
+                    {
+                      "valueString": "0491578148"
+                    },
+                    {
+                      "valueString": "0370103228"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -250,7 +398,7 @@
               "text": "Name",
               "answer": [
                 {
-                  "id": "practitioner-name-calculatedExpression-F2BRILo92ml4xZ6O1o6HH",
+                  "id": "practitioner-name-calculatedExpression-I2HktvbPF4s_bsI_ikeUU",
                   "valueString": "Peter Primary"
                 }
               ]
@@ -260,7 +408,7 @@
               "text": "Phone",
               "answer": [
                 {
-                  "id": "practitioner-phone-calculatedExpression-L59yX9cO6DYFpwoE04nY4",
+                  "id": "practitioner-phone-calculatedExpression-0CFhQF7S2MZIaNMI8KHDi",
                   "valueString": "(08) 7010 5556"
                 }
               ]
@@ -270,7 +418,7 @@
               "text": "Email",
               "answer": [
                 {
-                  "id": "practitioner-email-calculatedExpression-fy4tkkhIaG8QQMNcC99JL",
+                  "id": "practitioner-email-calculatedExpression-ijRlMIFxoLejBqR7WGycd",
                   "valueString": "PPP@example.org"
                 }
               ]
@@ -280,8 +428,69 @@
               "text": "Medicare provider number",
               "answer": [
                 {
-                  "id": "practitioner-medicareprovidernumber-calculatedExpression-hb_z1zBKlCoth4P5mbZkJ",
+                  "id": "practitioner-medicareprovidernumber-calculatedExpression-kX3dpnd7_y0B0g0qByM1g",
                   "valueString": "2426621B"
+                }
+              ]
+            },
+            {
+              "linkId": "practitioner-clinicdetails",
+              "text": "Clinic details",
+              "item": [
+                {
+                  "linkId": "practitioner-clinicdetails-name",
+                  "text": "Name",
+                  "answer": [
+                    {
+                      "id": "practitioner-clinicdetails-name-calculatedExpression-Dnx0rTsXIjckS_lOjj4Mo"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "practitioner-clinicdetails-address",
+                  "text": "Address",
+                  "item": [
+                    {
+                      "linkId": "practitioner-clinicdetails-address-streetaddress",
+                      "text": "Street address",
+                      "answer": [
+                        {
+                          "valueString": "24 Grande Pl"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "practitioner-clinicdetails-address-city",
+                      "text": "City",
+                      "answer": [
+                        {
+                          "valueString": "Quinninup"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "practitioner-clinicdetails-address-state",
+                      "text": "State",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-states-territories-1",
+                            "code": "WA",
+                            "display": "Western Australia"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "practitioner-clinicdetails-address-postcode",
+                      "text": "Postcode",
+                      "answer": [
+                        {
+                          "valueString": "6258"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -389,7 +598,7 @@
                           "valueCoding": {
                             "system": "http://snomed.info/sct",
                             "code": "443694000",
-                            "display": "Type 2 diabetes mellitus uncontrolled"
+                            "display": "Uncontrolled type 2 diabetes"
                           }
                         }
                       ]
@@ -417,7 +626,7 @@
                           "valueCoding": {
                             "system": "http://snomed.info/sct",
                             "code": "424736006",
-                            "display": "Diabetic peripheral neuropathy"
+                            "display": "Peripheral neuropathy due to diabetes"
                           }
                         }
                       ]
@@ -592,61 +801,8 @@
                         {
                           "valueCoding": {
                             "system": "http://snomed.info/sct",
-                            "code": "5848011000036106",
-                            "display": "Panadol Osteo 665 mg modified release tablet"
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "linkId": "clinicaldetails-medications-recordedmedications-status",
-                      "text": "Status",
-                      "answer": [
-                        {
-                          "valueCoding": {
-                            "system": "http://hl7.org/fhir/CodeSystem/medication-statement-status",
-                            "code": "active",
-                            "display": "Active"
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "linkId": "clinicaldetails-medications-recordedmedications-dosage",
-                      "text": "Dosage",
-                      "answer": [
-                        {
-                          "valueString": "2 tabs PRN/TDS"
-                        }
-                      ]
-                    },
-                    {
-                      "linkId": "clinicaldetails-medications-recordedmedications-indication",
-                      "text": "Indication",
-                      "answer": [
-                        {
-                          "valueCoding": {
-                            "system": "http://snomed.info/sct",
-                            "code": "278860009",
-                            "display": "Chronic lower back pain"
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "linkId": "clinicaldetails-medications-recordedmedications",
-                  "text": "Recorded medications",
-                  "item": [
-                    {
-                      "linkId": "clinicaldetails-medications-recordedmedications-medication",
-                      "text": "Medication",
-                      "answer": [
-                        {
-                          "valueCoding": {
-                            "system": "http://snomed.info/sct",
-                            "code": "682641000168107"
+                            "code": "682641000168107",
+                            "display": "Esomeprazole 20 mg enteric capsule"
                           }
                         }
                       ]
@@ -728,11 +884,11 @@
                       "text": "Indication",
                       "answer": [
                         {
-                          "id": "clinicaldetails-medications-newmedications-indication-repeat-WwcfY69K7gXKwXGjmkaKN",
+                          "id": "clinicaldetails-medications-newmedications-indication-repeat-gXGDcl_GVQjMVeCu7AXYA",
                           "valueCoding": {
                             "system": "http://snomed.info/sct",
                             "code": "443694000",
-                            "display": "Type 2 diabetes mellitus uncontrolled"
+                            "display": "Uncontrolled type 2 diabetes"
                           }
                         }
                       ]
@@ -820,8 +976,8 @@
                           "text": "New result date",
                           "answer": [
                             {
-                              "id": "clinicaldetails-observations-maingrid-height-newresultdate-calculatedExpression-k2w8T76BwMTHBVlbvticH",
-                              "valueDate": "2026-03-09"
+                              "id": "clinicaldetails-observations-maingrid-height-newresultdate-calculatedExpression-G-PqrbqFmUoSDIvKwtvQk",
+                              "valueDate": "2026-05-20"
                             }
                           ]
                         }
@@ -861,8 +1017,8 @@
                           "text": "New result date",
                           "answer": [
                             {
-                              "id": "clinicaldetails-observations-maingrid-weight-newresultdate-calculatedExpression-486zdKU3UDFV9I9YtAzjA",
-                              "valueDate": "2026-03-09"
+                              "id": "clinicaldetails-observations-maingrid-weight-newresultdate-calculatedExpression-E2KCeSndhsAMpBRkhItaY",
+                              "valueDate": "2026-05-20"
                             }
                           ]
                         }
@@ -885,7 +1041,7 @@
                           "text": "New result",
                           "answer": [
                             {
-                              "id": "clinicaldetails-observations-maingrid-bmi-newresultvalue-calculatedExpression-Lxabqtd4SZRSneBSwuGia",
+                              "id": "clinicaldetails-observations-maingrid-bmi-newresultvalue-calculatedExpression-2zn3_1PhveAMsnb8XzZWs",
                               "valueDecimal": 27.6
                             }
                           ]
@@ -926,8 +1082,8 @@
                           "text": "New result date",
                           "answer": [
                             {
-                              "id": "clinicaldetails-observations-maingrid-waistcircumference-newdate-calculatedExpression-iX5j5lBgCcxm2dxiaCPGs",
-                              "valueDate": "2026-03-09"
+                              "id": "clinicaldetails-observations-maingrid-waistcircumference-newdate-calculatedExpression-_yNIOBArs6YKsNYyrNcDp",
+                              "valueDate": "2026-05-20"
                             }
                           ]
                         }
@@ -967,8 +1123,8 @@
                           "text": "New result date",
                           "answer": [
                             {
-                              "id": "clinicaldetails-observations-maingrid-pulserate-newresultdate-calculatedExpression-cPL4gu3d2BWLOBGo52DtA",
-                              "valueDate": "2026-03-09"
+                              "id": "clinicaldetails-observations-maingrid-pulserate-newresultdate-calculatedExpression-_MMSXW9RWMhNTsVe8AHhl",
+                              "valueDate": "2026-05-20"
                             }
                           ]
                         }
@@ -1016,8 +1172,8 @@
                           "text": "New result date",
                           "answer": [
                             {
-                              "id": "clinicaldetails-observations-maingrid-pulserhythm-newresultdate-calculatedExpression-dgSCTpArvpUru2J58XgLW",
-                              "valueDate": "2026-03-09"
+                              "id": "clinicaldetails-observations-maingrid-pulserhythm-newresultdate-calculatedExpression-3tdL2oiNxQNlg6xTXXH5l",
+                              "valueDate": "2026-05-20"
                             }
                           ]
                         }
@@ -1057,8 +1213,8 @@
                           "text": "New result date",
                           "answer": [
                             {
-                              "id": "clinicaldetails-observations-maingrid-oxygensaturation-newresultdate-calculatedExpression-EHZZpJ3_aKftPSgMCAW2M",
-                              "valueDate": "2026-03-09"
+                              "id": "clinicaldetails-observations-maingrid-oxygensaturation-newresultdate-calculatedExpression-ZFK-ib6Nx-gVO0cip0gNl",
+                              "valueDate": "2026-05-20"
                             }
                           ]
                         }
@@ -1121,8 +1277,8 @@
                           "text": "Date performed",
                           "answer": [
                             {
-                              "id": "clinicaldetails-observations-bpgrid-bp-newresultdate-calculatedExpression-DrfndEi0lYOSNikSX1k88",
-                              "valueDate": "2026-03-09"
+                              "id": "clinicaldetails-observations-bpgrid-bp-newresultdate-calculatedExpression-hSUs5NwKSciQM8avwk8Mi",
+                              "valueDate": "2026-05-20"
                             }
                           ]
                         }
@@ -1163,7 +1319,7 @@
                           "text": "New status date",
                           "answer": [
                             {
-                              "id": "clinicaldetails-observations-substanceusegrid-smokingstatus-newresultdate-calculatedExpression-ChphPRAMHlBUt_ACXcBpk"
+                              "id": "clinicaldetails-observations-substanceusegrid-smokingstatus-newresultdate-calculatedExpression-Sj-bt67-UWdSGgQtBFAin"
                             }
                           ]
                         },
@@ -1172,7 +1328,7 @@
                           "text": "Comment",
                           "answer": [
                             {
-                              "valueString": "Smoking - 20 cigarettes per day since 17yo"
+                              "valueString": "20 cigarettes per day since 17yo"
                             }
                           ]
                         }
@@ -1207,7 +1363,7 @@
                           "text": "New status date",
                           "answer": [
                             {
-                              "id": "clinicaldetails-observations-substanceusegrid-alcoholstatus-newresultdate-calculatedExpression-PgssMavx2sHIWJw_aHhak"
+                              "id": "clinicaldetails-observations-substanceusegrid-alcoholstatus-newresultdate-calculatedExpression-9auxhCT4j2_56XfCgVGVn"
                             }
                           ]
                         },
@@ -1216,13 +1372,22 @@
                           "text": "Comment",
                           "answer": [
                             {
-                              "valueString": "2 drinks, 2 days per week (on weekends"
+                              "valueString": "2 drinks, 2 days per week (on weekends)"
                             }
                           ]
                         }
                       ]
                     }
                   ]
+                }
+              ]
+            },
+            {
+              "linkId": "clinicaldetails-observations-additionalinformation",
+              "text": "Additional information",
+              "answer": [
+                {
+                  "valueString": "Family history: Mother - diabetes, stroke; Father - heart attack, depression; Paternal grandmother - breast cancer\nWork: Receptionist in building business"
                 }
               ]
             }
@@ -1232,6 +1397,15 @@
           "linkId": "plan",
           "text": "Plan",
           "item": [
+            {
+              "linkId": "plan-type",
+              "text": "New plan or a review of an existing plan?",
+              "answer": [
+                {
+                  "valueString": "New"
+                }
+              ]
+            },
             {
               "linkId": "plan-inprogress",
               "text": "Incomplete draft plan already exists?",
@@ -1253,7 +1427,7 @@
                       "valueCoding": {
                         "system": "http://snomed.info/sct",
                         "code": "443694000",
-                        "display": "Type 2 diabetes mellitus uncontrolled"
+                        "display": "Uncontrolled type 2 diabetes"
                       }
                     }
                   ]
@@ -1362,31 +1536,31 @@
                   "text": "Problems/Needs",
                   "answer": [
                     {
-                      "id": "plan-goalstasks-problemneed-repeat-WUTBR95itEuICchXC1O5q",
+                      "id": "plan-goalstasks-problemneed-repeat-Sr9JIDYmhKLPJ6An9exHM",
                       "valueCoding": {
                         "system": "http://snomed.info/sct",
                         "code": "443694000",
-                        "display": "Type 2 diabetes mellitus uncontrolled"
+                        "display": "Uncontrolled type 2 diabetes"
                       }
                     },
                     {
-                      "id": "plan-goalstasks-problemneed-repeat-QQBgCwz6cWxNViIgZR2Uh",
+                      "id": "plan-goalstasks-problemneed-repeat-SEwMPioQ72kX-AYelOqvH",
                       "valueCoding": {
                         "system": "http://snomed.info/sct",
-                        "code": "235595009",
-                        "display": "Gastro-oesophageal reflux disease"
+                        "code": "80394007",
+                        "display": "Hyperglycaemia"
                       }
                     },
                     {
-                      "id": "plan-goalstasks-problemneed-repeat-ObUstinPvtEK7Jzk9Rmz3",
+                      "id": "plan-goalstasks-problemneed-repeat-rQ5fyiwTTHDWZKLnrZbIv",
                       "valueCoding": {
                         "system": "http://snomed.info/sct",
-                        "code": "278860009",
-                        "display": "Chronic lower back pain"
+                        "code": "424736006",
+                        "display": "Peripheral neuropathy due to diabetes"
                       }
                     },
                     {
-                      "id": "plan-goalstasks-problemneed-repeat-fXuutGspV6Zc8ZnKjOLYk",
+                      "id": "plan-goalstasks-problemneed-repeat-FzJSY57DfMsFzBuNXmVUT",
                       "valueCoding": {
                         "system": "http://snomed.info/sct",
                         "code": "238131007",
@@ -1404,7 +1578,7 @@
                       "text": "Goals",
                       "answer": [
                         {
-                          "valueString": "5-10% weight loss (target weight 73.8-77.9kg) and decrease waist circumference (long term target <80cm)"
+                          "valueString": "Controlled diabetes - aim HbA1c ≤7.0 and fasting BGL 4.0-7.0"
                         }
                       ]
                     },
@@ -1422,7 +1596,7 @@
                       "text": "Target date",
                       "answer": [
                         {
-                          "valueDate": "2027-02-24"
+                          "valueDate": "2027-05-20"
                         }
                       ]
                     },
@@ -1452,8 +1626,58 @@
                         {
                           "valueCoding": {
                             "system": "http://snomed.info/sct",
-                            "code": "183065007",
-                            "display": "Low carbohydrate diet education"
+                            "code": "6143009",
+                            "display": "Diabetic education"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina, diabetes educator"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-targetdate",
+                      "text": "Target date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-20"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/resource-status",
+                            "code": "active",
+                            "display": "active"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "11816003",
+                            "display": "Diet education"
                           }
                         }
                       ]
@@ -1468,11 +1692,24 @@
                       ]
                     },
                     {
-                      "linkId": "plan-goalstasks-details-interventionsactions-duedate",
-                      "text": "Due date",
+                      "linkId": "plan-goalstasks-details-interventionsactions-targetdate",
+                      "text": "Target date",
                       "answer": [
                         {
-                          "valueDate": "2026-05-24"
+                          "valueDate": "2026-08-20"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/resource-status",
+                            "code": "active",
+                            "display": "active"
+                          }
                         }
                       ]
                     }
@@ -1487,73 +1724,7 @@
                       "text": "Interventions/Actions",
                       "answer": [
                         {
-                          "valueString": "Reduce ratio of carbohydrates in each meal - ¼ plate carbs, ¼ plate protein, ½ plate vegetables/salad"
-                        }
-                      ]
-                    },
-                    {
-                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
-                      "text": "Owner",
-                      "answer": [
-                        {
-                          "valueString": "Caterina"
-                        }
-                      ]
-                    },
-                    {
-                      "linkId": "plan-goalstasks-details-interventionsactions-duedate",
-                      "text": "Due date",
-                      "answer": [
-                        {
-                          "valueDate": "2026-05-24"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "linkId": "plan-goalstasks-details-interventionsactions",
-                  "text": "Interventions and actions",
-                  "item": [
-                    {
-                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
-                      "text": "Interventions/Actions",
-                      "answer": [
-                        {
-                          "valueString": "Substitute high GI for low GI carbohydrates where possible"
-                        }
-                      ]
-                    },
-                    {
-                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
-                      "text": "Owner",
-                      "answer": [
-                        {
-                          "valueString": "Caterina"
-                        }
-                      ]
-                    },
-                    {
-                      "linkId": "plan-goalstasks-details-interventionsactions-duedate",
-                      "text": "Due date",
-                      "answer": [
-                        {
-                          "valueDate": "2026-05-24"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "linkId": "plan-goalstasks-details-interventionsactions",
-                  "text": "Interventions and actions",
-                  "item": [
-                    {
-                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
-                      "text": "Interventions/Actions",
-                      "answer": [
-                        {
-                          "valueString": "Physical activity guidance"
+                          "valueString": "Exercise regime"
                         }
                       ]
                     },
@@ -1567,110 +1738,24 @@
                       ]
                     },
                     {
-                      "linkId": "plan-goalstasks-details-interventionsactions-duedate",
-                      "text": "Due date",
+                      "linkId": "plan-goalstasks-details-interventionsactions-targetdate",
+                      "text": "Target date",
                       "answer": [
                         {
-                          "valueDate": "2026-08-24"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "linkId": "plan-goalstasks-details-interventionsactions",
-                  "text": "Interventions and actions",
-                  "item": [
-                    {
-                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
-                      "text": "Interventions/Actions",
-                      "answer": [
-                        {
-                          "valueString": "Aim for 150 mins of aerobic activity per week"
+                          "valueDate": "2026-11-20"
                         }
                       ]
                     },
                     {
-                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
-                      "text": "Owner",
+                      "linkId": "plan-goalstasks-details-interventionsactions-status",
+                      "text": "Status",
                       "answer": [
                         {
-                          "valueString": "Caterina"
-                        }
-                      ]
-                    },
-                    {
-                      "linkId": "plan-goalstasks-details-interventionsactions-duedate",
-                      "text": "Due date",
-                      "answer": [
-                        {
-                          "valueDate": "2026-08-24"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "linkId": "plan-goalstasks-details-interventionsactions",
-                  "text": "Interventions and actions",
-                  "item": [
-                    {
-                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
-                      "text": "Interventions/Actions",
-                      "answer": [
-                        {
-                          "valueString": "2-3 sessions of resistance exercise per week"
-                        }
-                      ]
-                    },
-                    {
-                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
-                      "text": "Owner",
-                      "answer": [
-                        {
-                          "valueString": "Caterina"
-                        }
-                      ]
-                    },
-                    {
-                      "linkId": "plan-goalstasks-details-interventionsactions-duedate",
-                      "text": "Due date",
-                      "answer": [
-                        {
-                          "valueDate": "2026-08-24"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "linkId": "plan-goalstasks-details-interventionsactions",
-                  "text": "Interventions and actions",
-                  "item": [
-                    {
-                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
-                      "text": "Interventions/Actions",
-                      "answer": [
-                        {
-                          "valueString": "Management of impulse control"
-                        }
-                      ]
-                    },
-                    {
-                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
-                      "text": "Owner",
-                      "answer": [
-                        {
-                          "valueString": "Caterina"
-                        }
-                      ]
-                    },
-                    {
-                      "linkId": "plan-goalstasks-details-interventionsactions-duedate",
-                      "text": "Due date",
-                      "answer": [
-                        {
-                          "valueDate": "2026-08-24"
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/resource-status",
+                            "code": "active",
+                            "display": "active"
+                          }
                         }
                       ]
                     },
@@ -1679,7 +1764,304 @@
                       "text": "Comment",
                       "answer": [
                         {
-                          "valueString": "Manage impulsivity/desire to eat when not actually hungry. Consider psychology input in future."
+                          "valueString": "Aim for 150 mins moderate physical activity per week"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueString": "Weight management program"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina, GP"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-targetdate",
+                      "text": "Target date",
+                      "answer": [
+                        {
+                          "valueDate": "2027-05-20"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/resource-status",
+                            "code": "active",
+                            "display": "active"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-comment",
+                      "text": "Comment",
+                      "answer": [
+                        {
+                          "valueString": "Aim for 5-10% weight loss, waist circumference <80cm"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueString": "Diabetes medicine review"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina, GP, pharmacist"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-targetdate",
+                      "text": "Target date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-20"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/resource-status",
+                            "code": "active",
+                            "display": "active"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-comment",
+                      "text": "Comment",
+                      "answer": [
+                        {
+                          "valueString": "Consider Home Medicines Review in 3-6 months"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "1340186004",
+                            "display": "Metformin therapy"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina, GP, pharmacist"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-targetdate",
+                      "text": "Target date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-06-03"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/resource-status",
+                            "code": "active",
+                            "display": "active"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueString": "Detecting complications early"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina, GP, podiatrist, optometrist"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-targetdate",
+                      "text": "Target date",
+                      "answer": [
+                        {
+                          "valueDate": "2027-05-20"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/resource-status",
+                            "code": "active",
+                            "display": "active"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-comment",
+                      "text": "Comment",
+                      "answer": [
+                        {
+                          "valueString": "Regular screening for diabetic nephropathy, neuropathy and retinopathy"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-servicestreatments",
+                  "text": "Services and treatments",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
+                      "text": "Required services and treatments",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "734920002",
+                            "display": "Diabetes education service"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-activity",
+                      "text": "Activity",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "312856000",
+                            "display": "Referral to diabetes nurse"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-provider",
+                      "text": "Provider",
+                      "answer": [
+                        {
+                          "valueString": "Diabetes educator"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-servicestreatments",
+                  "text": "Services and treatments",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
+                      "text": "Required services and treatments",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "734920002",
+                            "display": "Diabetes education service"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-activity",
+                      "text": "Activity",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "284350006",
+                            "display": "Diabetes diet education"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-provider",
+                      "text": "Provider",
+                      "answer": [
+                        {
+                          "valueString": "Diabetes educator"
                         }
                       ]
                     }
@@ -1776,7 +2158,11 @@
                       "text": "Required services and treatments",
                       "answer": [
                         {
-                          "valueString": "Exercise physiologist"
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "1240761000168106",
+                            "display": "Exercise physiology service"
+                          }
                         }
                       ]
                     },
@@ -1813,7 +2199,11 @@
                       "text": "Required services and treatments",
                       "answer": [
                         {
-                          "valueString": "Exercise physiologist"
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "1240761000168106",
+                            "display": "Exercise physiology service"
+                          }
                         }
                       ]
                     },
@@ -1840,6 +2230,138 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-servicestreatments",
+                  "text": "Services and treatments",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
+                      "text": "Required services and treatments",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "23911000087104",
+                            "display": "Medicine review service"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-activity",
+                      "text": "Activity",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "306362008",
+                            "display": "Referral to pharmacist"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-provider",
+                      "text": "Provider",
+                      "answer": [
+                        {
+                          "valueString": "Pharmacist"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-servicestreatments",
+                  "text": "Services and treatments",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
+                      "text": "Required services and treatments",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "23911000087104",
+                            "display": "Medicine review service"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-activity",
+                      "text": "Activity",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "1348931000168107",
+                            "display": "Home medicines review"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-provider",
+                      "text": "Provider",
+                      "answer": [
+                        {
+                          "valueString": "Pharmacist"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-comment",
+                      "text": "Comment",
+                      "answer": [
+                        {
+                          "valueString": "Consider Home Medicines Review in 3-6 months"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-servicestreatments",
+                  "text": "Services and treatments",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
+                      "text": "Required services and treatments",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "788007007",
+                            "display": "General practice service"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-activity",
+                      "text": "Activity",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "395101001",
+                            "display": "Ongoing review"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-provider",
+                      "text": "Provider",
+                      "answer": [
+                        {
+                          "valueString": "GP, practice nurse"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -1852,20 +2374,90 @@
                   "text": "Problems/Needs",
                   "answer": [
                     {
-                      "id": "plan-goalstasks-problemneed-repeat-I_tA22UUDxjiFRb66cX35",
+                      "id": "plan-goalstasks-problemneed-repeat-9g64YCvHill3V992KwhdT",
                       "valueCoding": {
                         "system": "http://snomed.info/sct",
-                        "code": "286647002",
-                        "display": "Low self-esteem"
+                        "code": "443694000",
+                        "display": "Uncontrolled type 2 diabetes"
                       }
                     },
                     {
-                      "id": "plan-goalstasks-problemneed-repeat-s_uSBQ3OC8phpIHE68Cwu",
+                      "id": "plan-goalstasks-problemneed-repeat-YV0DNHjxVa4d-xxo0cKnu",
                       "valueCoding": {
                         "system": "http://snomed.info/sct",
                         "code": "238131007",
                         "display": "Overweight"
                       }
+                    },
+                    {
+                      "id": "plan-goalstasks-problemneed-repeat-47mdKuLSYw0dnl3VlkLHt",
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "235595009",
+                        "display": "Gastro-oesophageal reflux disease"
+                      }
+                    },
+                    {
+                      "id": "plan-goalstasks-problemneed-repeat-nNu5Y4c2JCEp-DhqTFk2b",
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "278860009",
+                        "display": "Chronic lower back pain"
+                      }
+                    },
+                    {
+                      "id": "plan-goalstasks-problemneed-repeat-ObITmA57Lkq0iaTX5Po8A",
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "286647002",
+                        "display": "Low self-esteem"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-goalsetting",
+                  "text": "Goal setting",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-goalsetting-goals",
+                      "text": "Goals",
+                      "answer": [
+                        {
+                          "valueString": "5-10% weight loss (target weight 73.8-77.9kg) and decrease waist circumference (long term target <80cm)"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-goalsetting-initiator",
+                      "text": "Initiator",
+                      "answer": [
+                        {
+                          "valueString": "GP"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-goalsetting-targetdate",
+                      "text": "Target date",
+                      "answer": [
+                        {
+                          "valueDate": "2027-05-20"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-goalsetting-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/goal-status",
+                            "code": "active",
+                            "display": "active"
+                          }
+                        }
+                      ]
                     }
                   ]
                 },
@@ -1896,7 +2488,7 @@
                       "text": "Target date",
                       "answer": [
                         {
-                          "valueDate": "2027-02-24"
+                          "valueDate": "2027-05-20"
                         }
                       ]
                     },
@@ -1910,6 +2502,505 @@
                             "code": "active",
                             "display": "active"
                           }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "183065007",
+                            "display": "Low carbohydrate diet education"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina, dietitian"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-targetdate",
+                      "text": "Target date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-20"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/resource-status",
+                            "code": "active",
+                            "display": "active"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueString": "Reduce ratio of carbohydrates in each meal – ¼ plate carbs, ¼ plate protein, ½ plate vegetables/salad"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-targetdate",
+                      "text": "Target date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-20"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/resource-status",
+                            "code": "active",
+                            "display": "active"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueString": "Substitute high GI for low GI carbohydrates where possible"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-targetdate",
+                      "text": "Target date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-20"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/resource-status",
+                            "code": "active",
+                            "display": "active"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueString": "Physical activity guidance"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina, exercise physiologist"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-targetdate",
+                      "text": "Target date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-11-20"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/resource-status",
+                            "code": "active",
+                            "display": "active"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueString": "Aim for 150 mins of aerobic activity per week"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-targetdate",
+                      "text": "Target date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-11-20"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/resource-status",
+                            "code": "active",
+                            "display": "active"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueString": "2-3 sessions of resistance exercise per week"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-targetdate",
+                      "text": "Target date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-11-20"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/resource-status",
+                            "code": "active",
+                            "display": "active"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-interventionsactions",
+                  "text": "Interventions and actions",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-interventionsactions",
+                      "text": "Interventions/Actions",
+                      "answer": [
+                        {
+                          "valueString": "Management of impulse control"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-owner",
+                      "text": "Owner",
+                      "answer": [
+                        {
+                          "valueString": "Caterina"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-targetdate",
+                      "text": "Target date",
+                      "answer": [
+                        {
+                          "valueDate": "2026-11-20"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/resource-status",
+                            "code": "active",
+                            "display": "active"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-interventionsactions-comment",
+                      "text": "Comment",
+                      "answer": [
+                        {
+                          "valueString": "Manage impulsivity/desire to eat when not actually hungry. Consider psychology input in future"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-servicestreatments",
+                  "text": "Services and treatments",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
+                      "text": "Required services and treatments",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "310090003",
+                            "display": "Dietetics service"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-activity",
+                      "text": "Activity",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "103699006",
+                            "display": "Referral to dietitian"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-provider",
+                      "text": "Provider",
+                      "answer": [
+                        {
+                          "valueString": "Dietitian"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-servicestreatments",
+                  "text": "Services and treatments",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
+                      "text": "Required services and treatments",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "310090003",
+                            "display": "Dietetics service"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-activity",
+                      "text": "Activity",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "11816003",
+                            "display": "Diet education"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-provider",
+                      "text": "Provider",
+                      "answer": [
+                        {
+                          "valueString": "Dietitian"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-servicestreatments",
+                  "text": "Services and treatments",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
+                      "text": "Required services and treatments",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "1240761000168106",
+                            "display": "Exercise physiology service"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-activity",
+                      "text": "Activity",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "1100681000168103",
+                            "display": "Referral to exercise physiologist"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-provider",
+                      "text": "Provider",
+                      "answer": [
+                        {
+                          "valueString": "Exercise physiologist"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "plan-goalstasks-details-servicestreatments",
+                  "text": "Services and treatments",
+                  "item": [
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-servicestreatments",
+                      "text": "Required services and treatments",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "1240761000168106",
+                            "display": "Exercise physiology service"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-activity",
+                      "text": "Activity",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "229080003",
+                            "display": "Exercise regime"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "plan-goalstasks-details-servicestreatments-provider",
+                      "text": "Provider",
+                      "answer": [
+                        {
+                          "valueString": "Exercise physiologist"
                         }
                       ]
                     }
@@ -1952,18 +3043,9 @@
                       "text": "Date",
                       "answer": [
                         {
-                          "valueDate": "2027-03-09"
+                          "valueDate": "2027-05-20"
                         }
                       ]
-                    }
-                  ]
-                },
-                {
-                  "linkId": "completion-copyoffered",
-                  "text": "Patient has been offered a copy of this plan",
-                  "answer": [
-                    {
-                      "valueString": "Yes, copy provided"
                     }
                   ]
                 }

@@ -252,9 +252,11 @@ Description: "The GP CCMP Resource Status Supplement defines consumer friendly t
 * ^experimental = false
 * ^content = #supplement
 * ^supplements = $resource-status
+* #active "in progress"
 * #suspended "on hold"
 * #complete "completed"
 * #failed "stopped"
+* #abandoned "not done"
 
 ValueSet: ActionsStatus
 Id: ActionsStatus
@@ -263,9 +265,9 @@ Description: "This value set includes values to represent the status of a care p
 * ^extension[+].url = "http://hl7.org/fhir/StructureDefinition/valueset-supplement"
 * ^extension[=].valueCanonical = Canonical(GPCCMPResourceStatusSupplement|0.1.0)
 * ^experimental = false
-* ^expansion.identifier = "urn:uuid:a5bc2679-85ff-48eb-89dc-af8b24786544"
-* ^expansion.timestamp = "2026-05-07T15:29:26+10:00"
-* ^expansion.total = 4
+* ^expansion.identifier = "urn:uuid:e9e79d88-46c2-443b-8c25-9b8f71c3c5a8"
+* ^expansion.timestamp = "2026-05-22T11:39:02+10:00"
+* ^expansion.total = 6
 * ^expansion.offset = 0
 * ^expansion.parameter[0].name = "displayLanguage"
 * ^expansion.parameter[=].valueCode = #en
@@ -280,8 +282,11 @@ Description: "This value set includes values to represent the status of a care p
 * ^expansion.parameter[+].name = "used-supplement"
 * ^expansion.parameter[=].valueUri = "https://gpccmp.csiro.au/ig/CodeSystem/GPCCMPResourceStatusSupplement|0.1.0"
 * ^expansion.contains[0].system = "http://hl7.org/fhir/resource-status"
+* ^expansion.contains[=].code = #planned
+* ^expansion.contains[=].display = "planned"
+* ^expansion.contains[+].system = "http://hl7.org/fhir/resource-status"
 * ^expansion.contains[=].code = #active
-* ^expansion.contains[=].display = "active"
+* ^expansion.contains[=].display = "in progress"
 * ^expansion.contains[+].system = "http://hl7.org/fhir/resource-status"
 * ^expansion.contains[=].code = #suspended
 * ^expansion.contains[=].display = "on hold"
@@ -291,7 +296,12 @@ Description: "This value set includes values to represent the status of a care p
 * ^expansion.contains[+].system = "http://hl7.org/fhir/resource-status"
 * ^expansion.contains[=].code = #failed
 * ^expansion.contains[=].display = "stopped"
-* $resource-status#active "active"
+* ^expansion.contains[+].system = "http://hl7.org/fhir/resource-status"
+* ^expansion.contains[=].code = #abandoned
+* ^expansion.contains[=].display = "not done"
+* $resource-status#planned "planned"
+* $resource-status#active "in progress"
 * $resource-status#suspended "on hold"
 * $resource-status#complete "completed"
 * $resource-status#failed "stopped"
+* $resource-status#abandoned "not done"

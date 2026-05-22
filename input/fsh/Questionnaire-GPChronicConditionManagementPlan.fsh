@@ -2,6 +2,7 @@ Alias: $LNC = http://loinc.org
 Alias: $SCT = http://snomed.info/sct
 Alias: $UCUM = http://unitsofmeasure.org
 Alias: $questionnaire-item-control = http://hl7.org/fhir/questionnaire-item-control
+Alias: $questionnaire-display-category = http://hl7.org/fhir/questionnaire-display-category
 
 Instance: GPChronicConditionManagementPlan
 InstanceOf: Questionnaire
@@ -1458,95 +1459,6 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].type = #text
 * item[=].item[=].item[=].repeats = false
 
-/*
-    //Smoking status table
-* item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#grid
-* item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-smokingstatusgrid"
-* item[=].item[=].item[=].item[=].text = "Smoking status"
-* item[=].item[=].item[=].item[=].type = #group 
-* item[=].item[=].item[=].item[=].repeats = false
-        //Last recorded smoking status
-* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-smokingstatusgrid-laststatus"
-* item[=].item[=].item[=].item[=].item[=].text = "Last recorded status"
-* item[=].item[=].item[=].item[=].item[=].type = #group
-* item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-smokingstatusgrid-laststatus-status"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Status"
-* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.expression = "iif(%ObsSmokingStatusValue.exists() and %ObsSmokingStatusDateFormatted.exists(), %ObsSmokingStatusValue.display + ' ( ' + %ObsSmokingStatusDateFormatted + ' )', 'Not available')"
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[http://hl7.org/fhir/StructureDefinition/rendering-style].valueString = "text-align: left;"
-* item[=].item[=].item[=].item[=].item[=].item[=].type = #display
-* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-smokingstatusgrid-laststatus-date"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Date"
-* item[=].item[=].item[=].item[=].item[=].item[=].type = #date
-* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ObsSmokingStatusLatest.note[0].text"
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-smokingstatusgrid-laststatus-comment"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Comment"
-* item[=].item[=].item[=].item[=].item[=].item[=].type = #string
-* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[=].readOnly = true
-        //New smoking status
-* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-smokingstatusgrid-newstatus"
-* item[=].item[=].item[=].item[=].item[=].text = "New status"
-* item[=].item[=].item[=].item[=].item[=].type = #group
-* item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[questionnaire-itemControl].valueCodeableConcept = $questionnaire-item-control#drop-down
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-smokingstatusgrid-newstatus-status"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Status"
-* item[=].item[=].item[=].item[=].item[=].item[=].type = #choice
-* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/smoking-status-1"
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "iif(%resource.repeat(item).where(linkId='clinicaldetails-observations-smokingstatusgrid-newstatus-status').answer.value.exists(), today())"
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-smokingstatusgrid-newstatus-date"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Date"
-* item[=].item[=].item[=].item[=].item[=].item[=].type = #date
-* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-smokingstatusgrid-newstatus-comment"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Comment"
-* item[=].item[=].item[=].item[=].item[=].item[=].type = #string
-* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-*/
-/*
-    //Substance use
-* item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-substanceuse"
-* item[=].item[=].item[=].item[=].text = "Substance use"
-* item[=].item[=].item[=].item[=].type = #group 
-* item[=].item[=].item[=].item[=].repeats = false
-        //Smoking status
-* item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-substanceuse-smokingstatus"
-* item[=].item[=].item[=].item[=].item[=].text = "Smoking status"
-* item[=].item[=].item[=].item[=].item[=].type = #group
-* item[=].item[=].item[=].item[=].item[=].repeats = false
-            //Last smoking status
-* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-substanceuse-smokingstatus-laststatus"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "Last recorded status"
-* item[=].item[=].item[=].item[=].item[=].item[=].type = #group
-* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-substanceuse-smokingstatus-laststatus-status"
-* item[=].item[=].item[=].item[=].item[=].item[=].item[=].text = "Status"
-* item[=].item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].item[=].text.extension[http://hl7.org/fhir/StructureDefinition/cqf-expression].valueExpression.expression = "iif(%ObsSmokingStatusValue.exists() and %ObsSmokingStatusDateFormatted.exists(), %ObsSmokingStatusValue.display + ' ( ' + %ObsSmokingStatusDateFormatted + ' )', 'Not available')"
-* item[=].item[=].item[=].item[=].item[=].item[=].item[=].extension[http://hl7.org/fhir/StructureDefinition/rendering-style].valueString = "text-align: left;"
-* item[=].item[=].item[=].item[=].item[=].item[=].item[=].type = #display
-            //New smoking status
-* item[=].item[=].item[=].item[=].item[=].item[+].linkId = "clinicaldetails-observations-substanceuse-smokingstatus-newstatus"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "New status"
-* item[=].item[=].item[=].item[=].item[=].item[=].type = #choice
-* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-* item[=].item[=].item[=].item[=].item[=].item[=].answerValueSet = "https://healthterminologies.gov.au/fhir/ValueSet/smoking-status-1"
-* item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "iif(%resource.repeat(item).where(linkId='clinicaldetails-observations-substanceuse-smokingstatus-newstatus').answer.value.exists(), today())"
-* item[=].item[=].item[=].item[=].item[=].item[=].linkId = "clinicaldetails-observations-substanceuse-smokingstatus-newdate"
-* item[=].item[=].item[=].item[=].item[=].item[=].text = "New status date"
-* item[=].item[=].item[=].item[=].item[=].item[=].type = #date
-* item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
-
-*/
-
-
 //Management plan
 * item[=].item[+].linkId = "plan"
 * item[=].item[=].text = "Plan"
@@ -1554,6 +1466,8 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].repeats = false
     //Management plan details
 * item[=].item[=].item[+].extension[questionnaire-itemControl][+].valueCodeableConcept = $questionnaire-item-control#radio-button
+* item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "iif(%GPCCMPLatestCompletedAmended.entry.resource.exists(authored > (today() - 12 months)), 'Review', 'New')"
 * item[=].item[=].item[=].extension[questionnaire-choiceOrientation].valueCode = #horizontal
 * item[=].item[=].item[=].linkId = "plan-type"
 * item[=].item[=].item[=].text = "New plan or a review of an existing plan?"
@@ -1561,6 +1475,11 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].answerOption[+].valueString = "New"
 * item[=].item[=].item[=].answerOption[+].valueString = "Review"
+* item[=].item[=].item[=].item[+].extension[questionnaire-displayCategory].valueCodeableConcept = $questionnaire-display-category#instructions
+* item[=].item[=].item[=].item[=].linkId = "plan-type-instructions"
+* item[=].item[=].item[=].item[=].text = "Autoselected as 'Review' if a plan has been completed in the last 12 months, otherwise 'New'."
+* item[=].item[=].item[=].item[=].type = #display
+* item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%GPCCMPLatestCompletedAmended.entry.resource.authored.toString().substring(0,10).toDate()"
 * item[=].item[=].item[=].linkId = "plan-lastcompleteddate"
@@ -1631,7 +1550,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].text = "Comment"
 * item[=].item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].item[=].repeats = false
-/*
+/* Alternative table format. Consider for future use if renderer/implementations support better table rendering when there are multiple columns creating wide tables. Incomplete design at this stage.
 * item[=].item[=].item[=].item[+].extension[questionnaire-itemControl][+].valueCodeableConcept = $questionnaire-item-control#gtable
 * item[=].item[=].item[=].item[=].linkId = "plan-goalstasks-details-goalsetting"
 * item[=].item[=].item[=].item[=].text = "Goal setting"
