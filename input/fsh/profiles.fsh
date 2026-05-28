@@ -223,6 +223,7 @@ Description: "This profile sets the minimum expectations for a PractitionerRole 
 * location ..1 MS
 * location insert obligationServer (0, SHALL:populate-if-known)
 * location insert obligationClient (1, SHALL:process)
+* location only Reference(GPCCMPLocation)
 * telecom MS
 * telecom insert obligationClient (2, SHALL:process)
 * telecom.system MS

@@ -679,8 +679,8 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].type = #group
 * item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].readOnly = true
-* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-calculatedExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-calculatedExpression].valueExpression.expression = "%ClinicLocation.name"
+* item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ClinicLocation.name"
 * item[=].item[=].item[=].item[=].linkId = "practitioner-clinicdetails-name"
 * item[=].item[=].item[=].item[=].text = "Name"
 * item[=].item[=].item[=].item[=].type = #string

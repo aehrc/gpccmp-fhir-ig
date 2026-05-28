@@ -4,7 +4,7 @@ Alias: $LOINC = http://loinc.org
 Alias: $v2-0532 = http://terminology.hl7.org/CodeSystem/v2-0532|3.0.0
 Alias: $goal-status = http://hl7.org/fhir/goal-status|4.0.1
 Alias: $medication-statement-status = http://hl7.org/fhir/CodeSystem/medication-statement-status|4.0.1
-Alias: $resource-status = http://hl7.org/fhir/resource-status|4.0.1
+Alias: $care-plan-activity-status = http://hl7.org/fhir/care-plan-activity-status|4.0.1
 
 CodeSystem: LaunchContextExtended
 Id: LaunchContextExtended
@@ -207,7 +207,7 @@ Description: "The GP CCMP Goal Status Supplement defines consumer friendly terms
 * ^experimental = false
 * ^content = #supplement
 * ^supplements = $goal-status
-* #cancelled "withdrawn"
+* #cancelled "Withdrawn"
 
 ValueSet: GoalStatusLimited
 Id: GoalStatusLimited
@@ -216,8 +216,8 @@ Description: "This value set includes the minimal set of codes to represent the 
 * ^extension[+].url = "http://hl7.org/fhir/StructureDefinition/valueset-supplement"
 * ^extension[=].valueCanonical = Canonical(GPCCMPGoalStatusSupplement|0.1.0)
 * ^experimental = false
-* ^expansion.identifier = "urn:uuid:6b1ed46c-9392-4515-a8b6-5ef3df4d1ccb"
-* ^expansion.timestamp = "2026-05-07T15:29:25+10:00"
+* ^expansion.identifier = "urn:uuid:fff81a46-8231-4929-b534-3b0e07d0c502"
+* ^expansion.timestamp = "2026-05-25T13:11:30+10:00"
 * ^expansion.total = 3
 * ^expansion.offset = 0
 * ^expansion.parameter[0].name = "displayLanguage"
@@ -234,39 +234,35 @@ Description: "This value set includes the minimal set of codes to represent the 
 * ^expansion.parameter[=].valueUri = "https://gpccmp.csiro.au/ig/CodeSystem/GPCCMPGoalStatusSupplement|0.1.0"
 * ^expansion.contains[0].system = "http://hl7.org/fhir/goal-status"
 * ^expansion.contains[=].code = #active
-* ^expansion.contains[=].display = "active"
+* ^expansion.contains[=].display = "Active"
 * ^expansion.contains[+].system = "http://hl7.org/fhir/goal-status"
 * ^expansion.contains[=].code = #completed
-* ^expansion.contains[=].display = "completed"
+* ^expansion.contains[=].display = "Completed"
 * ^expansion.contains[+].system = "http://hl7.org/fhir/goal-status"
 * ^expansion.contains[=].code = #cancelled
-* ^expansion.contains[=].display = "withdrawn"
-* $goal-status#active "active"
-* $goal-status#completed "completed"
-* $goal-status#cancelled "withdrawn"
+* ^expansion.contains[=].display = "Withdrawn"
+* $goal-status#active "Active"
+* $goal-status#completed "Completed"
+* $goal-status#cancelled "Withdrawn"
 
-CodeSystem: GPCCMPResourceStatusSupplement
-Id: GPCCMPResourceStatusSupplement
-Title: "GP CCMP Resource Status Supplement"
-Description: "The GP CCMP Resource Status Supplement defines consumer friendly terms for the Canonical Status Codes for FHIR Resources code system for use in the GP CCMP Questionnaire."
+CodeSystem: GPCCMPCarePlanActivityStatusSupplement
+Id: GPCCMPCarePlanActivityStatusSupplement
+Title: "GP CCMP Care Plan Activity Status Supplement"
+Description: "The GP CCMP Care Plan Activity Status Supplement defines consumer friendly terms for the CarePlanActivityStatus code system for use in the GP CCMP Questionnaire."
 * ^experimental = false
 * ^content = #supplement
-* ^supplements = $resource-status
-* #active "in progress"
-* #suspended "on hold"
-* #complete "completed"
-* #failed "stopped"
-* #abandoned "not done"
+* ^supplements = $care-plan-activity-status
+* #not-started "Planned"
 
 ValueSet: ActionsStatus
 Id: ActionsStatus
 Title: "Actions Status"
 Description: "This value set includes values to represent the status of a care plan action. It uses canonical status codes for FHIR resources for applicability to different resource types that may represent an action."
 * ^extension[+].url = "http://hl7.org/fhir/StructureDefinition/valueset-supplement"
-* ^extension[=].valueCanonical = Canonical(GPCCMPResourceStatusSupplement|0.1.0)
+* ^extension[=].valueCanonical = Canonical(GPCCMPCarePlanActivityStatusSupplement|0.1.0)
 * ^experimental = false
-* ^expansion.identifier = "urn:uuid:e9e79d88-46c2-443b-8c25-9b8f71c3c5a8"
-* ^expansion.timestamp = "2026-05-22T11:39:02+10:00"
+* ^expansion.identifier = "urn:uuid:81e33f47-20e7-444c-9001-d2844bb0eb00"
+* ^expansion.timestamp = "2026-05-25T13:11:30+10:00"
 * ^expansion.total = 6
 * ^expansion.offset = 0
 * ^expansion.parameter[0].name = "displayLanguage"
@@ -278,30 +274,30 @@ Description: "This value set includes values to represent the status of a care p
 * ^expansion.parameter[+].name = "excludeNested"
 * ^expansion.parameter[=].valueBoolean = false
 * ^expansion.parameter[+].name = "used-codesystem"
-* ^expansion.parameter[=].valueUri = "http://hl7.org/fhir/resource-status|4.0.1"
+* ^expansion.parameter[=].valueUri = "http://hl7.org/fhir/care-plan-activity-status|4.0.1"
 * ^expansion.parameter[+].name = "used-supplement"
-* ^expansion.parameter[=].valueUri = "https://gpccmp.csiro.au/ig/CodeSystem/GPCCMPResourceStatusSupplement|0.1.0"
-* ^expansion.contains[0].system = "http://hl7.org/fhir/resource-status"
-* ^expansion.contains[=].code = #planned
-* ^expansion.contains[=].display = "planned"
-* ^expansion.contains[+].system = "http://hl7.org/fhir/resource-status"
-* ^expansion.contains[=].code = #active
-* ^expansion.contains[=].display = "in progress"
-* ^expansion.contains[+].system = "http://hl7.org/fhir/resource-status"
-* ^expansion.contains[=].code = #suspended
-* ^expansion.contains[=].display = "on hold"
-* ^expansion.contains[+].system = "http://hl7.org/fhir/resource-status"
-* ^expansion.contains[=].code = #complete
-* ^expansion.contains[=].display = "completed"
-* ^expansion.contains[+].system = "http://hl7.org/fhir/resource-status"
-* ^expansion.contains[=].code = #failed
-* ^expansion.contains[=].display = "stopped"
-* ^expansion.contains[+].system = "http://hl7.org/fhir/resource-status"
-* ^expansion.contains[=].code = #abandoned
-* ^expansion.contains[=].display = "not done"
-* $resource-status#planned "planned"
-* $resource-status#active "in progress"
-* $resource-status#suspended "on hold"
-* $resource-status#complete "completed"
-* $resource-status#failed "stopped"
-* $resource-status#abandoned "not done"
+* ^expansion.parameter[=].valueUri = "https://gpccmp.csiro.au/ig/CodeSystem/GPCCMPCarePlanActivityStatusSupplement|0.1.0"
+* ^expansion.contains[0].system = "http://hl7.org/fhir/care-plan-activity-status"
+* ^expansion.contains[=].code = #not-started
+* ^expansion.contains[=].display = "Planned"
+* ^expansion.contains[+].system = "http://hl7.org/fhir/care-plan-activity-status"
+* ^expansion.contains[=].code = #in-progress
+* ^expansion.contains[=].display = "In Progress"
+* ^expansion.contains[+].system = "http://hl7.org/fhir/care-plan-activity-status"
+* ^expansion.contains[=].code = #on-hold
+* ^expansion.contains[=].display = "On Hold"
+* ^expansion.contains[+].system = "http://hl7.org/fhir/care-plan-activity-status"
+* ^expansion.contains[=].code = #completed
+* ^expansion.contains[=].display = "Completed"
+* ^expansion.contains[+].system = "http://hl7.org/fhir/care-plan-activity-status"
+* ^expansion.contains[=].code = #stopped
+* ^expansion.contains[=].display = "Stopped"
+* ^expansion.contains[+].system = "http://hl7.org/fhir/care-plan-activity-status"
+* ^expansion.contains[=].code = #cancelled
+* ^expansion.contains[=].display = "Cancelled"
+* $care-plan-activity-status#not-started "Planned"
+* $care-plan-activity-status#in-progress "In Progress"
+* $care-plan-activity-status#on-hold "On Hold"
+* $care-plan-activity-status#completed "Completed"
+* $care-plan-activity-status#stopped "Stopped"
+* $care-plan-activity-status#cancelled "Cancelled"
