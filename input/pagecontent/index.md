@@ -6,7 +6,7 @@ CCMPs help eligible health professionals coordinate health care for patients wit
 
 The FHIR GP CCMP is represented as a Questionnaire resource and its technical design and function are guided by the [Structured Data Capture specification](http://build.fhir.org/ig/HL7/sdc/index.html). The data exchange requirements have been designed to align with [AU Core](https://build.fhir.org/ig/hl7au/au-fhir-core/index.html) to the greatest extent possible. AU Core describes a requester/responder paradigm of data access. Data exchange requirements described in this guide have significant overlap and derives much of its content from AU Core. The exchange of QuestionnaireResponse resources is in addition to those requirements.
 
-The form content has been informed by requirements gathered from the [Sparked Chronic Condition Management Clinical Focus Group](https://sparked.csiro.au/index.php/ccm-cfg/). The key principles for this release are as follows: *Insert principles*
+The form content has been informed by requirements gathered from the [Sparked Chronic Condition Management Clinical Focus Group](https://sparked.csiro.au/index.php/ccm-cfg/).
 
 ### Scope
 The scope of this implementation guide includes the data exchange requirements to populate the form with existing data from a patient record and managing the completion of the form.
