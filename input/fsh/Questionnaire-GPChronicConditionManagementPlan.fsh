@@ -270,7 +270,7 @@ Description: "GP Chronic Condition Management Plan"
 * status = #draft
 * experimental = false
 * subjectType[+] = #Patient
-* date = "2026-02-13"
+* date = "2026-06-10"
 * jurisdiction.coding = urn:iso:std:iso:3166#AU
 
 //Container
