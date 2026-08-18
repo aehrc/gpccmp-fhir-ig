@@ -245,8 +245,8 @@ resources:
     description: Example of practitioner role for the *GP CCMP PractitionerRole* profile. Represents a general practitioner role for Dr. Peter Primary. This could represent a resource provided by a GP CCMP Server actor as launch context.
     exampleBoolean: true
   QuestionnaireResponse/gpccmp-form-foreman-caterina:
-    name: QuestionnaireResponse - GP Chronic Care Form
-    description: Example of questionnaire response for the *GP CCMP QuestionnaireResponse* profile. Represents an in progress GP chronic care management plan form for patient, Caterina Foreman.
+    name: QuestionnaireResponse - GP Chronic Condition Management Plan
+    description: Example of questionnaire response for the *GP CCMP QuestionnaireResponse* profile. Represents an in progress GP chronic condition management plan form for patient, Caterina Foreman.
     exampleBoolean: true
 
 #
