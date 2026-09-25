@@ -6,7 +6,7 @@ Usage: #definition
 * description = "This CapabilityStatement describes the expected capabilities for systems to exchange the data needed to support the [GP Chronic Condition Management Plan](Questionnaire-GPChronicConditionManagementPlan.html). It lists the server's conformance expectations for the resource types required as Questionnaire launch context, resource types required to support prepopulation of the form and QuestionnaireResponse requirements for managing form responses. These expectations include supported FHIR profiles, RESTful operations, and search parameters."
 * status = #draft
 * experimental = false
-* date = "2026-02-13"
+* date = "2026-09-25"
 * publisher = "AEHRC CSIRO"
 * jurisdiction = urn:iso:std:iso:3166#AU
 * kind = #requirements
@@ -16,7 +16,7 @@ Usage: #definition
 * format[=].extension[0].valueCode = #SHALL
 
 * rest.mode = #server
-* rest.documentation = "GPCCMP Launch Server **SHALL**:
+* rest.documentation = "GP CCMP Server **SHALL**:
 1. Support the [GP CCMP AllergyIntolerance resource profile](StructureDefinition-GPCCMPAllergyIntolerance.html)
 1. Support the [GP CCMP Condition resource profile](StructureDefinition-GPCCMPCondition.html)
 1. Support the [GP CCMP Encounter resource profile](StructureDefinition-GPCCMPEncounter.html)
@@ -37,7 +37,7 @@ Usage: #definition
 * rest.security.service = http://terminology.hl7.org/CodeSystem/restful-security-service#SMART-on-FHIR
 * rest.security.service.extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.security.service.extension[0].valueCode = #MAY
-* rest.security.description = "GPCCMP Launch Server **MAY**:
+* rest.security.description = "GP CCMP Server **MAY**:
 1. Support CORS headers
 1. Support SMART on FHIR security services
 
@@ -323,11 +323,24 @@ The server **SHALL** support both."
 * rest.resource[=].extension[=].extension[+].url = "required"
 * rest.resource[=].extension[=].extension[=].valueString = "patient"
 * rest.resource[=].extension[=].extension[+].url = "required"
+* rest.resource[=].extension[=].extension[=].valueString = "questionnaire"
+* rest.resource[=].extension[=].extension[+].url = "required"
 * rest.resource[=].extension[=].extension[=].valueString = "_count"
 * rest.resource[=].extension[=].extension[+].url = "required"
 * rest.resource[=].extension[=].extension[=].valueString = "_sort"
+* rest.resource[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-search-parameter-combination"
+* rest.resource[=].extension[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].extension[=].extension[=].valueCode = #SHALL
+* rest.resource[=].extension[=].extension[+].url = "required"
+* rest.resource[=].extension[=].extension[=].valueString = "patient"
+* rest.resource[=].extension[=].extension[+].url = "required"
+* rest.resource[=].extension[=].extension[=].valueString = "status"
 * rest.resource[=].extension[=].extension[+].url = "required"
 * rest.resource[=].extension[=].extension[=].valueString = "questionnaire"
+* rest.resource[=].extension[=].extension[+].url = "required"
+* rest.resource[=].extension[=].extension[=].valueString = "_count"
+* rest.resource[=].extension[=].extension[+].url = "required"
+* rest.resource[=].extension[=].extension[=].valueString = "_sort"
 * rest.resource[=].type = #QuestionnaireResponse
 * rest.resource[=].supportedProfile[+] = Canonical(GPCCMPQuestionnaireResponse)
 * rest.resource[=].supportedProfile[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
@@ -354,6 +367,18 @@ The server **SHALL** support both."
 * rest.resource[=].searchParam[=].documentation = "The client **SHALL** provide at least a id value and **MAY** provide both the Type and id values. 
 
 The server **SHALL** support both."
+* rest.resource[=].searchParam[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].searchParam[=].extension[0].valueCode = #MAY
+* rest.resource[=].searchParam[+].name = "status"
+* rest.resource[=].searchParam[=].definition = "http://hl7.org/fhir/SearchParameter/QuestionnaireResponse-status"
+* rest.resource[=].searchParam[=].type = #token
+* rest.resource[=].searchParam[=].documentation = "The client **SHALL** provide at least a code value and **MAY** provide both the system and code values.
+
+The server **SHALL** support both.
+
+The client **SHALL** support `multipleOr`.
+
+The server **SHALL** support `multipleOr`."
 * rest.resource[=].searchParam[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].searchParam[=].extension[0].valueCode = #MAY
 * rest.resource[=].searchParam[+].name = "questionnaire"
@@ -390,7 +415,7 @@ Usage: #definition
 * description = "This CapabilityStatement describes the expected capabilities for systems to exchange the data needed to support the [GP Chronic Condition Management Plan](Questionnaire-GPChronicConditionManagementPlan.html). It lists the client's conformance expectations for the resource types required as Questionnaire launch context, resource types required to support prepopulation of the form and QuestionnaireResponse requirements for managing form responses. These expectations include supported FHIR profiles, RESTful operations, and search parameters."
 * status = #draft
 * experimental = false
-* date = "2026-02-13"
+* date = "2026-09-25"
 * publisher = "AEHRC CSIRO"
 * jurisdiction = urn:iso:std:iso:3166#AU
 * kind = #requirements
@@ -399,8 +424,8 @@ Usage: #definition
 * format[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * format[=].extension[0].valueCode = #SHALL
 
-* rest.mode = #server
-* rest.documentation = "GPCCMP Launch Server **SHALL**:
+* rest.mode = #client
+* rest.documentation = "GP CCMP Client **SHALL**:
 1. Support the [GP CCMP AllergyIntolerance resource profile](StructureDefinition-GPCCMPAllergyIntolerance.html)
 1. Support the [GP CCMP Condition resource profile](StructureDefinition-GPCCMPCondition.html)
 1. Support the [GP CCMP Encounter resource profile](StructureDefinition-GPCCMPEncounter.html)
@@ -419,7 +444,7 @@ Usage: #definition
 * rest.security.service = http://terminology.hl7.org/CodeSystem/restful-security-service#SMART-on-FHIR
 * rest.security.service.extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.security.service.extension[0].valueCode = #MAY
-* rest.security.description = "GPCCMP Launch Server **MAY**:
+* rest.security.description = "GP CCMP Client **MAY**:
 1. Support CORS headers
 1. Support SMART on FHIR security services
 
@@ -705,11 +730,24 @@ The server **SHALL** support both."
 * rest.resource[=].extension[=].extension[+].url = "required"
 * rest.resource[=].extension[=].extension[=].valueString = "patient"
 * rest.resource[=].extension[=].extension[+].url = "required"
+* rest.resource[=].extension[=].extension[=].valueString = "questionnaire"
+* rest.resource[=].extension[=].extension[+].url = "required"
 * rest.resource[=].extension[=].extension[=].valueString = "_count"
 * rest.resource[=].extension[=].extension[+].url = "required"
 * rest.resource[=].extension[=].extension[=].valueString = "_sort"
+* rest.resource[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-search-parameter-combination"
+* rest.resource[=].extension[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].extension[=].extension[=].valueCode = #SHALL
+* rest.resource[=].extension[=].extension[+].url = "required"
+* rest.resource[=].extension[=].extension[=].valueString = "patient"
+* rest.resource[=].extension[=].extension[+].url = "required"
+* rest.resource[=].extension[=].extension[=].valueString = "status"
 * rest.resource[=].extension[=].extension[+].url = "required"
 * rest.resource[=].extension[=].extension[=].valueString = "questionnaire"
+* rest.resource[=].extension[=].extension[+].url = "required"
+* rest.resource[=].extension[=].extension[=].valueString = "_count"
+* rest.resource[=].extension[=].extension[+].url = "required"
+* rest.resource[=].extension[=].extension[=].valueString = "_sort"
 * rest.resource[=].type = #QuestionnaireResponse
 * rest.resource[=].supportedProfile[+] = Canonical(GPCCMPQuestionnaireResponse)
 * rest.resource[=].supportedProfile[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
@@ -736,6 +774,18 @@ The server **SHALL** support both."
 * rest.resource[=].searchParam[=].documentation = "The client **SHALL** provide at least a id value and **MAY** provide both the Type and id values. 
 
 The server **SHALL** support both. "
+* rest.resource[=].searchParam[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
+* rest.resource[=].searchParam[=].extension[0].valueCode = #MAY
+* rest.resource[=].searchParam[+].name = "status"
+* rest.resource[=].searchParam[=].definition = "http://hl7.org/fhir/SearchParameter/QuestionnaireResponse-status"
+* rest.resource[=].searchParam[=].type = #token
+* rest.resource[=].searchParam[=].documentation = "The client **SHALL** provide at least a code value and **MAY** provide both the system and code values.
+
+The server **SHALL** support both.
+
+The client **SHALL** support `multipleOr`.
+
+The server **SHALL** support `multipleOr`."
 * rest.resource[=].searchParam[=].extension[0].url = "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation"
 * rest.resource[=].searchParam[=].extension[0].valueCode = #MAY
 * rest.resource[=].searchParam[+].name = "questionnaire"

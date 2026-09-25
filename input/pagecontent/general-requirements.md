@@ -28,7 +28,7 @@ Profile support refers to the support of the GPCCMP profiles, such that the syst
 
 #### Interaction Support
 Interaction support refers to a system that supports the GPCCMP REST API interactions. Specifically, a server with GPCCMP Interaction support:
-* **SHALL** implement the REST API behavior according to the FHIR specification, including *read*, *search*, *create* and *patch* interactions as required, and the required search parameters as defined in the [GP CCMP Server CapabilityStatement](CapabilityStatement-GPCCMPServerCapabilityStatement.html#resourcesSummary1).
+* **SHALL** implement the REST API behavior according to the FHIR specification, including *read*, *search*, *create* and *update* interactions as required, and the required search parameters as defined in the [GP CCMP Server CapabilityStatement](CapabilityStatement-GPCCMPServerCapabilityStatement.html#resourcesSummary1).
 * **SHALL** specify the full capability details from the GP CCMP Server CapabilityStatement it claims to implement, including mandatory support for _FHIR transactions_.
 
 ### Must Support and Obligations
