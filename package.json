@@ -1,0 +1,40 @@
+{
+  "name": "gpccmp-fhir-ig-tests",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "pregenerate": "node -e \"require('node:fs').rmSync('fsh-generated', { recursive: true, force: true })\"",
+    "generate": "sushi . && node test/check-questionnaire.mjs",
+    "pretypecheck": "npm run generate",
+    "typecheck": "tsc --noEmit",
+    "pretest": "npm run generate",
+    "test": "TZ=Australia/Sydney vitest run"
+  },
+  "devDependencies": {
+    "@aehrc/questionnaire-test-toolkit": "0.1.0",
+    "@aehrc/smart-forms-renderer": "1.5.0",
+    "@tanstack/react-query": "5.90.5",
+    "@testing-library/dom": "10.4.0",
+    "@testing-library/react": "16.3.2",
+    "@types/deep-diff": "1.0.5",
+    "@types/fhir": "0.0.41",
+    "@types/node": "24.0.0",
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.5",
+    "fhirclient": "2.6.3",
+    "fsh-sushi": "3.20.1",
+    "jsdom": "29.0.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "typescript": "5.9.3",
+    "vitest": "3.2.4"
+  },
+  "overrides": {
+    "@aehrc/sdc-populate": "4.7.2",
+    "@aehrc/sdc-template-extract": "1.0.16"
+  }
+}
