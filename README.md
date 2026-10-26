@@ -26,12 +26,15 @@ required. The renderer and SDC operation versions are pinned for a reproducible 
 update these deliberately together with the lockfile and rerun the suite.
 
 Installation and SUSHI's initial FHIR package downloads require network access. Test execution
-runs offline: `fhirclient` is mocked using the three vendored expansions in `test/terminology/`,
-and direct `fetch` and XMLHttpRequest calls throw. See
-[fixture provenance](test/terminology/PROVENANCE.md) for copyrights, sources and refresh commands.
-An unrecognised terminology request currently receives an empty result, so a new terminology
-dependency requires a fixture and assertions. Tests run one file at a time with the Sydney
-timezone; the clock is not frozen.
+also requires network access: the questionnaire's `choice` items resolve their external
+`answerValueSet`s against the public Ontoserver at `https://r4.ontoserver.csiro.au/fhir`. The
+suite uses the real browser entry point of `fhirclient` (configured in `vitest.config.ts`); there
+are no vendored expansions, terminology mocks or network guards. Patient, practitioner and
+clinical FHIR data remains supplied through the toolkit's request-definition fixtures, so only
+expansion traffic leaves the test process. When the terminology server is unreachable, the
+renderer still renders the form but choice items backed by external ValueSets lose their options
+and terminology-dependent tests fail. Tests run one file at a time with the Sydney timezone; the
+clock is not frozen.
 
 This migration preserves the original assertions and their limitations. Some helpers use
 `fireEvent`, which can change disabled/read-only fields: the age conditional tests and the

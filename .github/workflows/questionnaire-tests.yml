@@ -29,5 +29,5 @@ jobs:
       - run: npm ci
       - name: Generate Questionnaire and typecheck
         run: npm run typecheck
-      - name: Run offline Questionnaire tests
+      - name: Run Questionnaire tests with live terminology
         run: npm test
