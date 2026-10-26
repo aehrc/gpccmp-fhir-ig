@@ -21,8 +21,8 @@ use `npm run generate`.
 
 The 41 tests in `test/` were migrated from Smart Forms source revision
 `3073a6addbb0b108d511d7c79b351f9c1a789dfd`. They cover calculations, conditional behaviour and 17
-population scenarios using the published `@aehrc/questionnaire-test-toolkit@0.1.1`; no Smart Forms
-source checkout or library builds are required. The renderer and SDC operation versions are pinned
+population scenarios and require the exact `@aehrc/questionnaire-test-toolkit@0.1.1` release; no
+Smart Forms source checkout or library builds are required. The renderer and SDC operation versions are pinned
 for reproducibility and should be updated deliberately with the lockfile and a complete suite run.
 
 Installation and SUSHI's initial FHIR package downloads require network access. Test execution
