@@ -11,7 +11,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const [archive, ...flags] = process.argv.slice(2);
 if (!archive)
   throw new Error(
-    'Usage: npm run test:toolkit-candidate -- <compiled.tgz> [--sha256 <hash>] [--source-revision <commit>] [--offline] [--inherited]'
+    'Usage: npm run test:toolkit-candidate -- <compiled.tgz> [--sha256 <hash>] [--source-revision <commit>] [--offline] [--inherited] [--renderer-candidate <compiled.tgz> --renderer-sha256 <hash> --renderer-source-revision <revision>]'
   );
 const option = (name) =>
   flags.includes(name) ? flags[flags.indexOf(name) + 1] : undefined;
@@ -25,6 +25,28 @@ if (option('--sha256'))
     option('--sha256'),
     'Candidate tarball SHA-256 mismatch'
   );
+const rendererArchive = option('--renderer-candidate');
+const rendererTarball = rendererArchive
+  ? fs.realpathSync(rendererArchive)
+  : null;
+const rendererSha256 = rendererTarball
+  ? createHash('sha256').update(fs.readFileSync(rendererTarball)).digest('hex')
+  : null;
+if (rendererTarball) {
+  assert(
+    option('--renderer-sha256'),
+    'Renderer candidate requires its SHA-256'
+  );
+  assert(
+    option('--renderer-source-revision'),
+    'Renderer candidate requires its source identity'
+  );
+  assert.equal(
+    rendererSha256,
+    option('--renderer-sha256'),
+    'Renderer tarball SHA-256 mismatch'
+  );
+}
 const consumer = fs.mkdtempSync(
   path.join(os.tmpdir(), 'gpccmp-toolkit-consumer-')
 );
@@ -49,10 +71,18 @@ fs.cpSync(root, consumer, {
     allowed.has(path.relative(root, source).split(path.sep)[0])
 });
 fs.copyFileSync(tarball, path.join(consumer, 'toolkit-candidate.tgz'));
+if (rendererTarball)
+  fs.copyFileSync(
+    rendererTarball,
+    path.join(consumer, 'renderer-candidate.tgz')
+  );
 const pkgPath = path.join(consumer, 'package.json');
 const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
 pkg.devDependencies['@aehrc/questionnaire-test-toolkit'] =
   'file:./toolkit-candidate.tgz';
+if (rendererTarball)
+  pkg.devDependencies['@aehrc/smart-forms-renderer'] =
+    'file:./renderer-candidate.tgz';
 fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
 const igRevision = spawnSync('git', ['rev-parse', 'HEAD'], {
   cwd: root,
@@ -73,6 +103,12 @@ const report = {
     ])
   ),
   sourceRevision: option('--source-revision') ?? null,
+  rendererCandidate: rendererTarball
+    ? {
+        sourceRevision: option('--renderer-source-revision'),
+        sha256: rendererSha256
+      }
+    : null,
   sha256,
   node: process.version,
   consumer,
@@ -172,6 +208,15 @@ const originalLock = JSON.parse(
 );
 for (const [name, version] of Object.entries(pkg.devDependencies)) {
   if (name === '@aehrc/questionnaire-test-toolkit') continue;
+  if (rendererTarball && name === '@aehrc/smart-forms-renderer') {
+    assert.equal(
+      locked.packages[`node_modules/${name}`].version,
+      originalLock.packages[`node_modules/${name}`].version,
+      'Renderer candidate keeps the pinned version; hash identifies the candidate'
+    );
+    report.rendererCandidate.package = locked.packages[`node_modules/${name}`];
+    continue;
+  }
   assert.equal(
     locked.packages[`node_modules/${name}`].version,
     version,

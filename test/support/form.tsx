@@ -1,6 +1,9 @@
 import type {
   FhirResource,
   Patient,
+  Practitioner,
+  PractitionerRole,
+  Location,
   Questionnaire,
   QuestionnaireResponse
 } from 'fhir/r4';
@@ -18,7 +21,7 @@ import {
   patient as defaultPatient,
   practitioner,
   practitionerRole,
-  practitionerRoleLocationBundle,
+  clinicLocation as defaultClinicLocation,
   makeSearchSetBundle
 } from './fixtures';
 
@@ -53,8 +56,17 @@ export function answerAt(
  */
 export async function renderGpccmp({
   patient = defaultPatient,
-  resources = []
-}: { patient?: Patient; resources?: FhirResource[] } = {}) {
+  resources = [],
+  user = practitioner,
+  role = practitionerRole,
+  location = defaultClinicLocation
+}: {
+  patient?: Patient;
+  resources?: FhirResource[];
+  user?: Practitioner;
+  role?: PractitionerRole;
+  location?: Location;
+} = {}) {
   const bundle = (type: string) =>
     makeSearchSetBundle(resources.filter((r) => r.resourceType === type));
   const canonical =
@@ -66,10 +78,10 @@ export async function renderGpccmp({
       r.resourceType === 'QuestionnaireResponse'
   );
   const adapter = createClinicalAdapter([
-    [`PractitionerRole/${practitionerRole.id}`, practitionerRole],
+    [`PractitionerRole/${role.id}`, role],
     [
-      `PractitionerRole?_id=${practitionerRole.id}&_include=PractitionerRole:location`,
-      practitionerRoleLocationBundle
+      `PractitionerRole?_id=${role.id}&_include=PractitionerRole:location`,
+      makeSearchSetBundle([role, location])
     ],
     [
       `QuestionnaireResponse?questionnaire=${canonical}&_count=1&_sort=-authored&patient=${id}`,
@@ -115,11 +127,11 @@ export async function renderGpccmp({
     <BehavioralTestWrapper
       questionnaire={generated as Questionnaire}
       patient={patient}
-      user={practitioner}
+      user={user}
       fhirContext={[
         {
           type: 'PractitionerRole',
-          reference: `PractitionerRole/${practitionerRole.id}`
+          reference: `PractitionerRole/${role.id}`
         }
       ]}
       fetchResourceCallback={adapter.callback}

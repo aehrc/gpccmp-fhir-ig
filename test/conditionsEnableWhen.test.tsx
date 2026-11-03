@@ -83,6 +83,21 @@ for (const [group, prefix, birthDate, age, first] of [
         expect(
           answerAt(path, `${prefix}-number`, responseForPersistence()) ?? []
         ).toEqual(option === 'Yes' ? [{ valueString: '1234567890' }] : []);
+        if (option !== 'Yes') {
+          await checkRadioOption(container, `${prefix}-registered`, 'Yes');
+          await waitFor(() =>
+            expect(queryItem(container, `${prefix}-number`)).toBeDefined()
+          );
+          expect(await getInputText(container, `${prefix}-number`)).toBe(
+            '1234567890'
+          );
+          expect(
+            answerAt(path, `${prefix}-number`, responseForPersistence())
+          ).toEqual([{ valueString: '1234567890' }]);
+          expect(
+            answerAt(path, `${prefix}-comment`, responseForPersistence())
+          ).toEqual([{ valueString: 'This is a comment' }]);
+        }
       });
     }
   });

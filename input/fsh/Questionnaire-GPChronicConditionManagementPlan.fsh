@@ -327,7 +327,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].readOnly = true
 * item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "iif(today().toString().select(substring(5,2) & substring(8,2)).toInteger() > %patient.birthDate.toString().select(substring(5,2) & substring(8,2)).toInteger(), today().toString().substring(0,4).toInteger() - %patient.birthDate.toString().substring(0,4).toInteger(), today().toString().substring(0,4).toInteger() - %patient.birthDate.toString().substring(0,4).toInteger() - 1)"
+* item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "iif(today().toString().select(substring(5,2) & substring(8,2)).toInteger() >= %patient.birthDate.toString().select(substring(5,2) & substring(8,2)).toInteger(), today().toString().substring(0,4).toInteger() - %patient.birthDate.toString().substring(0,4).toInteger(), today().toString().substring(0,4).toInteger() - %patient.birthDate.toString().substring(0,4).toInteger() - 1)"
 * item[=].item[=].item[=].linkId = "patient-age"
 * item[=].item[=].item[=].text = "Age"
 * item[=].item[=].item[=].type = #integer
@@ -534,7 +534,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].item[=].extension[sdc-questionnaire-itemPopulationContext].valueExpression.expression = "%patient.address.where(type='postal')"
 * item[=].item[=].item[=].item[=].extension[sdc-questionnaire-enableWhenExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-enableWhenExpression].valueExpression.expression = "%PostalAddressArray.exists()"
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-enableWhenExpression].valueExpression.expression = "%resource.repeat(item).where(linkId='patient-contact-postaladdress').item.answer.value.exists()"
 * item[=].item[=].item[=].item[=].linkId = "patient-contact-postaladdress"
 * item[=].item[=].item[=].item[=].text = "Postal address"
 * item[=].item[=].item[=].item[=].type = #group
@@ -725,7 +725,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].type = #string
 * item[=].item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[+].extension[sdc-questionnaire-enableWhenExpression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-enableWhenExpression].valueExpression.expression = "%ClinicLocation.address.line.empty() and %ClinicLocation.address.text.exists()"
+* item[=].item[=].item[=].item[=].extension[sdc-questionnaire-enableWhenExpression].valueExpression.expression = "%ClinicLocation.address.text.exists()"
 * item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ClinicLocation.address.text"
 * item[=].item[=].item[=].item[=].linkId = "practitioner-clinicdetails-addresstext"
