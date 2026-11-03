@@ -1,4 +1,5 @@
-import { beforeEach } from 'vitest';
+import { afterEach, beforeEach } from 'vitest';
+import { cleanup } from '@testing-library/react';
 import { destroyForm } from '@aehrc/smart-forms-renderer';
 
 // jsdom has no ResizeObserver; the renderer's layout components require one.
@@ -14,5 +15,10 @@ globalThis.ResizeObserver = class ResizeObserver {
 // something these tests ask for. destroyForm is the documented lifecycle — the application calls
 // it before building a new form — so call it here and stop depending on the accident.
 beforeEach(() => {
+  destroyForm();
+});
+
+afterEach(() => {
+  cleanup();
   destroyForm();
 });

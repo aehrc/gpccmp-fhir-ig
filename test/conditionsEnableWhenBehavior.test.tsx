@@ -1,125 +1,190 @@
-import type { Patient, Questionnaire } from 'fhir/r4';
-import type { BehavioralTestWrapperProps } from '@aehrc/questionnaire-test-toolkit';
-import { BehavioralTestWrapper } from '@aehrc/questionnaire-test-toolkit';
-import gpccmpForm from '../fsh-generated/resources/Questionnaire-GPChronicConditionManagementPlan.json';
-import { render, waitFor } from '@testing-library/react';
 import {
-  chooseSelectOption,
-  selectTab,
-  inputInteger,
   checkRadioOption,
-  findByLinkIdOrLabel,
-  inputText
+  inputText,
+  selectTab
 } from '@aehrc/questionnaire-test-toolkit';
+import { useFormEnvironment } from './support/environment';
+import { queryItem, requireItem } from './support/items';
+import {
+  getInputText,
+  renderGpccmp,
+  answerAt,
+  patientPath,
+  homeAddressPath,
+  clinicAddressPath
+} from './support/form';
+import { patient } from './support/fixtures';
 
-function GpccmpForm(props: Omit<BehavioralTestWrapperProps, 'questionnaire'>) {
-  return <BehavioralTestWrapper questionnaire={gpccmpForm as Questionnaire} {...props} />;
-}
+useFormEnvironment();
 
-//Patient details
 describe('My Aged Care boundary values', () => {
-  test('for patients over 50 years of age', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
+  for (const [id, name, birthDate, age] of [
+    ['T19', 'for patients over 50 years of age', '1975-08-16', 51],
+    ['T20', 'for patients under 50 years of age', '1977-08-16', 49],
+    ['T21', 'for patients aged 50 years', '1976-08-16', 50]
+  ] as const) {
+    test(`${id} ${name}`, async () => {
+      const { container } = await renderGpccmp({
+        patient: { ...patient, birthDate }
+      });
+      expect(await getInputText(container, 'patient-age')).toBe(String(age));
+      expect(answerAt(patientPath, 'patient-age')).toEqual([
+        { valueInteger: age }
+      ]);
+      expect(Boolean(queryItem(container, 'patient-myagedcare'))).toBe(
+        age >= 50
+      );
+      if (age >= 50) {
+        await checkRadioOption(
+          container,
+          'patient-myagedcare-registered',
+          'Yes'
+        );
+        await inputText(container, 'patient-myagedcare-number', '1234567890');
+        await inputText(
+          container,
+          'patient-myagedcare-comment',
+          'This is a comment'
+        );
+        expect(await getInputText(container, 'patient-myagedcare-number')).toBe(
+          '1234567890'
+        );
+        expect(
+          await getInputText(container, 'patient-myagedcare-comment')
+        ).toBe('This is a comment');
+        expect(
+          answerAt(
+            [...patientPath, 'patient-myagedcare'],
+            'patient-myagedcare-number'
+          )
+        ).toEqual([{ valueString: '1234567890' }]);
+        expect(
+          answerAt(
+            [...patientPath, 'patient-myagedcare'],
+            'patient-myagedcare-comment'
+          )
+        ).toEqual([{ valueString: 'This is a comment' }]);
+      } else {
+        expect(
+          answerAt(
+            [...patientPath, 'patient-myagedcare'],
+            'patient-myagedcare-number'
+          ) ?? []
+        ).toEqual([]);
+      }
     });
-    await inputInteger(container, 'Age', 51);
-
-    await checkRadioOption(container, 'Registered for My Aged Care', 'Yes');
-    await inputInteger(container, 'My Aged Care Number', 1234567890);
-    await inputText(container, 'Comment', 'This is a comment');
-  });
-
-  test('for patients under 50 years of age', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
-    });
-    await inputInteger(container, 'Age', 49);
-    await expect(
-      async () => await findByLinkIdOrLabel(container, 'My Aged Care')
-    ).rejects.toThrow();
-  });
-
-  test('for patients aged 50 years', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
-    });
-    await inputInteger(container, 'Age', 50);
-
-    await checkRadioOption(container, 'Registered for My Aged Care', 'Yes');
-    await inputInteger(container, 'My Aged Care Number', 1234567890);
-    await inputText(container, 'Comment', 'This is a comment');
-  });
+  }
 });
-
-const noFixedAddressPatient: Patient = {
-  resourceType: 'Patient',
-  id: 'patient-no-fixed-address',
-  name: [{ use: 'official', family: 'Doe', given: ['Jane'] }],
-  birthDate: '1990-01-01',
-  gender: 'female',
-  address: [
-    {
-      use: 'home',
-      extension: [
-        {
-          url: 'http://hl7.org.au/fhir/StructureDefinition/no-fixed-address',
-          valueBoolean: true
-        }
-      ]
-    }
-  ]
-};
 
 describe('Home Address', () => {
-  test('for patients with a home address', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
+  test('T22 for patients with a home address', async () => {
+    const { container } = await renderGpccmp({
+      patient: {
+        ...patient,
+        address: [
+          {
+            use: 'home',
+            type: 'physical',
+            line: ['123 Main St'],
+            city: 'Sydney',
+            state: 'NSW',
+            postalCode: '2000'
+          }
+        ]
+      }
     });
-    await inputText(container, 'Street address', '123 Main St');
-    await inputText(container, 'City', 'Sydney');
-    await chooseSelectOption(container, 'State', 'New South Wales');
-    await inputText(container, 'Postcode', '2000');
+    requireItem(container, 'patient-contact-homeaddress-details');
+    for (const [suffix, visible, answer] of [
+      ['streetaddress', '123 Main St', { valueString: '123 Main St' }],
+      ['city', 'Sydney', { valueString: 'Sydney' }],
+      [
+        'state',
+        'New South Wales',
+        {
+          valueCoding: {
+            system:
+              'https://healthterminologies.gov.au/fhir/CodeSystem/australian-states-territories-1',
+            code: 'NSW',
+            display: 'New South Wales'
+          }
+        }
+      ],
+      ['postcode', '2000', { valueString: '2000' }]
+    ] as const) {
+      const id = `patient-contact-homeaddress-details-${suffix}`;
+      expect(await getInputText(container, id)).toBe(visible);
+      expect(
+        answerAt(
+          [...homeAddressPath, 'patient-contact-homeaddress-details'],
+          id
+        )
+      ).toEqual([answer]);
+    }
   });
 
-  // `No fixed address` cannot be ticked by hand: its group `patient-contact-homeaddress` is
-  // `readOnly: true`, so the checkbox renders with `pointer-events: none` and a click is a no-op.
-  // The item carries an initialExpression reading the `no-fixed-address` extension off the
-  // patient's home address, so population is the only way this flag is ever set — and the only
-  // way to reach the state this test is about.
-  test('for patients without a home address', async () => {
-    const { container } = render(<GpccmpForm patient={noFixedAddressPatient} />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
+  test('T23 for patients without a home address', async () => {
+    const { container } = await renderGpccmp({
+      patient: {
+        ...patient,
+        address: [
+          {
+            use: 'home',
+            type: 'physical',
+            extension: [
+              {
+                url: 'http://hl7.org.au/fhir/StructureDefinition/no-fixed-address',
+                valueBoolean: true
+              }
+            ]
+          }
+        ]
+      }
     });
-
-    await expect(
-      async () => await findByLinkIdOrLabel(container, 'Street address')
-    ).rejects.toThrow();
-
-    await expect(async () => await findByLinkIdOrLabel(container, 'City')).rejects.toThrow();
-
-    await expect(async () => await findByLinkIdOrLabel(container, 'Postcode')).rejects.toThrow();
+    requireItem(container, 'patient-contact-homeaddress');
+    expect(
+      answerAt(homeAddressPath, 'patient-contact-homeaddress-nofixedaddress')
+    ).toEqual([{ valueBoolean: true }]);
+    expect(
+      queryItem(container, 'patient-contact-homeaddress-details')
+    ).toBeUndefined();
+    for (const suffix of ['streetaddress', 'city', 'state', 'postcode']) {
+      const id = `patient-contact-homeaddress-details-${suffix}`;
+      expect(queryItem(container, id)).toBeUndefined();
+      expect(
+        answerAt(
+          [...homeAddressPath, 'patient-contact-homeaddress-details'],
+          id
+        ) ?? []
+      ).toEqual([]);
+    }
   });
 });
 
-//Practitioner details
-
 describe('Clinic Address', () => {
-  test('clinic address', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
-    });
-
-    await selectTab(container, 'Practitioner details');
-    const addressContainer = await findByLinkIdOrLabel(container, 'Address');
-    await inputText(addressContainer, 'Street address', '123 Main St');
-    await inputText(addressContainer, 'City', 'Sydney');
-    await chooseSelectOption(addressContainer, 'State', 'New South Wales');
-    await inputText(addressContainer, 'Postcode', '2000');
+  test('T24 clinic address', async () => {
+    const { container } = await renderGpccmp();
+    await selectTab(container, 'practitioner');
+    requireItem(container, 'practitioner-clinicdetails-address');
+    for (const [suffix, visible, answer] of [
+      ['streetaddress', '1 Clinic Road', { valueString: '1 Clinic Road' }],
+      ['city', 'Melbourne', { valueString: 'Melbourne' }],
+      [
+        'state',
+        'Victoria',
+        {
+          valueCoding: {
+            system:
+              'https://healthterminologies.gov.au/fhir/CodeSystem/australian-states-territories-1',
+            code: 'VIC',
+            display: 'Victoria'
+          }
+        }
+      ],
+      ['postcode', '3000', { valueString: '3000' }]
+    ] as const) {
+      const id = `practitioner-clinicdetails-address-${suffix}`;
+      expect(await getInputText(container, id)).toBe(visible);
+      expect(answerAt(clinicAddressPath, id)).toEqual([answer]);
+    }
   });
 });

@@ -1,816 +1,80 @@
-import type {
-  Bundle,
-  Location,
-  Patient,
-  Practitioner,
-  PractitionerRole,
-  Questionnaire,
-  Condition,
-  FhirResource,
-  AllergyIntolerance,
-  MedicationStatement,
-  Observation,
-  QuestionnaireResponse
-} from 'fhir/r4';
-import type { BehavioralTestWrapperProps } from '@aehrc/questionnaire-test-toolkit';
-import { BehavioralTestWrapper } from '@aehrc/questionnaire-test-toolkit';
-import gpccmpForm from '../fsh-generated/resources/Questionnaire-GPChronicConditionManagementPlan.json';
-import { render, waitFor } from '@testing-library/react';
+import { getResponse } from '@aehrc/smart-forms-renderer';
+import type { Patient } from 'fhir/r4';
+import { selectTab } from '@aehrc/questionnaire-test-toolkit';
+import { requireItem, queryItem } from './support/items';
+import { useFormEnvironment } from './support/environment';
 import {
-  findByLinkIdOrLabel,
-  getBirthDateForAge,
   getInputText,
   getRadioValue,
-  selectTab,
-  getCqfText
-} from '@aehrc/questionnaire-test-toolkit';
+  getCqfText,
+  renderGpccmp,
+  answerAt,
+  homeAddressPath
+} from './support/form';
+import {
+  patient,
+  resolvedCondition,
+  allergy,
+  currentMedication,
+  obsBodyHeight,
+  obsBodyWeight,
+  obsWaistCircumference,
+  obsHeartRate,
+  obsHeartRhythm,
+  obsOxygenSaturation,
+  obsBloodPressure,
+  obsTobaccoSmokingStatus,
+  obsAlcoholConsumption,
+  questionnaireResponsePlan,
+  questionnaireResponsePlanDraft
+} from './support/fixtures';
 
-export const patient: Patient = {
-  resourceType: 'Patient',
-  id: 'patient-123',
-  name: [
-    {
-      use: 'official',
-      family: 'John',
-      given: ['Snow']
-    },
-    {
-      use: 'usual',
-      given: ['Johnny']
-    }
-  ],
-  birthDate: getBirthDateForAge(33),
-  gender: 'male',
-  extension: [
-    {
-      url: 'http://hl7.org/fhir/StructureDefinition/individual-pronouns',
-      extension: [
-        {
-          url: 'value',
-          valueCodeableConcept: {
-            coding: [
-              {
-                system: 'http://loinc.org',
-                code: 'LA29518-0',
-                display: 'he/him/his/his/himself'
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      url: 'http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender',
-      extension: [
-        {
-          url: 'type',
-          valueCodeableConcept: {
-            coding: [
-              {
-                system: 'http://snomed.info/sct',
-                code: '1515311000168102',
-                display: 'Sex at Birth'
-              }
-            ]
-          }
-        },
-        {
-          url: 'value',
-          valueCodeableConcept: {
-            coding: [
-              {
-                system: 'http://snomed.info/sct',
-                code: '248153007',
-                display: 'Male'
-              }
-            ]
-          }
-        },
-        {
-          url: 'effectivePeriod',
-          valuePeriod: {
-            start: '2020-01-01'
-          }
-        }
-      ]
-    },
-    {
-      url: 'http://hl7.org/fhir/StructureDefinition/individual-genderIdentity',
-      extension: [
-        {
-          url: 'value',
-          valueCodeableConcept: {
-            coding: [
-              {
-                system: 'http://snomed.info/sct',
-                code: '446151000124109',
-                display: 'Identifies as male gender'
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      url: 'http://hl7.org.au/fhir/StructureDefinition/indigenous-status',
-      valueCoding: {
-        system: 'https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1',
-        code: '1',
-        display: 'Aboriginal but not Torres Strait Islander origin'
-      }
-    },
-    {
-      url: 'http://hl7.org.au/fhir/StructureDefinition/closing-the-gap-registration',
-      valueBoolean: true
-    }
-  ],
-  identifier: [
-    {
-      type: {
-        coding: [
-          {
-            system: 'http://terminology.hl7.org/CodeSystem/v2-0203',
-            code: 'MC',
-            display: "Patient's Medicare number"
-          }
-        ]
-      },
-      value: '12345678901',
-      period: {
-        end: '2025-12-31'
-      }
-    }
-  ],
-  telecom: [
-    {
-      system: 'phone',
-      value: '0398765432',
-      use: 'home'
-    },
-    {
-      system: 'phone',
-      value: '0412345678',
-      use: 'mobile'
-    },
-    {
-      system: 'email',
-      value: 'john.snow@example.com',
-      use: 'home'
-    }
-  ],
-  address: [
-    {
-      use: 'home',
-      type: 'physical',
-      line: ['123 Winter Lane'],
-      city: 'Melbourne',
-      state: 'VIC',
-      postalCode: '3000'
-    },
-    {
-      use: 'home',
-      type: 'postal',
-      line: ['123 Winter Lane'],
-      city: 'Melbourne',
-      state: 'VIC',
-      postalCode: '3000'
-    }
-  ],
-  contact: [
-    {
-      relationship: [
-        {
-          coding: [
-            {
-              system: 'http://terminology.hl7.org/CodeSystem/v2-0131',
-              code: 'C',
-              display: 'Emergency Contact'
-            }
-          ]
-        }
-      ],
-      name: {
-        family: 'Stark',
-        given: ['Arya']
-      },
-      telecom: [
-        {
-          system: 'phone',
-          value: '0400000000'
-        },
-        {
-          system: 'email',
-          value: 'arya.stark@example.com'
-        }
-      ]
-    }
-  ]
-};
-
-export const practitioner: Practitioner = {
-  resourceType: 'Practitioner',
-  id: 'practitioner-456',
-  name: [
-    {
-      use: 'official',
-      family: 'Smith',
-      given: ['Jane']
-    }
-  ],
-  address: [
-    {
-      use: 'work',
-      type: 'both',
-      line: ['1 Clinic Road'],
-      city: 'Melbourne',
-      state: 'VIC',
-      postalCode: '3000'
-    }
-  ]
-};
-
-const clinicLocation: Location = {
-  resourceType: 'Location',
-  id: 'clinic-location-1',
-  name: 'Clinic Location',
-  address: practitioner.address?.[0]
-};
-
-const practitionerRole: PractitionerRole = {
-  resourceType: 'PractitionerRole',
-  id: 'practitioner-role-1',
-  practitioner: {
-    reference: `Practitioner/${practitioner.id}`
-  },
-  location: [
-    {
-      reference: `Location/${clinicLocation.id}`
-    }
-  ]
-};
-
-const practitionerRoleLocationBundle: Bundle = {
-  resourceType: 'Bundle',
-  type: 'searchset',
-  entry: [{ resource: practitionerRole }, { resource: clinicLocation }]
-};
-
-export const resolvedCondition: Condition = {
-  resourceType: 'Condition',
-  id: 'resolved-condition',
-  subject: { reference: `Patient/${patient.id}` },
-  onsetDateTime: '2025-10-10',
-  abatementDateTime: '2026-10-10',
-  code: {
-    coding: [
-      {
-        system: 'http://snomed.info/sct',
-        code: '654321',
-        display: 'Resolved condition'
-      }
-    ]
-  },
-  clinicalStatus: {
-    coding: [
-      {
-        system: 'http://terminology.hl7.org/CodeSystem/condition-clinical',
-        code: 'inactive'
-      }
-    ]
-  },
-  verificationStatus: {
-    coding: [
-      {
-        code: 'confirmed'
-      }
-    ]
-  },
-  category: [
-    {
-      coding: [
-        {
-          system: 'http://terminology.hl7.org/CodeSystem/condition-category',
-          code: 'problem-list-item'
-        }
-      ]
-    }
-  ]
-};
-
-export const allergy: AllergyIntolerance = {
-  resourceType: 'AllergyIntolerance',
-  id: 'allergy',
-  patient: { reference: `Patient/${patient.id}` },
-  code: {
-    coding: [
-      {
-        system: 'http://snomed.info/sct',
-        code: '388050007',
-        display: 'Cashew nut specific IgE'
-      }
-    ]
-  },
-  clinicalStatus: {
-    coding: [
-      {
-        system: 'http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical',
-        code: 'active'
-      }
-    ]
-  },
-  reaction: [
-    {
-      manifestation: [
-        {
-          coding: [
-            {
-              system: 'http://snomed.info/sct',
-              code: '271807003',
-              display: 'Rash'
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  note: [
-    {
-      text: 'Patient experiences rash and swelling'
-    }
-  ]
-};
-
-export const currentMedication: MedicationStatement = {
-  resourceType: 'MedicationStatement',
-  id: 'current-medication',
-  subject: { reference: `Patient/${patient.id}` },
-  dateAsserted: '2026-03-01',
-  medicationCodeableConcept: {
-    coding: [
-      {
-        code: '23628011000036109',
-        display: 'Paracetamol 500 mg tablet',
-        system: 'http://snomed.info/sct'
-      }
-    ]
-  },
-  status: 'active',
-  dosage: [
-    {
-      text: 'Once daily, 10mg'
-    }
-  ],
-  reasonCode: [
-    {
-      coding: [
-        {
-          system: 'http://snomed.info/sct',
-          code: '418022001',
-          display: 'Iris tuck'
-        }
-      ]
-    }
-  ],
-  note: [
-    {
-      text: 'Patient should take with food'
-    }
-  ]
-};
-
-export const obsBodyHeight: Observation = {
-  resourceType: 'Observation',
-  id: 'obs-body-height',
-  status: 'final',
-  subject: { reference: `Patient/${patient.id}` },
-  category: [
-    {
-      coding: [
-        {
-          system: 'http://terminology.hl7.org/CodeSystem/observation-category',
-          code: 'vital-signs'
-        }
-      ]
-    }
-  ],
-  code: {
-    coding: [
-      { system: 'http://loinc.org', code: '8302-2' },
-      { system: 'http://snomed.info/sct', code: '50373000' }
-    ],
-    text: 'Height'
-  },
-  effectiveDateTime: '2025-11-20',
-  valueQuantity: {
-    value: 170,
-    unit: 'cm',
-    system: 'http://unitsofmeasure.org',
-    code: 'cm'
-  }
-};
-
-export const obsBodyWeight: Observation = {
-  resourceType: 'Observation',
-  id: 'obs-body-weight',
-  status: 'final',
-  category: [
-    {
-      coding: [
-        {
-          system: 'http://terminology.hl7.org/CodeSystem/observation-category',
-          code: 'vital-signs'
-        }
-      ]
-    }
-  ],
-  subject: { reference: `Patient/${patient.id}` },
-  code: {
-    coding: [
-      { system: 'http://loinc.org', code: '29463-7' },
-      { system: 'http://snomed.info/sct', code: '27113001' }
-    ],
-    text: 'Weight'
-  },
-  effectiveDateTime: '2025-11-21',
-  valueQuantity: {
-    value: 70,
-    unit: 'kg',
-    system: 'http://unitsofmeasure.org',
-    code: 'kg'
-  }
-};
-
-export const obsWaistCircumference: Observation = {
-  resourceType: 'Observation',
-  id: 'obs-waist-circumference',
-  status: 'final',
-  subject: { reference: `Patient/${patient.id}` },
-  category: [
-    {
-      coding: [
-        {
-          code: 'vital-signs',
-          system: 'http://terminology.hl7.org/CodeSystem/observation-category'
-        }
-      ]
-    }
-  ],
-  code: {
-    coding: [
-      { system: 'http://loinc.org', code: '8280-0' },
-      { system: 'http://snomed.info/sct', code: '276361009' }
-    ],
-    text: 'Waist circumference'
-  },
-  effectiveDateTime: '2025-11-23',
-  valueQuantity: {
-    value: 90,
-    unit: 'cm',
-    system: 'http://unitsofmeasure.org',
-    code: 'cm'
-  }
-};
-
-export const obsHeartRate: Observation = {
-  resourceType: 'Observation',
-  id: 'obs-heart-rate',
-  status: 'final',
-  subject: { reference: `Patient/${patient.id}` },
-  category: [
-    {
-      coding: [
-        {
-          code: 'vital-signs',
-          system: 'http://terminology.hl7.org/CodeSystem/observation-category'
-        }
-      ]
-    }
-  ],
-  code: {
-    coding: [
-      { system: 'http://loinc.org', code: '78564009' },
-      { system: 'http://snomed.info/sct', code: '364075005' }
-    ],
-    text: 'Heart rate'
-  },
-  effectiveDateTime: '2025-12-04',
-  valueQuantity: {
-    value: 72,
-    unit: '/min',
-    system: 'http://unitsofmeasure.org',
-    code: '/min'
-  }
-};
-
-export const obsHeartRhythm: Observation = {
-  resourceType: 'Observation',
-  id: 'obs-heart-rhythm',
-  status: 'final',
-  subject: { reference: `Patient/${patient.id}` },
-  category: [
-    {
-      coding: [
-        {
-          code: 'vital-signs',
-          system: 'http://terminology.hl7.org/CodeSystem/observation-category'
-        }
-      ]
-    }
-  ],
-  code: {
-    coding: [
-      { system: 'http://loinc.org', code: '364095004' },
-      { system: 'http://snomed.info/sct', code: '364074009' }
-    ],
-    text: 'Heart rhythm'
-  },
-  effectiveDateTime: '2025-12-03',
-  valueCodeableConcept: {
-    coding: [
-      {
-        system: 'http://snomed.info/sct',
-        code: '933506231000036108',
-        display: 'Regular heart rhythm'
-      }
-    ]
-  }
-};
-
-export const obsOxygenSaturation: Observation = {
-  resourceType: 'Observation',
-  id: 'obs-oxygen-saturation',
-  status: 'final',
-  subject: { reference: `Patient/${patient.id}` },
-  category: [
-    {
-      coding: [
-        {
-          code: 'vital-signs',
-          system: 'http://terminology.hl7.org/CodeSystem/observation-category'
-        }
-      ]
-    }
-  ],
-  code: {
-    coding: [
-      {
-        system: 'http://loinc.org',
-        code: '2708-6',
-        display: 'Oxygen saturation in Arterial blood'
-      },
-      {
-        system: 'http://loinc.org',
-        code: '59408-5',
-        display: 'Oxygen saturation in Arterial blood by Pulse oximetry'
-      },
-      { system: 'http://snomed.info/sct', code: '103228002', display: 'Oxygen saturation' }
-    ],
-    text: 'Oxygen saturation'
-  },
-  effectiveDateTime: '2025-12-04',
-  valueQuantity: {
-    value: 98,
-    unit: '%',
-    system: 'http://unitsofmeasure.org',
-    code: '%'
-  }
-};
-
-export const obsBloodPressure: Observation = {
-  resourceType: 'Observation',
-  id: 'obs-blood-pressure',
-  status: 'final',
-  subject: { reference: `Patient/${patient.id}` },
-  category: [
-    {
-      coding: [
-        {
-          system: 'http://terminology.hl7.org/CodeSystem/observation-category',
-          code: 'vital-signs'
-        }
-      ]
-    }
-  ],
-  code: {
-    coding: [
-      {
-        system: 'http://loinc.org',
-        code: '85354-9'
-      },
-      {
-        code: '75367002',
-        system: 'http://snomed.info/sct'
-      }
-    ],
-    text: 'Blood pressure'
-  },
-  effectiveDateTime: '2025-12-02',
-  component: [
-    {
-      code: {
-        coding: [
-          {
-            system: 'http://loinc.org',
-            code: '8480-6'
-          },
-          {
-            code: '271649006',
-            system: 'http://snomed.info/sct'
-          }
-        ],
-        text: 'Systolic'
-      },
-      valueQuantity: {
-        value: 120,
-        unit: 'mm[Hg]',
-        system: 'http://unitsofmeasure.org',
-        code: 'mm[Hg]'
-      }
-    },
-    {
-      code: {
-        coding: [
-          {
-            system: 'http://loinc.org',
-            code: '8462-4'
-          },
-          {
-            code: '271650006',
-            system: 'http://snomed.info/sct'
-          }
-        ],
-        text: 'Diastolic'
-      },
-      valueQuantity: {
-        value: 80,
-        unit: 'mm[Hg]',
-        system: 'http://unitsofmeasure.org',
-        code: 'mm[Hg]'
-      }
-    }
-  ]
-};
-
-export const obsTobaccoSmokingStatus: Observation = {
-  resourceType: 'Observation',
-  id: 'obs-tobacco-smoking-status',
-  status: 'final',
-  subject: { reference: `Patient/${patient.id}` },
-  category: [
-    {
-      coding: [
-        {
-          system: 'http://terminology.hl7.org/CodeSystem/observation-category',
-          code: 'social-history'
-        }
-      ]
-    }
-  ],
-  code: {
-    coding: [
-      {
-        system: 'http://snomed.info/sct',
-        code: '1747861000168109'
-      },
-      {
-        code: '72166-2',
-        system: 'http://loinc.org'
-      }
-    ],
-    text: 'Smoking status'
-  },
-  effectiveDateTime: '2025-12-01',
-  valueCodeableConcept: {
-    coding: [
-      {
-        system: 'http://snomed.info/sct',
-        code: '77176002',
-        display: 'Current smoker'
-      }
-    ]
-  }
-};
-
-export const obsAlcoholConsumption: Observation = {
-  resourceType: 'Observation',
-  id: 'obs-alcohol-consumption',
-  status: 'final',
-  subject: { reference: `Patient/${patient.id}` },
-  category: [
-    {
-      coding: [
-        {
-          code: 'social-history',
-          system: 'http://terminology.hl7.org/CodeSystem/observation-category'
-        }
-      ]
-    }
-  ],
-  code: {
-    coding: [
-      { system: 'http://loinc.org', code: '897148007', display: 'History of Alcohol use' },
-      {
-        system: 'http://snomed.info/sct',
-        code: '228273003',
-        display: 'Finding relating to alcohol drinking behavior'
-      }
-    ],
-    text: 'Alcohol consumption status'
-  },
-  effectiveDateTime: '2025-12-04',
-  valueCodeableConcept: {
-    coding: [
-      {
-        system: 'http://snomed.info/sct',
-        code: '219006',
-        display: 'Current drinker of alcohol'
-      }
-    ],
-    text: 'Current drinker'
-  }
-};
-
-// Keep the completed plan comfortably inside the form's 12-month review window. A fixed authored
-// date would eventually expire and incorrectly turn the expected plan type from Review to New.
-const completedPlanAuthoredDate = new Date(Date.now() - 180 * 24 * 60 * 60 * 1000)
-  .toISOString()
-  .slice(0, 10);
-
-export const questionnaireResponsePlan: QuestionnaireResponse = {
-  resourceType: 'QuestionnaireResponse',
-  id: 'questionnaire-response-plan',
-  questionnaire: 'http://www.health.gov.au/assessments/GPChronicConditionManagementPlan',
-  status: 'completed',
-  subject: { reference: `Patient/${patient.id}` },
-  authored: `${completedPlanAuthoredDate}T10:00:00Z`,
-  item: [
-    {
-      linkId: 'plan-type',
-      text: 'New plan or a review of an existing plan?',
-      answer: [{ valueCoding: { code: 'review', display: 'Review' } }]
-    }
-  ]
-};
-
-export const questionnaireResponsePlanDraft: QuestionnaireResponse = {
-  resourceType: 'QuestionnaireResponse',
-  id: 'questionnaire-response-plan-draft',
-  questionnaire: 'http://www.health.gov.au/assessments/GPChronicConditionManagementPlan',
-  status: 'in-progress',
-  subject: { reference: `Patient/${patient.id}` },
-  authored: '2026-01-10T10:00:00Z'
-};
-
-export function makeSearchSetBundle(resources: FhirResource[]) {
-  return {
-    resourceType: 'Bundle',
-    type: 'searchset',
-    entry: resources.map((resource) => ({
-      resource: resource
-    }))
-  };
-}
-
-function GpccmpForm(props: Omit<BehavioralTestWrapperProps, 'questionnaire'>) {
-  return <BehavioralTestWrapper questionnaire={gpccmpForm as Questionnaire} {...props} />;
-}
+useFormEnvironment();
 
 describe('Population workflow for', () => {
-  test('Patient details', async () => {
-    const { container } = render(<GpccmpForm patient={patient} />);
+  test('T25 Patient details', async () => {
+    const { container } = await renderGpccmp({ patient });
 
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
-    });
-    await selectTab(container, 'Patient details');
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    const patientAge = await getInputText(container, 'Age');
+    await selectTab(container, 'patient');
+    const patientAge = await getInputText(container, 'patient-age');
     expect(patientAge).toBe('33');
+    expect(getResponse().questionnaire).toBe(
+      'http://www.health.gov.au/assessments/GPChronicConditionManagementPlan'
+    );
 
-    const patientName = await getInputText(container, 'Name');
+    const patientName = await getInputText(container, 'patient-name');
     expect(patientName).toBe('Snow John');
 
-    const preferredName = await getInputText(container, 'Preferred name');
+    const preferredName = await getInputText(
+      container,
+      'patient-preferredname'
+    );
     expect(preferredName).toBe('Johnny');
 
-    const preferredPronouns = await getInputText(container, 'Preferred pronouns');
+    const preferredPronouns = await getInputText(
+      container,
+      'patient-preferredpronouns'
+    );
     expect(preferredPronouns).toBe('he/him/his/his/himself');
 
-    const dateOfBirth = await getInputText(container, 'Date of birth');
-    const birthDateIso = getBirthDateForAge(33);
-    const [year, month, day] = birthDateIso.split('-');
-    const expectedDateOfBirth = `${day}/${month}/${year}`;
-    expect(dateOfBirth).toBe(expectedDateOfBirth);
+    const dateOfBirth = await getInputText(container, 'patient-dob');
+    expect(dateOfBirth).toBe('16/08/1993');
 
-    const sexAssignedAtBirth = await getInputText(container, 'Sex assigned at birth');
+    const sexAssignedAtBirth = await getInputText(
+      container,
+      'patient-sexatbirth'
+    );
     expect(sexAssignedAtBirth).toBe('Male');
 
-    const genderIdentity = await getInputText(container, 'Gender identity');
+    const genderIdentity = await getInputText(
+      container,
+      'patient-genderidentity'
+    );
     expect(genderIdentity).toBe('Identifies as male gender');
 
     const aboriginalAndTorresStraitIslanderStatus = await getInputText(
       container,
-      'Aboriginal and/or Torres Strait Islander status'
+      'patient-firstnationsstatus'
     );
     expect(aboriginalAndTorresStraitIslanderStatus).toBe(
       'Aboriginal but not Torres Strait Islander origin'
@@ -818,59 +82,334 @@ describe('Population workflow for', () => {
 
     const closingTheGapRegistration = await getInputText(
       container,
-      'Registered for Closing the Gap PBS Co-payment Measure (CTG)'
+      'patient-ctg'
     );
     expect(closingTheGapRegistration).toBe('true');
 
-    const medicareNumber = await findByLinkIdOrLabel(container, 'Medicare card number');
-    const medicareNumberNumber = await getInputText(medicareNumber, 'Number');
+    const medicareNumber = requireItem(container, 'patient-medicare');
+    const medicareNumberNumber = await getInputText(
+      medicareNumber,
+      'patient-medicare-number'
+    );
     expect(medicareNumberNumber).toBe('1234567890');
-    const medicareNumberReferenceNumber = await getInputText(medicareNumber, 'Reference number');
+    const medicareNumberReferenceNumber = await getInputText(
+      medicareNumber,
+      'patient-medicare-referencenumber'
+    );
     expect(medicareNumberReferenceNumber).toBe('1');
-    const medicareNumberExpiry = await getInputText(medicareNumber, 'Expiry');
+    const medicareNumberExpiry = await getInputText(
+      medicareNumber,
+      'patient-medicare-expiry'
+    );
     expect(medicareNumberExpiry).toBe('2025-12-31');
 
-    const homePhoneNumber = await getInputText(container, 'Home phone');
+    const homePhoneNumber = await getInputText(
+      container,
+      'patient-contact-homephone'
+    );
     expect(homePhoneNumber).toBe('0398765432');
 
-    const mobilePhoneNumber = await getInputText(container, 'Mobile phone');
+    const mobilePhoneNumber = await getInputText(
+      container,
+      'patient-contact-mobilephone'
+    );
     expect(mobilePhoneNumber).toBe('0412345678');
 
-    const emailAddress = await getInputText(container, 'Email');
+    const emailAddress = await getInputText(container, 'patient-contact-email');
     expect(emailAddress).toBe('john.snow@example.com');
 
-    const homeAddress = await findByLinkIdOrLabel(container, 'Home address');
-    const streetAddress = await getInputText(homeAddress, 'Street address');
+    const homeAddress = requireItem(container, 'patient-contact-homeaddress');
+    const streetAddress = await getInputText(
+      homeAddress,
+      'patient-contact-homeaddress-details-streetaddress'
+    );
     expect(streetAddress).toBe('123 Winter Lane');
-    const city = await getInputText(homeAddress, 'City');
+    const city = await getInputText(
+      homeAddress,
+      'patient-contact-homeaddress-details-city'
+    );
     expect(city).toBe('Melbourne');
-    const state = await getInputText(homeAddress, 'State');
+    const state = await getInputText(
+      homeAddress,
+      'patient-contact-homeaddress-details-state'
+    );
     expect(state).toBe('Victoria');
-    const postalCode = await getInputText(homeAddress, 'Postcode');
+    const postalCode = await getInputText(
+      homeAddress,
+      'patient-contact-homeaddress-details-postcode'
+    );
     expect(postalCode).toBe('3000');
 
-    const postalAddress = await findByLinkIdOrLabel(container, 'Postal address');
-    const postalPurpose = await getInputText(postalAddress, 'Purpose of use');
+    const postalAddress = requireItem(
+      container,
+      'patient-contact-postaladdress'
+    );
+    const postalPurpose = await getInputText(
+      postalAddress,
+      'patient-contact-postaladdress-purpose'
+    );
     expect(postalPurpose).toBe('home');
-    const postalStreetAddress = await getInputText(postalAddress, 'Street address');
+    const postalStreetAddress = await getInputText(
+      postalAddress,
+      'patient-contact-postaladdress-streetaddress'
+    );
     expect(postalStreetAddress).toBe('123 Winter Lane');
-    const postalCity = await getInputText(postalAddress, 'City');
+    const postalCity = await getInputText(
+      postalAddress,
+      'patient-contact-postaladdress-city'
+    );
     expect(postalCity).toBe('Melbourne');
-    const postalState = await getInputText(postalAddress, 'State');
+    const postalState = await getInputText(
+      postalAddress,
+      'patient-contact-postaladdress-state'
+    );
     expect(postalState).toBe('Victoria');
-    const postalPostcode = await getInputText(postalAddress, 'Postcode');
+    const postalPostcode = await getInputText(
+      postalAddress,
+      'patient-contact-postaladdress-postcode'
+    );
     expect(postalPostcode).toBe('3000');
 
-    const carersAndKeyContacts = await findByLinkIdOrLabel(container, 'Carers and key contacts');
-    const carersAndKeyContactsName = await getInputText(carersAndKeyContacts, 'Name');
+    const carersAndKeyContacts = requireItem(container, 'patient-contacts');
+    const carersAndKeyContactsName = await getInputText(
+      carersAndKeyContacts,
+      'patient-contacts-name'
+    );
     expect(carersAndKeyContactsName).toBe('Arya Stark');
-    const carersAndKeyContactsPhone = await getInputText(carersAndKeyContacts, 'Phone');
+    const carersAndKeyContactsPhone = await getInputText(
+      carersAndKeyContacts,
+      'patient-contacts-phone'
+    );
     expect(carersAndKeyContactsPhone).toBe('0400000000');
-    const carersAndKeyContactsEmail = await getInputText(carersAndKeyContacts, 'Email');
+    const carersAndKeyContactsEmail = await getInputText(
+      carersAndKeyContacts,
+      'patient-contacts-email'
+    );
     expect(carersAndKeyContactsEmail).toBe('arya.stark@example.com');
+
+    // Typed answers at full response paths, including hidden observation inputs.
+    expect(answerAt(['container', 'patient'], 'patient-age')).toEqual([
+      { valueInteger: 33 }
+    ]);
+    expect(answerAt(['container', 'patient'], 'patient-name')).toEqual([
+      { valueString: 'Snow John' }
+    ]);
+    expect(answerAt(['container', 'patient'], 'patient-preferredname')).toEqual(
+      [{ valueString: 'Johnny' }]
+    );
+    expect(
+      answerAt(['container', 'patient'], 'patient-preferredpronouns')
+    ).toMatchObject([
+      { valueCoding: { system: 'http://loinc.org', code: 'LA29518-0' } }
+    ]);
+    expect(answerAt(['container', 'patient'], 'patient-dob')).toEqual([
+      { valueDate: '1993-08-16' }
+    ]);
+    expect(
+      answerAt(['container', 'patient'], 'patient-sexatbirth')
+    ).toMatchObject([
+      { valueCoding: { system: 'http://snomed.info/sct', code: '248153007' } }
+    ]);
+    expect(
+      answerAt(['container', 'patient'], 'patient-genderidentity')
+    ).toMatchObject([
+      {
+        valueCoding: {
+          system: 'http://snomed.info/sct',
+          code: '446151000124109'
+        }
+      }
+    ]);
+    expect(
+      answerAt(['container', 'patient'], 'patient-firstnationsstatus')
+    ).toMatchObject([
+      {
+        valueCoding: {
+          system:
+            'https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1',
+          code: '1'
+        }
+      }
+    ]);
+    expect(answerAt(['container', 'patient'], 'patient-ctg')).toEqual([
+      { valueBoolean: true }
+    ]);
+    expect(
+      answerAt(
+        ['container', 'patient', 'patient-medicare'],
+        'patient-medicare-number'
+      )
+    ).toEqual([{ valueString: '1234567890' }]);
+    expect(
+      answerAt(
+        ['container', 'patient', 'patient-medicare'],
+        'patient-medicare-referencenumber'
+      )
+    ).toEqual([{ valueString: '1' }]);
+    expect(
+      answerAt(
+        ['container', 'patient', 'patient-medicare'],
+        'patient-medicare-expiry'
+      )
+    ).toEqual([{ valueString: '2025-12-31' }]);
+    expect(
+      answerAt(
+        ['container', 'patient', 'patient-contact'],
+        'patient-contact-homephone'
+      )
+    ).toEqual([{ valueString: '0398765432' }]);
+    expect(
+      answerAt(
+        ['container', 'patient', 'patient-contact'],
+        'patient-contact-mobilephone'
+      )
+    ).toEqual([{ valueString: '0412345678' }]);
+    expect(
+      answerAt(
+        ['container', 'patient', 'patient-contact'],
+        'patient-contact-email'
+      )
+    ).toEqual([{ valueString: 'john.snow@example.com' }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'patient',
+          'patient-contact',
+          'patient-contact-homeaddress',
+          'patient-contact-homeaddress-details'
+        ],
+        'patient-contact-homeaddress-details-streetaddress'
+      )
+    ).toEqual([{ valueString: '123 Winter Lane' }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'patient',
+          'patient-contact',
+          'patient-contact-homeaddress',
+          'patient-contact-homeaddress-details'
+        ],
+        'patient-contact-homeaddress-details-city'
+      )
+    ).toEqual([{ valueString: 'Melbourne' }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'patient',
+          'patient-contact',
+          'patient-contact-homeaddress',
+          'patient-contact-homeaddress-details'
+        ],
+        'patient-contact-homeaddress-details-state'
+      )
+    ).toMatchObject([
+      {
+        valueCoding: {
+          system:
+            'https://healthterminologies.gov.au/fhir/CodeSystem/australian-states-territories-1',
+          code: 'VIC'
+        }
+      }
+    ]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'patient',
+          'patient-contact',
+          'patient-contact-homeaddress',
+          'patient-contact-homeaddress-details'
+        ],
+        'patient-contact-homeaddress-details-postcode'
+      )
+    ).toEqual([{ valueString: '3000' }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'patient',
+          'patient-contact',
+          'patient-contact-postaladdress'
+        ],
+        'patient-contact-postaladdress-purpose'
+      )
+    ).toEqual([{ valueString: 'home' }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'patient',
+          'patient-contact',
+          'patient-contact-postaladdress'
+        ],
+        'patient-contact-postaladdress-streetaddress'
+      )
+    ).toEqual([{ valueString: '123 Winter Lane' }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'patient',
+          'patient-contact',
+          'patient-contact-postaladdress'
+        ],
+        'patient-contact-postaladdress-city'
+      )
+    ).toEqual([{ valueString: 'Melbourne' }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'patient',
+          'patient-contact',
+          'patient-contact-postaladdress'
+        ],
+        'patient-contact-postaladdress-state'
+      )
+    ).toMatchObject([
+      {
+        valueCoding: {
+          system:
+            'https://healthterminologies.gov.au/fhir/CodeSystem/australian-states-territories-1',
+          code: 'VIC'
+        }
+      }
+    ]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'patient',
+          'patient-contact',
+          'patient-contact-postaladdress'
+        ],
+        'patient-contact-postaladdress-postcode'
+      )
+    ).toEqual([{ valueString: '3000' }]);
+    expect(
+      answerAt(
+        ['container', 'patient', 'patient-contacts'],
+        'patient-contacts-name'
+      )
+    ).toEqual([{ valueString: 'Arya Stark' }]);
+    expect(
+      answerAt(
+        ['container', 'patient', 'patient-contacts'],
+        'patient-contacts-phone'
+      )
+    ).toEqual([{ valueString: '0400000000' }]);
+    expect(
+      answerAt(
+        ['container', 'patient', 'patient-contacts'],
+        'patient-contacts-email'
+      )
+    ).toEqual([{ valueString: 'arya.stark@example.com' }]);
   });
 
-  test('Patient with no fixed address', async () => {
+  test('T26 Patient with no fixed address', async () => {
     const patientNoFixedAddress: Patient = {
       ...patient,
       address: [
@@ -889,447 +428,895 @@ describe('Population workflow for', () => {
         )
       ]
     };
-    const { container } = render(<GpccmpForm patient={patientNoFixedAddress} />);
-
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
+    const { container } = await renderGpccmp({
+      patient: patientNoFixedAddress
     });
-    await selectTab(container, 'Patient details');
 
-    const homeAddress = await findByLinkIdOrLabel(container, 'Home address');
-    await expect(
-      async () => await findByLinkIdOrLabel(homeAddress, 'Street address')
-    ).rejects.toThrow();
+    await selectTab(container, 'patient');
+
+    const homeAddress = requireItem(container, 'patient-contact-homeaddress');
+    expect(
+      queryItem(homeAddress, 'patient-contact-homeaddress-details')
+    ).toBeUndefined();
+    expect(
+      queryItem(
+        homeAddress,
+        'patient-contact-homeaddress-details-streetaddress'
+      )
+    ).toBeUndefined();
+    expect(
+      answerAt(homeAddressPath, 'patient-contact-homeaddress-nofixedaddress')
+    ).toEqual([{ valueBoolean: true }]);
+    expect(
+      answerAt(
+        [...homeAddressPath, 'patient-contact-homeaddress-details'],
+        'patient-contact-homeaddress-details-streetaddress'
+      ) ?? []
+    ).toEqual([]);
   });
 
-  test('Practitioner details', async () => {
-    const { container } = render(
-      <GpccmpForm
-        patient={patient}
-        user={practitioner}
-        fhirContext={[
-          {
-            type: 'PractitionerRole',
-            reference: `PractitionerRole/${practitionerRole.id}`
-          }
-        ]}
-        requestDefinitions={[
-          {
-            urlPrefix: 'PractitionerRole/',
-            responseBody: practitionerRole
-          },
-          {
-            urlPrefix: 'PractitionerRole',
-            params: { _id: practitionerRole.id ?? '' },
-            responseBody: practitionerRoleLocationBundle
-          }
-        ]}
-      />
-    );
+  test('T27 Practitioner details', async () => {
+    const { container } = await renderGpccmp();
 
-    await waitFor(() => expect(container.innerHTML).toContain('Practitioner details'), {
-      timeout: 10000
-    });
-    await selectTab(container, 'Practitioner details');
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    const practitionerName = await getInputText(container, 'Name');
+    await selectTab(container, 'practitioner');
+    const practitionerName = await getInputText(container, 'practitioner-name');
     expect(practitionerName).toBe('Jane Smith');
 
-    const streetAddress = await getInputText(container, 'Street address');
+    const streetAddress = await getInputText(
+      container,
+      'practitioner-clinicdetails-address-streetaddress'
+    );
     expect(streetAddress).toBe('1 Clinic Road');
-    const city = await getInputText(container, 'City');
+    const city = await getInputText(
+      container,
+      'practitioner-clinicdetails-address-city'
+    );
     expect(city).toBe('Melbourne');
-    const state = await getInputText(container, 'State');
+    const state = await getInputText(
+      container,
+      'practitioner-clinicdetails-address-state'
+    );
     expect(state).toBe('Victoria');
-    const postalCode = await getInputText(container, 'Postcode');
+    const postalCode = await getInputText(
+      container,
+      'practitioner-clinicdetails-address-postcode'
+    );
     expect(postalCode).toBe('3000');
+
+    // Typed answers at full response paths, including hidden observation inputs.
+    expect(
+      answerAt(['container', 'practitioner'], 'practitioner-name')
+    ).toEqual([{ valueString: 'Jane Smith' }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'practitioner',
+          'practitioner-clinicdetails',
+          'practitioner-clinicdetails-address'
+        ],
+        'practitioner-clinicdetails-address-streetaddress'
+      )
+    ).toEqual([{ valueString: '1 Clinic Road' }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'practitioner',
+          'practitioner-clinicdetails',
+          'practitioner-clinicdetails-address'
+        ],
+        'practitioner-clinicdetails-address-city'
+      )
+    ).toEqual([{ valueString: 'Melbourne' }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'practitioner',
+          'practitioner-clinicdetails',
+          'practitioner-clinicdetails-address'
+        ],
+        'practitioner-clinicdetails-address-state'
+      )
+    ).toMatchObject([
+      {
+        valueCoding: {
+          system:
+            'https://healthterminologies.gov.au/fhir/CodeSystem/australian-states-territories-1',
+          code: 'VIC'
+        }
+      }
+    ]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'practitioner',
+          'practitioner-clinicdetails',
+          'practitioner-clinicdetails-address'
+        ],
+        'practitioner-clinicdetails-address-postcode'
+      )
+    ).toEqual([{ valueString: '3000' }]);
   });
 
-  test('Conditions', async () => {
-    const { container } = render(
-      <GpccmpForm
-        patient={patient}
-        user={practitioner}
-        requestDefinitions={[
-          {
-            urlPrefix: 'Condition',
-            params: {},
-            responseBody: makeSearchSetBundle([resolvedCondition])
-          }
-        ]}
-      />
-    );
-
-    await waitFor(() => expect(container.innerHTML).toContain('Clinical details'), {
-      timeout: 10000
+  test('T28 Conditions', async () => {
+    const { container } = await renderGpccmp({
+      patient,
+      resources: [resolvedCondition]
     });
-    await selectTab(container, 'Clinical details');
 
-    const recorderDiagnosis = await findByLinkIdOrLabel(container, 'Recorded problems/diagnoses');
-    const recorderDiagnosisName = await getInputText(recorderDiagnosis, 'Condition');
+    await selectTab(container, 'clinicaldetails');
+
+    const recorderDiagnosis = requireItem(
+      container,
+      'clinicaldetails-problemsdiagnoses-recordedproblems'
+    );
+    const recorderDiagnosisName = await getInputText(
+      recorderDiagnosis,
+      'clinicaldetails-problemsdiagnoses-recordedproblems-condition'
+    );
     expect(recorderDiagnosisName).toBe('Resolved condition');
     const recorderDiagnosisClinicalStatus = await getInputText(
       recorderDiagnosis,
-      'Clinical status'
+      'clinicaldetails-problemsdiagnoses-recordedproblems-clinicalstatus'
     );
     expect(recorderDiagnosisClinicalStatus).toBe('Inactive');
-    const recorderDiagnosisOnset = await getInputText(recorderDiagnosis, 'Onset date');
+    const recorderDiagnosisOnset = await getInputText(
+      recorderDiagnosis,
+      'clinicaldetails-problemsdiagnoses-recordedproblems-onsetdate'
+    );
     expect(recorderDiagnosisOnset).toBe('10/10/2025');
-    const recorderDiagnosisAbatement = await getInputText(recorderDiagnosis, 'Abatement date');
+    const recorderDiagnosisAbatement = await getInputText(
+      recorderDiagnosis,
+      'clinicaldetails-problemsdiagnoses-recordedproblems-abatementdate'
+    );
     expect(recorderDiagnosisAbatement).toBe('10/10/2026');
+
+    // Typed answers at full response paths, including hidden observation inputs.
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-problemsdiagnoses',
+          'clinicaldetails-problemsdiagnoses-recordedproblems'
+        ],
+        'clinicaldetails-problemsdiagnoses-recordedproblems-condition'
+      )
+    ).toMatchObject([
+      { valueCoding: { system: 'http://snomed.info/sct', code: '654321' } }
+    ]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-problemsdiagnoses',
+          'clinicaldetails-problemsdiagnoses-recordedproblems'
+        ],
+        'clinicaldetails-problemsdiagnoses-recordedproblems-clinicalstatus'
+      )
+    ).toMatchObject([
+      {
+        valueCoding: {
+          system: 'http://terminology.hl7.org/CodeSystem/condition-clinical',
+          code: 'inactive'
+        }
+      }
+    ]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-problemsdiagnoses',
+          'clinicaldetails-problemsdiagnoses-recordedproblems'
+        ],
+        'clinicaldetails-problemsdiagnoses-recordedproblems-onsetdate'
+      )
+    ).toEqual([{ valueDate: '2025-10-10' }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-problemsdiagnoses',
+          'clinicaldetails-problemsdiagnoses-recordedproblems'
+        ],
+        'clinicaldetails-problemsdiagnoses-recordedproblems-abatementdate'
+      )
+    ).toEqual([{ valueDate: '2026-10-10' }]);
   });
 
-  test('Allergies', async () => {
-    const { container } = render(
-      <GpccmpForm
-        patient={patient}
-        user={practitioner}
-        requestDefinitions={[
-          {
-            urlPrefix: 'AllergyIntolerance',
-            params: {},
-            responseBody: makeSearchSetBundle([allergy])
-          }
-        ]}
-      />
-    );
+  test('T29 Allergies', async () => {
+    const { container } = await renderGpccmp({ patient, resources: [allergy] });
 
-    await waitFor(() => expect(container.innerHTML).toContain('Clinical details'), {
-      timeout: 10000
-    });
-    await selectTab(container, 'Clinical details');
+    await selectTab(container, 'clinicaldetails');
 
-    const allergies = await findByLinkIdOrLabel(container, 'Recorded adverse reaction risks');
-    const allergiesName = await getInputText(allergies, 'Substance');
-    expect(allergiesName).toBe('Cashew nut specific IgE');
-    const allergiesClinicalStatus = await getInputText(allergies, 'Status');
-    expect(allergiesClinicalStatus).toBe('Active');
-    const allergiesReaction = await getInputText(allergies, 'Manifestation');
-    expect(allergiesReaction).toBe('Rash');
-    const allergiesNote = await getInputText(allergies, 'Comment');
-    expect(allergiesNote).toBe('Patient experiences rash and swelling');
-  });
-
-  test('Medications', async () => {
-    const { container } = render(
-      <GpccmpForm
-        patient={patient}
-        user={practitioner}
-        requestDefinitions={[
-          {
-            urlPrefix: 'MedicationStatement',
-            params: {},
-            responseBody: makeSearchSetBundle([currentMedication])
-          }
-        ]}
-      />
-    );
-
-    await waitFor(() => expect(container.innerHTML).toContain('Clinical details'), {
-      timeout: 10000
-    });
-    await selectTab(container, 'Clinical details');
-
-    const medications = await findByLinkIdOrLabel(container, 'Recorded medications');
-    const medicationsName = await getInputText(medications, 'Medication');
-    expect(medicationsName).toBe('Paracetamol 500 mg tablet');
-    const medicationsStatus = await getInputText(medications, 'Status');
-    expect(medicationsStatus).toBe('Active');
-    const medicationsDosage = await getInputText(medications, 'Dosage');
-    expect(medicationsDosage).toBe('Once daily, 10mg');
-    const medicationsReason = await getInputText(medications, 'Indication');
-    expect(medicationsReason).toBe('Iris tuck');
-    const medicationsNote = await getInputText(medications, 'Comment');
-    expect(medicationsNote).toBe('Patient should take with food');
-  });
-
-  test('Height last result', async () => {
-    const { container } = render(
-      <GpccmpForm
-        patient={patient}
-        user={practitioner}
-        requestDefinitions={[
-          {
-            urlPrefix: 'Observation',
-            params: { code: '8302-2' },
-            responseBody: makeSearchSetBundle([obsBodyHeight])
-          }
-        ]}
-      />
-    );
-
-    await waitFor(() => expect(container.innerHTML).toContain('Clinical details'), {
-      timeout: 10000
-    });
-    await selectTab(container, 'Clinical details');
-    const heightStringContainer = await findByLinkIdOrLabel(container, 'Height');
-    const lastResultHeight = await getCqfText(heightStringContainer, 'Last result');
-    expect(lastResultHeight).toBe('170 cm ( 20 Nov 2025 )');
-  });
-
-  test('Weight last result', async () => {
-    const { container } = render(
-      <GpccmpForm
-        patient={patient}
-        user={practitioner}
-        requestDefinitions={[
-          {
-            urlPrefix: 'Observation',
-            params: { code: '29463-7' },
-            responseBody: makeSearchSetBundle([obsBodyWeight])
-          }
-        ]}
-      />
-    );
-
-    await waitFor(() => expect(container.innerHTML).toContain('Clinical details'), {
-      timeout: 10000
-    });
-    await selectTab(container, 'Clinical details');
-    const weightStringContainer = await findByLinkIdOrLabel(container, 'Weight');
-    const lastResultWeight = await getCqfText(weightStringContainer, 'Last result');
-    expect(lastResultWeight).toBe('70 kg ( 21 Nov 2025 )');
-  });
-
-  test('BMI last result', async () => {
-    const { container } = render(
-      <GpccmpForm
-        patient={patient}
-        user={practitioner}
-        requestDefinitions={[
-          {
-            urlPrefix: 'Observation',
-            params: { code: '8302-2' },
-            responseBody: makeSearchSetBundle([obsBodyHeight])
-          },
-          {
-            urlPrefix: 'Observation',
-            params: { code: '29463-7' },
-            responseBody: makeSearchSetBundle([obsBodyWeight])
-          }
-        ]}
-      />
-    );
-
-    await waitFor(() => expect(container.innerHTML).toContain('Clinical details'), {
-      timeout: 10000
-    });
-    await selectTab(container, 'Clinical details');
-    const bmiStringContainer = await findByLinkIdOrLabel(container, 'BMI (calculated)');
-    const lastResultBmi = await getCqfText(bmiStringContainer, 'Last result');
-    expect(lastResultBmi).toBe('24.2 kg/m2');
-  });
-
-  test('Waist circumference last result', async () => {
-    const { container } = render(
-      <GpccmpForm
-        patient={patient}
-        user={practitioner}
-        requestDefinitions={[
-          {
-            urlPrefix: 'Observation',
-            params: { code: '8280-0' },
-            responseBody: makeSearchSetBundle([obsWaistCircumference])
-          }
-        ]}
-      />
-    );
-    await waitFor(() => expect(container.innerHTML).toContain('Clinical details'), {
-      timeout: 10000
-    });
-    await selectTab(container, 'Clinical details');
-    const waistCircumferenceStringContainer = await findByLinkIdOrLabel(
+    const allergies = requireItem(
       container,
-      'Waist circumference'
+      'clinicaldetails-allergies-recordedallergies'
+    );
+    const allergiesName = await getInputText(
+      allergies,
+      'clinicaldetails-allergies-recordedallergies-substance'
+    );
+    expect(allergiesName).toBe('Cashew nut specific IgE');
+    const allergiesClinicalStatus = await getInputText(
+      allergies,
+      'clinicaldetails-allergies-recordedallergies-status'
+    );
+    expect(allergiesClinicalStatus).toBe('Active');
+    const allergiesReaction = await getInputText(
+      allergies,
+      'clinicaldetails-allergies-recordedallergies-manifestation'
+    );
+    expect(allergiesReaction).toBe('Rash');
+    const allergiesNote = await getInputText(
+      allergies,
+      'clinicaldetails-allergies-recordedallergies-comment'
+    );
+    expect(allergiesNote).toBe('Patient experiences rash and swelling');
+
+    // Typed answers at full response paths, including hidden observation inputs.
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-allergies',
+          'clinicaldetails-allergies-recordedallergies'
+        ],
+        'clinicaldetails-allergies-recordedallergies-substance'
+      )
+    ).toMatchObject([
+      { valueCoding: { system: 'http://snomed.info/sct', code: '388050007' } }
+    ]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-allergies',
+          'clinicaldetails-allergies-recordedallergies'
+        ],
+        'clinicaldetails-allergies-recordedallergies-status'
+      )
+    ).toMatchObject([
+      {
+        valueCoding: {
+          system:
+            'http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical',
+          code: 'active'
+        }
+      }
+    ]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-allergies',
+          'clinicaldetails-allergies-recordedallergies'
+        ],
+        'clinicaldetails-allergies-recordedallergies-manifestation'
+      )
+    ).toMatchObject([
+      { valueCoding: { system: 'http://snomed.info/sct', code: '271807003' } }
+    ]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-allergies',
+          'clinicaldetails-allergies-recordedallergies'
+        ],
+        'clinicaldetails-allergies-recordedallergies-comment'
+      )
+    ).toEqual([{ valueString: 'Patient experiences rash and swelling' }]);
+  });
+
+  test('T30 Medications', async () => {
+    const { container } = await renderGpccmp({
+      patient,
+      resources: [currentMedication]
+    });
+
+    await selectTab(container, 'clinicaldetails');
+
+    const medications = requireItem(
+      container,
+      'clinicaldetails-medications-recordedmedications'
+    );
+    const medicationsName = await getInputText(
+      medications,
+      'clinicaldetails-medications-recordedmedications-medication'
+    );
+    expect(medicationsName).toBe('Paracetamol 500 mg tablet');
+    const medicationsStatus = await getInputText(
+      medications,
+      'clinicaldetails-medications-recordedmedications-status'
+    );
+    expect(medicationsStatus).toBe('Active');
+    const medicationsDosage = await getInputText(
+      medications,
+      'clinicaldetails-medications-recordedmedications-dosage'
+    );
+    expect(medicationsDosage).toBe('Once daily, 10mg');
+    const medicationsReason = await getInputText(
+      medications,
+      'clinicaldetails-medications-recordedmedications-indication'
+    );
+    expect(medicationsReason).toBe('Iris tuck');
+    const medicationsNote = await getInputText(
+      medications,
+      'clinicaldetails-medications-recordedmedications-comment'
+    );
+    expect(medicationsNote).toBe('Patient should take with food');
+
+    // Typed answers at full response paths, including hidden observation inputs.
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-medications',
+          'clinicaldetails-medications-recordedmedications'
+        ],
+        'clinicaldetails-medications-recordedmedications-medication'
+      )
+    ).toMatchObject([
+      {
+        valueCoding: {
+          system: 'http://snomed.info/sct',
+          code: '23628011000036109'
+        }
+      }
+    ]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-medications',
+          'clinicaldetails-medications-recordedmedications'
+        ],
+        'clinicaldetails-medications-recordedmedications-status'
+      )
+    ).toMatchObject([
+      {
+        valueCoding: {
+          system: 'http://hl7.org/fhir/CodeSystem/medication-statement-status',
+          code: 'active'
+        }
+      }
+    ]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-medications',
+          'clinicaldetails-medications-recordedmedications'
+        ],
+        'clinicaldetails-medications-recordedmedications-dosage'
+      )
+    ).toEqual([{ valueString: 'Once daily, 10mg' }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-medications',
+          'clinicaldetails-medications-recordedmedications'
+        ],
+        'clinicaldetails-medications-recordedmedications-indication'
+      )
+    ).toMatchObject([
+      { valueCoding: { system: 'http://snomed.info/sct', code: '418022001' } }
+    ]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-medications',
+          'clinicaldetails-medications-recordedmedications'
+        ],
+        'clinicaldetails-medications-recordedmedications-comment'
+      )
+    ).toEqual([{ valueString: 'Patient should take with food' }]);
+  });
+
+  test('T31 Height last result', async () => {
+    const { container } = await renderGpccmp({
+      patient,
+      resources: [obsBodyHeight]
+    });
+
+    await selectTab(container, 'clinicaldetails');
+    const heightStringContainer = requireItem(
+      container,
+      'clinicaldetails-observations-maingrid-height'
+    );
+    const lastResultHeight = await getCqfText(
+      heightStringContainer,
+      'clinicaldetails-observations-maingrid-height-lastresult'
+    );
+    expect(lastResultHeight).toBe('170 cm ( 20 Nov 2025 )');
+
+    // Typed answers at full response paths, including hidden observation inputs.
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-height'
+        ],
+        'clinicaldetails-observations-maingrid-height-lastresultvalue'
+      )
+    ).toEqual([{ valueDecimal: 170 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-height'
+        ],
+        'clinicaldetails-observations-maingrid-height-lastresultdate'
+      )
+    ).toEqual([{ valueDate: '2025-11-20' }]);
+  });
+
+  test('T32 Weight last result', async () => {
+    const { container } = await renderGpccmp({
+      patient,
+      resources: [obsBodyWeight]
+    });
+
+    await selectTab(container, 'clinicaldetails');
+    const weightStringContainer = requireItem(
+      container,
+      'clinicaldetails-observations-maingrid-weight'
+    );
+    const lastResultWeight = await getCqfText(
+      weightStringContainer,
+      'clinicaldetails-observations-maingrid-weight-lastresult'
+    );
+    expect(lastResultWeight).toBe('70 kg ( 21 Nov 2025 )');
+
+    // Typed answers at full response paths, including hidden observation inputs.
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-weight'
+        ],
+        'clinicaldetails-observations-maingrid-weight-lastresultvalue'
+      )
+    ).toEqual([{ valueDecimal: 70 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-weight'
+        ],
+        'clinicaldetails-observations-maingrid-weight-lastresultdate'
+      )
+    ).toEqual([{ valueDate: '2025-11-21' }]);
+  });
+
+  test('T33 BMI last result', async () => {
+    const { container } = await renderGpccmp({
+      patient,
+      resources: [obsBodyHeight, obsBodyWeight]
+    });
+
+    await selectTab(container, 'clinicaldetails');
+    const bmiStringContainer = requireItem(
+      container,
+      'clinicaldetails-observations-maingrid-bmi'
+    );
+    const lastResultBmi = await getCqfText(
+      bmiStringContainer,
+      'clinicaldetails-observations-maingrid-bmi-lastresult'
+    );
+    expect(lastResultBmi).toBe('24.2 kg/m2');
+
+    // Typed answers at full response paths, including hidden observation inputs.
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-height'
+        ],
+        'clinicaldetails-observations-maingrid-height-lastresultvalue'
+      )
+    ).toEqual([{ valueDecimal: 170 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-weight'
+        ],
+        'clinicaldetails-observations-maingrid-weight-lastresultvalue'
+      )
+    ).toEqual([{ valueDecimal: 70 }]);
+  });
+
+  test('T34 Waist circumference last result', async () => {
+    const { container } = await renderGpccmp({
+      patient,
+      resources: [obsWaistCircumference]
+    });
+    await selectTab(container, 'clinicaldetails');
+    const waistCircumferenceStringContainer = requireItem(
+      container,
+      'clinicaldetails-observations-maingrid-waistcircumference'
     );
     const lastResultWaistCircumference = await getCqfText(
       waistCircumferenceStringContainer,
-      'Last result'
+      'clinicaldetails-observations-maingrid-waistcircumference-lastresult'
     );
     expect(lastResultWaistCircumference).toBe('90 cm ( 23 Nov 2025 )');
+
+    // Typed answers at full response paths, including hidden observation inputs.
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-waistcircumference'
+        ],
+        'clinicaldetails-observations-maingrid-waistcircumference-lastresultvalue'
+      )
+    ).toEqual([{ valueDecimal: 90 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-waistcircumference'
+        ],
+        'clinicaldetails-observations-maingrid-waistcircumference-lastresultdate'
+      )
+    ).toEqual([{ valueDate: '2025-11-23' }]);
   });
 
-  test('Pulse rate last result', async () => {
-    const { container } = render(
-      <GpccmpForm
-        patient={patient}
-        user={practitioner}
-        requestDefinitions={[
-          {
-            urlPrefix: 'Observation',
-            params: { code: '78564009' },
-            responseBody: makeSearchSetBundle([obsHeartRate])
-          }
-        ]}
-      />
-    );
-    await waitFor(() => expect(container.innerHTML).toContain('Clinical details'), {
-      timeout: 10000
+  test('T35 Pulse rate last result', async () => {
+    const { container } = await renderGpccmp({
+      patient,
+      resources: [obsHeartRate]
     });
-    await selectTab(container, 'Clinical details');
-    const pulseRateStringContainer = await findByLinkIdOrLabel(container, 'Pulse rate');
-    const lastResultPulseRate = await getCqfText(pulseRateStringContainer, 'Last result');
-    expect(lastResultPulseRate).toBe('72 /min ( 4 Dec 2025 )');
-  });
-
-  test('Pulse rhythm last result', async () => {
-    const { container } = render(
-      <GpccmpForm
-        patient={patient}
-        user={practitioner}
-        requestDefinitions={[
-          {
-            urlPrefix: 'Observation',
-            params: { code: '364095004' },
-            responseBody: makeSearchSetBundle([obsHeartRhythm])
-          }
-        ]}
-      />
-    );
-    await waitFor(() => expect(container.innerHTML).toContain('Clinical details'), {
-      timeout: 10000
-    });
-    await selectTab(container, 'Clinical details');
-    const pulseRhythmStringContainer = await findByLinkIdOrLabel(container, 'Pulse rhythm');
-    const lastResultPulseRhythm = await getCqfText(pulseRhythmStringContainer, 'Last result');
-    expect(lastResultPulseRhythm).toBe('Regular heart rhythm ( 3 Dec 2025 )');
-  });
-
-  test('Oxygen saturation last result', async () => {
-    const { container } = render(
-      <GpccmpForm
-        patient={patient}
-        user={practitioner}
-        requestDefinitions={[
-          {
-            urlPrefix: 'Observation',
-            params: { code: '2708-6' },
-            responseBody: makeSearchSetBundle([obsOxygenSaturation])
-          }
-        ]}
-      />
-    );
-    await waitFor(() => expect(container.innerHTML).toContain('Clinical details'), {
-      timeout: 10000
-    });
-    await selectTab(container, 'Clinical details');
-    const oxygenSaturationStringContainer = await findByLinkIdOrLabel(
+    await selectTab(container, 'clinicaldetails');
+    const pulseRateStringContainer = requireItem(
       container,
-      'Oxygen saturation'
+      'clinicaldetails-observations-maingrid-pulserate'
+    );
+    const lastResultPulseRate = await getCqfText(
+      pulseRateStringContainer,
+      'clinicaldetails-observations-maingrid-pulserate-lastresult'
+    );
+    expect(lastResultPulseRate).toBe('72 /min ( 4 Dec 2025 )');
+
+    // Typed answers at full response paths, including hidden observation inputs.
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-pulserate'
+        ],
+        'clinicaldetails-observations-maingrid-pulserate-lastresultvalue'
+      )
+    ).toEqual([{ valueDecimal: 72 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-pulserate'
+        ],
+        'clinicaldetails-observations-maingrid-pulserate-lastresultdate'
+      )
+    ).toEqual([{ valueDate: '2025-12-04' }]);
+  });
+
+  test('T36 Pulse rhythm last result', async () => {
+    const { container } = await renderGpccmp({
+      patient,
+      resources: [obsHeartRhythm]
+    });
+    await selectTab(container, 'clinicaldetails');
+    const pulseRhythmStringContainer = requireItem(
+      container,
+      'clinicaldetails-observations-maingrid-pulserhythm'
+    );
+    const lastResultPulseRhythm = await getCqfText(
+      pulseRhythmStringContainer,
+      'clinicaldetails-observations-maingrid-pulserhythm-lastresult'
+    );
+    expect(lastResultPulseRhythm).toBe('Pulse regular ( 3 Dec 2025 )');
+
+    // Typed answers at full response paths, including hidden observation inputs.
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-pulserhythm'
+        ],
+        'clinicaldetails-observations-maingrid-pulserhythm-lastresultvalue'
+      )
+    ).toMatchObject([
+      {
+        valueCoding: {
+          system: 'http://snomed.info/sct',
+          code: '271636001'
+        }
+      }
+    ]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-pulserhythm'
+        ],
+        'clinicaldetails-observations-maingrid-pulserhythm-lastresultdate'
+      )
+    ).toEqual([{ valueDate: '2025-12-03' }]);
+  });
+
+  test('T37 Oxygen saturation last result', async () => {
+    const { container } = await renderGpccmp({
+      patient,
+      resources: [obsOxygenSaturation]
+    });
+    await selectTab(container, 'clinicaldetails');
+    const oxygenSaturationStringContainer = requireItem(
+      container,
+      'clinicaldetails-observations-maingrid-oxygensaturation'
     );
     const lastResultOxygenSaturation = await getCqfText(
       oxygenSaturationStringContainer,
-      'Last result'
+      'clinicaldetails-observations-maingrid-oxygensaturation-lastresult'
     );
     expect(lastResultOxygenSaturation).toBe('98 % ( 4 Dec 2025 )');
+
+    // Typed answers at full response paths, including hidden observation inputs.
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-oxygensaturation'
+        ],
+        'clinicaldetails-observations-maingrid-oxygensaturation-lastresultvalue'
+      )
+    ).toEqual([{ valueDecimal: 98 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-oxygensaturation'
+        ],
+        'clinicaldetails-observations-maingrid-oxygensaturation-lastresultdate'
+      )
+    ).toEqual([{ valueDate: '2025-12-04' }]);
   });
 
-  test('Blood pressure last result', async () => {
-    const { container } = render(
-      <GpccmpForm
-        patient={patient}
-        user={practitioner}
-        requestDefinitions={[
-          {
-            urlPrefix: 'Observation',
-            params: { code: '85354-9' },
-            responseBody: makeSearchSetBundle([obsBloodPressure])
-          }
-        ]}
-      />
-    );
-    await waitFor(() => expect(container.innerHTML).toContain('Clinical details'), {
-      timeout: 10000
+  test('T38 Blood pressure last result', async () => {
+    const { container } = await renderGpccmp({
+      patient,
+      resources: [obsBloodPressure]
     });
-    await selectTab(container, 'Clinical details');
-    const bloodPressureStringContainer = await findByLinkIdOrLabel(container, 'Blood pressure');
-    const lastResultBloodPressure = await getCqfText(bloodPressureStringContainer, 'Last result');
-    expect(lastResultBloodPressure).toBe('120 / 80 mm Hg ( 2 Dec 2025 )');
-  });
-
-  test('Smoking status last result', async () => {
-    const { container } = render(
-      <GpccmpForm
-        patient={patient}
-        user={practitioner}
-        requestDefinitions={[
-          {
-            urlPrefix: 'Observation',
-            params: { code: '1747861000168109' },
-            responseBody: makeSearchSetBundle([obsTobaccoSmokingStatus])
-          }
-        ]}
-      />
-    );
-    await waitFor(() => expect(container.innerHTML).toContain('Clinical details'), {
-      timeout: 10000
-    });
-    await selectTab(container, 'Clinical details');
-    const smokingStatusStringContainer = await findByLinkIdOrLabel(container, 'Smoking status');
-    const lastResultSmokingStatus = await getCqfText(smokingStatusStringContainer, 'Last status');
-    expect(lastResultSmokingStatus).toBe('Current smoker ( 1 Dec 2025 )');
-  });
-
-  test('Alcohol consumption status last result', async () => {
-    const { container } = render(
-      <GpccmpForm
-        patient={patient}
-        user={practitioner}
-        requestDefinitions={[
-          {
-            urlPrefix: 'Observation',
-            params: { code: '897148007' },
-            responseBody: makeSearchSetBundle([obsAlcoholConsumption])
-          }
-        ]}
-      />
-    );
-    await waitFor(() => expect(container.innerHTML).toContain('Clinical details'), {
-      timeout: 10000
-    });
-    await selectTab(container, 'Clinical details');
-    const alcoholConsumptionStringContainer = await findByLinkIdOrLabel(
+    await selectTab(container, 'clinicaldetails');
+    const bloodPressureStringContainer = requireItem(
       container,
-      'Alcohol consumption status'
+      'clinicaldetails-observations-bpgrid'
+    );
+    const lastResultBloodPressure = await getCqfText(
+      bloodPressureStringContainer,
+      'clinicaldetails-observations-bpgrid-bp-lastresult'
+    );
+    expect(lastResultBloodPressure).toBe('120 / 80 mm Hg ( 2 Dec 2025 )');
+
+    // Typed answers at full response paths, including hidden observation inputs.
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-bpgrid',
+          'clinicaldetails-observations-bpgrid-bp'
+        ],
+        'clinicaldetails-observations-bpgrid-bp-lastresultvaluesystolic'
+      )
+    ).toEqual([{ valueDecimal: 120 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-bpgrid',
+          'clinicaldetails-observations-bpgrid-bp'
+        ],
+        'clinicaldetails-observations-bpgrid-bp-lastresultvaluediastolic'
+      )
+    ).toEqual([{ valueDecimal: 80 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-bpgrid',
+          'clinicaldetails-observations-bpgrid-bp'
+        ],
+        'clinicaldetails-observations-bpgrid-bp-lastresultdate'
+      )
+    ).toEqual([{ valueDate: '2025-12-02' }]);
+  });
+
+  test('T39 Smoking status last result', async () => {
+    const { container } = await renderGpccmp({
+      patient,
+      resources: [obsTobaccoSmokingStatus]
+    });
+    await selectTab(container, 'clinicaldetails');
+    const smokingStatusStringContainer = requireItem(
+      container,
+      'clinicaldetails-observations-substanceusegrid-smokingstatus'
+    );
+    const lastResultSmokingStatus = await getCqfText(
+      smokingStatusStringContainer,
+      'clinicaldetails-observations-substanceusegrid-smokingstatus-laststatus'
+    );
+    expect(lastResultSmokingStatus).toBe('Current smoker ( 1 Dec 2025 )');
+
+    // Typed answers at full response paths, including hidden observation inputs.
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-substanceusegrid',
+          'clinicaldetails-observations-substanceusegrid-smokingstatus'
+        ],
+        'clinicaldetails-observations-substanceusegrid-smokingstatus-lastresultvalue'
+      )
+    ).toMatchObject([
+      { valueCoding: { system: 'http://snomed.info/sct', code: '77176002' } }
+    ]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-substanceusegrid',
+          'clinicaldetails-observations-substanceusegrid-smokingstatus'
+        ],
+        'clinicaldetails-observations-substanceusegrid-smokingstatus-lastresultdate'
+      )
+    ).toEqual([{ valueDate: '2025-12-01' }]);
+  });
+
+  test('T40 Alcohol consumption status last result', async () => {
+    const { container } = await renderGpccmp({
+      patient,
+      resources: [obsAlcoholConsumption]
+    });
+    await selectTab(container, 'clinicaldetails');
+    const alcoholConsumptionStringContainer = requireItem(
+      container,
+      'clinicaldetails-observations-substanceusegrid-alcoholstatus'
     );
     const lastResultAlcoholConsumption = await getCqfText(
       alcoholConsumptionStringContainer,
-      'Last status'
+      'clinicaldetails-observations-substanceusegrid-alcoholstatus-laststatus'
     );
-    expect(lastResultAlcoholConsumption).toBe('Current drinker of alcohol ( 4 Dec 2025 )');
+    expect(lastResultAlcoholConsumption).toBe(
+      'Current drinker of alcohol ( 4 Dec 2025 )'
+    );
+
+    // Typed answers at full response paths, including hidden observation inputs.
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-substanceusegrid',
+          'clinicaldetails-observations-substanceusegrid-alcoholstatus'
+        ],
+        'clinicaldetails-observations-substanceusegrid-alcoholstatus-lastresultvalue'
+      )
+    ).toMatchObject([
+      { valueCoding: { system: 'http://snomed.info/sct', code: '219006' } }
+    ]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-substanceusegrid',
+          'clinicaldetails-observations-substanceusegrid-alcoholstatus'
+        ],
+        'clinicaldetails-observations-substanceusegrid-alcoholstatus-lastresultdate'
+      )
+    ).toEqual([{ valueDate: '2025-12-04' }]);
   });
 
-  test('Plan type', async () => {
-    const { container } = render(
-      <GpccmpForm
-        patient={patient}
-        user={practitioner}
-        requestDefinitions={[
-          {
-            urlPrefix: 'QuestionnaireResponse',
-            params: { status: 'completed,amended' },
-            responseBody: makeSearchSetBundle([questionnaireResponsePlan])
-          },
-          {
-            urlPrefix: 'QuestionnaireResponse',
-            responseBody: makeSearchSetBundle([questionnaireResponsePlanDraft])
-          }
-        ]}
-      />
-    );
-    await waitFor(() => expect(container.innerHTML).toContain('Plan'), {
-      timeout: 10000
+  test('T41 Plan type', async () => {
+    const { container } = await renderGpccmp({
+      patient,
+      resources: [questionnaireResponsePlan, questionnaireResponsePlanDraft]
     });
-    await selectTab(container, 'Plan');
+    await selectTab(container, 'plan');
 
-    const planType = await getRadioValue(container, 'New plan or a review of an existing plan?');
+    const planType = await getRadioValue(container, 'plan-type');
     expect(planType).toBe('Review');
 
-    const lastCompletedDate = await getInputText(container, 'Date of most recent plan or review');
-    const [year, month, day] = completedPlanAuthoredDate.split('-');
-    expect(lastCompletedDate).toBe(`${day}/${month}/${year}`);
+    const lastCompletedDate = await getInputText(
+      container,
+      'plan-lastcompleteddate'
+    );
+    expect(lastCompletedDate).toBe('18/02/2026');
 
-    const inProgress = await getRadioValue(container, 'Incomplete draft plan already exists?');
+    const inProgress = await getRadioValue(container, 'plan-inprogress');
     expect(inProgress).toBe('true');
+
+    // Typed answers at full response paths, including hidden observation inputs.
+    expect(answerAt(['container', 'plan'], 'plan-type')).toEqual([
+      { valueString: 'Review' }
+    ]);
+    expect(answerAt(['container', 'plan'], 'plan-lastcompleteddate')).toEqual([
+      { valueDate: '2026-02-18' }
+    ]);
+    expect(answerAt(['container', 'plan'], 'plan-inprogress')).toEqual([
+      { valueBoolean: true }
+    ]);
   });
 });

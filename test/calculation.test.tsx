@@ -1,30 +1,24 @@
-import type { Questionnaire } from 'fhir/r4';
-import type { BehavioralTestWrapperProps } from '@aehrc/questionnaire-test-toolkit';
-import { BehavioralTestWrapper } from '@aehrc/questionnaire-test-toolkit';
-import gpccmpForm from '../fsh-generated/resources/Questionnaire-GPChronicConditionManagementPlan.json';
-import { render, waitFor } from '@testing-library/react';
 import {
   inputDecimal,
-  selectTab,
   inputInteger,
-  findByLinkIdOrLabel,
-  getInputText,
+  selectTab,
   chooseSelectOption
 } from '@aehrc/questionnaire-test-toolkit';
+import { requireItem } from './support/items';
+import { useFormEnvironment } from './support/environment';
+import { getInputText, renderGpccmp, answerAt } from './support/form';
 
-function GpccmpForm(props: Omit<BehavioralTestWrapperProps, 'questionnaire'>) {
-  return <BehavioralTestWrapper questionnaire={gpccmpForm as Questionnaire} {...props} />;
-}
+useFormEnvironment();
 
 describe('Observation Calculation', () => {
-  test('height new result date', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
-    });
+  test('T01 height new result date', async () => {
+    const { container } = await renderGpccmp();
 
-    await selectTab(container, 'Clinical details');
-    const observationsContainer = await findByLinkIdOrLabel(container, 'Observations');
+    await selectTab(container, 'clinicaldetails');
+    const observationsContainer = requireItem(
+      container,
+      'clinicaldetails-observations-maingrid'
+    );
     const dateFieldValueBefore = await getInputText(
       observationsContainer,
       'clinicaldetails-observations-maingrid-height-newresultdate'
@@ -40,19 +34,41 @@ describe('Observation Calculation', () => {
       observationsContainer,
       'clinicaldetails-observations-maingrid-height-newresultdate'
     );
-    const today = new Date();
-    const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
-    expect(dateFieldValueAfter).toBe(formattedDate);
+    expect(dateFieldValueAfter).toBe('17/08/2026');
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-height'
+        ],
+        'clinicaldetails-observations-maingrid-height-newresultvalue'
+      )
+    ).toEqual([{ valueDecimal: 170.55 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-height'
+        ],
+        'clinicaldetails-observations-maingrid-height-newresultdate'
+      )
+    ).toEqual([{ valueDate: '2026-08-17' }]);
   });
 
-  test('weight new result date', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
-    });
+  test('T02 weight new result date', async () => {
+    const { container } = await renderGpccmp();
 
-    await selectTab(container, 'Clinical details');
-    const observationsContainer = await findByLinkIdOrLabel(container, 'Observations');
+    await selectTab(container, 'clinicaldetails');
+    const observationsContainer = requireItem(
+      container,
+      'clinicaldetails-observations-maingrid'
+    );
     const dateFieldValueBefore = await getInputText(
       observationsContainer,
       'clinicaldetails-observations-maingrid-weight-newresultdate'
@@ -68,19 +84,41 @@ describe('Observation Calculation', () => {
       observationsContainer,
       'clinicaldetails-observations-maingrid-weight-newresultdate'
     );
-    const today = new Date();
-    const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
-    expect(dateFieldValueAfter).toBe(formattedDate);
+    expect(dateFieldValueAfter).toBe('17/08/2026');
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-weight'
+        ],
+        'clinicaldetails-observations-maingrid-weight-newresultvalue'
+      )
+    ).toEqual([{ valueDecimal: 70.55 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-weight'
+        ],
+        'clinicaldetails-observations-maingrid-weight-newresultdate'
+      )
+    ).toEqual([{ valueDate: '2026-08-17' }]);
   });
 
-  test('BMI calculation', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
-    });
+  test('T03 BMI calculation', async () => {
+    const { container } = await renderGpccmp();
 
-    await selectTab(container, 'Clinical details');
-    const observationsContainer = await findByLinkIdOrLabel(container, 'Observations');
+    await selectTab(container, 'clinicaldetails');
+    const observationsContainer = requireItem(
+      container,
+      'clinicaldetails-observations-maingrid'
+    );
     await inputDecimal(
       observationsContainer,
       'clinicaldetails-observations-maingrid-height-newresultvalue',
@@ -96,16 +134,52 @@ describe('Observation Calculation', () => {
       'clinicaldetails-observations-maingrid-bmi-newresultvalue'
     );
     expect(bmiFieldValue).toBe('24.2');
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-weight'
+        ],
+        'clinicaldetails-observations-maingrid-weight-newresultvalue'
+      )
+    ).toEqual([{ valueDecimal: 70.32 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-height'
+        ],
+        'clinicaldetails-observations-maingrid-height-newresultvalue'
+      )
+    ).toEqual([{ valueDecimal: 170.55 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-bmi'
+        ],
+        'clinicaldetails-observations-maingrid-bmi-newresultvalue'
+      )
+    ).toEqual([{ valueDecimal: 24.2 }]);
   });
 
-  test('Waist circumference new result date', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
-    });
+  test('T04 Waist circumference new result date', async () => {
+    const { container } = await renderGpccmp();
 
-    await selectTab(container, 'Clinical details');
-    const observationsContainer = await findByLinkIdOrLabel(container, 'Observations');
+    await selectTab(container, 'clinicaldetails');
+    const observationsContainer = requireItem(
+      container,
+      'clinicaldetails-observations-maingrid'
+    );
     const dateFieldValueBefore = await getInputText(
       observationsContainer,
       'clinicaldetails-observations-maingrid-waistcircumference-newdate'
@@ -121,19 +195,41 @@ describe('Observation Calculation', () => {
       observationsContainer,
       'clinicaldetails-observations-maingrid-waistcircumference-newdate'
     );
-    const today = new Date();
-    const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
-    expect(dateFieldValueAfter).toBe(formattedDate);
+    expect(dateFieldValueAfter).toBe('17/08/2026');
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-waistcircumference'
+        ],
+        'clinicaldetails-observations-maingrid-waistcircumference-newresultvalue'
+      )
+    ).toEqual([{ valueDecimal: 80.55 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-waistcircumference'
+        ],
+        'clinicaldetails-observations-maingrid-waistcircumference-newdate'
+      )
+    ).toEqual([{ valueDate: '2026-08-17' }]);
   });
 
-  test('Pulse rate new result date', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
-    });
+  test('T05 Pulse rate new result date', async () => {
+    const { container } = await renderGpccmp();
 
-    await selectTab(container, 'Clinical details');
-    const observationsContainer = await findByLinkIdOrLabel(container, 'Observations');
+    await selectTab(container, 'clinicaldetails');
+    const observationsContainer = requireItem(
+      container,
+      'clinicaldetails-observations-maingrid'
+    );
     const dateFieldValueBefore = await getInputText(
       observationsContainer,
       'clinicaldetails-observations-maingrid-pulserate-newresultdate'
@@ -149,19 +245,41 @@ describe('Observation Calculation', () => {
       observationsContainer,
       'clinicaldetails-observations-maingrid-pulserate-newresultdate'
     );
-    const today = new Date();
-    const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
-    expect(dateFieldValueAfter).toBe(formattedDate);
+    expect(dateFieldValueAfter).toBe('17/08/2026');
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-pulserate'
+        ],
+        'clinicaldetails-observations-maingrid-pulserate-newresultvalue'
+      )
+    ).toEqual([{ valueInteger: 70 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-pulserate'
+        ],
+        'clinicaldetails-observations-maingrid-pulserate-newresultdate'
+      )
+    ).toEqual([{ valueDate: '2026-08-17' }]);
   });
 
-  test('Pulse rhythm new result date', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
-    });
+  test('T06 Pulse rhythm new result date', async () => {
+    const { container } = await renderGpccmp();
 
-    await selectTab(container, 'Clinical details');
-    const observationsContainer = await findByLinkIdOrLabel(container, 'Observations');
+    await selectTab(container, 'clinicaldetails');
+    const observationsContainer = requireItem(
+      container,
+      'clinicaldetails-observations-maingrid'
+    );
     const dateFieldValueBefore = await getInputText(
       observationsContainer,
       'clinicaldetails-observations-maingrid-pulserhythm-newresultdate'
@@ -177,19 +295,29 @@ describe('Observation Calculation', () => {
       observationsContainer,
       'clinicaldetails-observations-maingrid-pulserhythm-newresultdate'
     );
-    const today = new Date();
-    const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
-    expect(dateFieldValueAfter).toBe(formattedDate);
+    expect(dateFieldValueAfter).toBe('17/08/2026');
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-pulserhythm'
+        ],
+        'clinicaldetails-observations-maingrid-pulserhythm-newresultdate'
+      )
+    ).toEqual([{ valueDate: '2026-08-17' }]);
   });
 
-  test('Oxygen saturation new result date', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
-    });
+  test('T07 Oxygen saturation new result date', async () => {
+    const { container } = await renderGpccmp();
 
-    await selectTab(container, 'Clinical details');
-    const observationsContainer = await findByLinkIdOrLabel(container, 'Observations');
+    await selectTab(container, 'clinicaldetails');
+    const observationsContainer = requireItem(
+      container,
+      'clinicaldetails-observations-maingrid'
+    );
     const dateFieldValueBefore = await getInputText(
       observationsContainer,
       'clinicaldetails-observations-maingrid-oxygensaturation-newresultdate'
@@ -205,21 +333,43 @@ describe('Observation Calculation', () => {
       observationsContainer,
       'clinicaldetails-observations-maingrid-oxygensaturation-newresultdate'
     );
-    const today = new Date();
-    const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
-    expect(dateFieldValueAfter).toBe(formattedDate);
+    expect(dateFieldValueAfter).toBe('17/08/2026');
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-oxygensaturation'
+        ],
+        'clinicaldetails-observations-maingrid-oxygensaturation-newresultvalue'
+      )
+    ).toEqual([{ valueInteger: 20 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-maingrid',
+          'clinicaldetails-observations-maingrid-oxygensaturation'
+        ],
+        'clinicaldetails-observations-maingrid-oxygensaturation-newresultdate'
+      )
+    ).toEqual([{ valueDate: '2026-08-17' }]);
   });
 });
 
 describe('Blood pressure calculations', () => {
-  test('Systolic pressure date performed', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
-    });
+  test('T08 Systolic pressure date performed', async () => {
+    const { container } = await renderGpccmp();
 
-    await selectTab(container, 'Clinical details');
-    const bloodPressureContainer = await findByLinkIdOrLabel(container, 'Blood pressure');
+    await selectTab(container, 'clinicaldetails');
+    const bloodPressureContainer = requireItem(
+      container,
+      'clinicaldetails-observations-bpgrid'
+    );
     const dateFieldValueBefore = await getInputText(
       bloodPressureContainer,
       'clinicaldetails-observations-bpgrid-bp-newresultdate'
@@ -235,19 +385,41 @@ describe('Blood pressure calculations', () => {
       bloodPressureContainer,
       'clinicaldetails-observations-bpgrid-bp-newresultdate'
     );
-    const today = new Date();
-    const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
-    expect(dateFieldValueAfter).toBe(formattedDate);
+    expect(dateFieldValueAfter).toBe('17/08/2026');
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-bpgrid',
+          'clinicaldetails-observations-bpgrid-bp'
+        ],
+        'clinicaldetails-observations-bpgrid-bp-newresultsystolic'
+      )
+    ).toEqual([{ valueInteger: 120 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-bpgrid',
+          'clinicaldetails-observations-bpgrid-bp'
+        ],
+        'clinicaldetails-observations-bpgrid-bp-newresultdate'
+      )
+    ).toEqual([{ valueDate: '2026-08-17' }]);
   });
 
-  test('Diastolic pressure date performed', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
-    });
+  test('T09 Diastolic pressure date performed', async () => {
+    const { container } = await renderGpccmp();
 
-    await selectTab(container, 'Clinical details');
-    const bloodPressureContainer = await findByLinkIdOrLabel(container, 'Blood pressure');
+    await selectTab(container, 'clinicaldetails');
+    const bloodPressureContainer = requireItem(
+      container,
+      'clinicaldetails-observations-bpgrid'
+    );
     const dateFieldValueBefore = await getInputText(
       bloodPressureContainer,
       'clinicaldetails-observations-bpgrid-bp-newresultdate'
@@ -263,19 +435,41 @@ describe('Blood pressure calculations', () => {
       bloodPressureContainer,
       'clinicaldetails-observations-bpgrid-bp-newresultdate'
     );
-    const today = new Date();
-    const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
-    expect(dateFieldValueAfter).toBe(formattedDate);
+    expect(dateFieldValueAfter).toBe('17/08/2026');
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-bpgrid',
+          'clinicaldetails-observations-bpgrid-bp'
+        ],
+        'clinicaldetails-observations-bpgrid-bp-newresultdiastolic'
+      )
+    ).toEqual([{ valueInteger: 80 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-bpgrid',
+          'clinicaldetails-observations-bpgrid-bp'
+        ],
+        'clinicaldetails-observations-bpgrid-bp-newresultdate'
+      )
+    ).toEqual([{ valueDate: '2026-08-17' }]);
   });
 
-  test('Systolic and diastolic date performed', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
-    });
+  test('T10 Systolic and diastolic date performed', async () => {
+    const { container } = await renderGpccmp();
 
-    await selectTab(container, 'Clinical details');
-    const bloodPressureContainer = await findByLinkIdOrLabel(container, 'Blood pressure');
+    await selectTab(container, 'clinicaldetails');
+    const bloodPressureContainer = requireItem(
+      container,
+      'clinicaldetails-observations-bpgrid'
+    );
     const dateFieldValueBefore = await getInputText(
       bloodPressureContainer,
       'clinicaldetails-observations-bpgrid-bp-newresultdate'
@@ -296,21 +490,55 @@ describe('Blood pressure calculations', () => {
       bloodPressureContainer,
       'clinicaldetails-observations-bpgrid-bp-newresultdate'
     );
-    const today = new Date();
-    const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
-    expect(dateFieldValueAfter).toBe(formattedDate);
+    expect(dateFieldValueAfter).toBe('17/08/2026');
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-bpgrid',
+          'clinicaldetails-observations-bpgrid-bp'
+        ],
+        'clinicaldetails-observations-bpgrid-bp-newresultdiastolic'
+      )
+    ).toEqual([{ valueInteger: 80 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-bpgrid',
+          'clinicaldetails-observations-bpgrid-bp'
+        ],
+        'clinicaldetails-observations-bpgrid-bp-newresultsystolic'
+      )
+    ).toEqual([{ valueInteger: 120 }]);
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-bpgrid',
+          'clinicaldetails-observations-bpgrid-bp'
+        ],
+        'clinicaldetails-observations-bpgrid-bp-newresultdate'
+      )
+    ).toEqual([{ valueDate: '2026-08-17' }]);
   });
 });
 
 describe('Substance use calculations', () => {
-  test('Smoking new status date', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
-    });
+  test('T11 Smoking new status date', async () => {
+    const { container } = await renderGpccmp();
 
-    await selectTab(container, 'Clinical details');
-    const substanceUseContainer = await findByLinkIdOrLabel(container, 'Substance use');
+    await selectTab(container, 'clinicaldetails');
+    const substanceUseContainer = requireItem(
+      container,
+      'clinicaldetails-observations-substanceusegrid'
+    );
     const dateFieldValueBefore = await getInputText(
       substanceUseContainer,
       'clinicaldetails-observations-substanceusegrid-smokingstatus-newresultdate'
@@ -326,19 +554,29 @@ describe('Substance use calculations', () => {
       substanceUseContainer,
       'clinicaldetails-observations-substanceusegrid-smokingstatus-newresultdate'
     );
-    const today = new Date();
-    const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
-    expect(dateFieldValueAfter).toBe(formattedDate);
+    expect(dateFieldValueAfter).toBe('17/08/2026');
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-substanceusegrid',
+          'clinicaldetails-observations-substanceusegrid-smokingstatus'
+        ],
+        'clinicaldetails-observations-substanceusegrid-smokingstatus-newresultdate'
+      )
+    ).toEqual([{ valueDate: '2026-08-17' }]);
   });
 
-  test('Alcohol consumption new status date', async () => {
-    const { container } = render(<GpccmpForm />);
-    await waitFor(() => expect(container.innerHTML).toContain('Patient details'), {
-      timeout: 10000
-    });
+  test('T12 Alcohol consumption new status date', async () => {
+    const { container } = await renderGpccmp();
 
-    await selectTab(container, 'Clinical details');
-    const substanceUseContainer = await findByLinkIdOrLabel(container, 'Substance use');
+    await selectTab(container, 'clinicaldetails');
+    const substanceUseContainer = requireItem(
+      container,
+      'clinicaldetails-observations-substanceusegrid'
+    );
     const dateFieldValueBefore = await getInputText(
       substanceUseContainer,
       'clinicaldetails-observations-substanceusegrid-alcoholstatus-newresultdate'
@@ -353,8 +591,18 @@ describe('Substance use calculations', () => {
       substanceUseContainer,
       'clinicaldetails-observations-substanceusegrid-alcoholstatus-newresultdate'
     );
-    const today = new Date();
-    const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
-    expect(dateFieldValueAfter).toBe(formattedDate);
+    expect(dateFieldValueAfter).toBe('17/08/2026');
+    expect(
+      answerAt(
+        [
+          'container',
+          'clinicaldetails',
+          'clinicaldetails-observations',
+          'clinicaldetails-observations-substanceusegrid',
+          'clinicaldetails-observations-substanceusegrid-alcoholstatus'
+        ],
+        'clinicaldetails-observations-substanceusegrid-alcoholstatus-newresultdate'
+      )
+    ).toEqual([{ valueDate: '2026-08-17' }]);
   });
 });

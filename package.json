@@ -12,7 +12,8 @@
     "pretypecheck": "npm run generate",
     "typecheck": "tsc --noEmit",
     "pretest": "npm run generate",
-    "test": "TZ=Australia/Sydney vitest run"
+    "test": "TZ=Australia/Sydney vitest run",
+    "test:toolkit-candidate": "node tooling/verify-toolkit-candidate.mjs"
   },
   "devDependencies": {
     "@aehrc/questionnaire-test-toolkit": "0.1.1",
