@@ -13,3 +13,5 @@ transaction-bundle-complete.json
 node_modules/
 coverage/
 .vite/
+browser-results/
+playwright-report/

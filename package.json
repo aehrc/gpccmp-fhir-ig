@@ -13,11 +13,15 @@
     "typecheck": "tsc --noEmit",
     "pretest": "npm run generate",
     "test": "TZ=Australia/Sydney vitest run",
-    "test:toolkit-candidate": "node tooling/verify-toolkit-candidate.mjs"
+    "test:toolkit-candidate": "node tooling/verify-toolkit-candidate.mjs",
+    "browser:serve": "vite --config vite.browser.config.ts",
+    "pretest:browser": "npm run generate",
+    "test:browser": "TZ=Australia/Sydney playwright test"
   },
   "devDependencies": {
     "@aehrc/questionnaire-test-toolkit": "0.1.1",
     "@aehrc/smart-forms-renderer": "1.5.0",
+    "@playwright/test": "1.60.0",
     "@tanstack/react-query": "5.90.5",
     "@testing-library/dom": "10.4.0",
     "@testing-library/react": "16.3.2",
@@ -32,6 +36,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "typescript": "5.9.3",
+    "vite": "7.3.7",
     "vitest": "3.2.4"
   },
   "overrides": {

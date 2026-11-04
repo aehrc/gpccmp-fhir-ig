@@ -14,15 +14,14 @@ import {
   removeEmptyAnswersFromResponse
 } from '@aehrc/smart-forms-renderer';
 import generated from '../../fsh-generated/resources/Questionnaire-GPChronicConditionManagementPlan.json';
-import { createClinicalAdapter } from './clinicalRequests';
+import { gpccmpClinicalAdapter } from './gpccmpClinical';
 import { requireItem, waitForFormReady } from './items';
 import { queryResponseItem } from './response';
 import {
   patient as defaultPatient,
   practitioner,
   practitionerRole,
-  clinicLocation as defaultClinicLocation,
-  makeSearchSetBundle
+  clinicLocation as defaultClinicLocation
 } from './fixtures';
 
 export const patientPath = ['container', 'patient'];
@@ -69,62 +68,7 @@ export async function renderGpccmp({
   location?: Location;
   questionnaireResponse?: QuestionnaireResponse;
 } = {}) {
-  const bundle = (type: string) =>
-    makeSearchSetBundle(resources.filter((r) => r.resourceType === type));
-  const canonical =
-    'http://www.health.gov.au/assessments/GPChronicConditionManagementPlan';
-  const id = patient.id;
-  if (!id) throw new Error('Population fixtures require a patient ID');
-  const plans = resources.filter(
-    (r): r is QuestionnaireResponse =>
-      r.resourceType === 'QuestionnaireResponse'
-  );
-  const adapter = createClinicalAdapter([
-    [`PractitionerRole/${role.id}`, role],
-    [
-      `PractitionerRole?_id=${role.id}&_include=PractitionerRole:location`,
-      makeSearchSetBundle([role, location])
-    ],
-    [
-      `QuestionnaireResponse?questionnaire=${canonical}&_count=1&_sort=-authored&patient=${id}`,
-      makeSearchSetBundle(plans.filter((r) => r.status === 'in-progress'))
-    ],
-    [
-      `QuestionnaireResponse?questionnaire=${canonical}&status=completed,amended&_count=1&_sort=-authored&patient=${id}`,
-      makeSearchSetBundle(
-        plans.filter((r) => ['completed', 'amended'].includes(r.status))
-      )
-    ],
-    [
-      `Condition?patient=${id}&category=http://terminology.hl7.org/CodeSystem/condition-category|problem-list-item`,
-      bundle('Condition')
-    ],
-    [`AllergyIntolerance?patient=${id}`, bundle('AllergyIntolerance')],
-    [
-      `MedicationStatement?patient=${id}&status=active&_include=MedicationStatement:medication`,
-      bundle('MedicationStatement')
-    ],
-    ...[
-      '8302-2',
-      '29463-7',
-      '8280-0',
-      '78564009',
-      '364095004',
-      '2708-6',
-      '85354-9',
-      '1747861000168109',
-      '897148007'
-    ].map((code): [string, FhirResource] => [
-      `Observation?code=${code}&_sort=-date&patient=${id}`,
-      makeSearchSetBundle(
-        resources.filter(
-          (r) =>
-            r.resourceType === 'Observation' &&
-            r.code.coding?.some((c) => c.code === code)
-        )
-      )
-    ])
-  ]);
+  const adapter = gpccmpClinicalAdapter({ patient, resources, role, location });
   const rendered = render(
     <BehavioralTestWrapper
       questionnaire={generated as Questionnaire}

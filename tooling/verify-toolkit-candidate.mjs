@@ -11,7 +11,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const [archive, ...flags] = process.argv.slice(2);
 if (!archive)
   throw new Error(
-    'Usage: npm run test:toolkit-candidate -- <compiled.tgz> [--sha256 <hash>] [--source-revision <commit>] [--offline] [--inherited] [--renderer-candidate <compiled.tgz> --renderer-sha256 <hash> --renderer-source-revision <revision>]'
+    'Usage: npm run test:toolkit-candidate -- <compiled.tgz> [--sha256 <hash>] [--source-revision <commit>] [--offline] [--inherited] [--browser] [--renderer-candidate <compiled.tgz> --renderer-sha256 <hash> --renderer-source-revision <revision>]'
   );
 const option = (name) =>
   flags.includes(name) ? flags[flags.indexOf(name) + 1] : undefined;
@@ -58,11 +58,14 @@ const allowed = new Set([
   'ig.ini',
   'input',
   'test',
+  'browser',
   'tooling',
   'tsconfig.json',
   'tsconfig.candidate.json',
   'vitest.config.ts',
-  'vitest.candidate.config.ts'
+  'vitest.candidate.config.ts',
+  'playwright.config.ts',
+  'vite.browser.config.ts'
 ]);
 fs.cpSync(root, consumer, {
   recursive: true,
@@ -99,6 +102,20 @@ const report = {
       name,
       createHash('sha256')
         .update(fs.readFileSync(path.join(root, 'test', name)))
+        .digest('hex')
+    ])
+  ),
+  browserInputs: Object.fromEntries(
+    [
+      'playwright.config.ts',
+      'vite.browser.config.ts',
+      ...fs
+        .readdirSync(path.join(root, 'browser'))
+        .map((name) => `browser/${name}`)
+    ].map((name) => [
+      name,
+      createHash('sha256')
+        .update(fs.readFileSync(path.join(root, name)))
         .digest('hex')
     ])
   ),
@@ -364,6 +381,9 @@ if (flags.includes('--inherited')) {
     ],
     'inherited-tests'
   );
+}
+if (flags.includes('--browser')) {
+  run('npm', ['run', 'test:browser'], 'browser-tests');
 }
 console.log(
   `Candidate checks passed${flags.includes('--inherited') ? ' including the inherited suite' : ''}. Evidence: ${path.join(consumer, 'candidate-report.json')}`
