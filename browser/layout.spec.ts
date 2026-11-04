@@ -1,24 +1,8 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
 import type { QuestionnaireResponseItem } from 'fhir/r4';
 
-const sections = [
-  'patient',
-  'practitioner',
-  'clinicaldetails',
-  'plan'
-] as const;
-const fields = [
-  'patient-additionalinformation',
-  'practitioner-name',
-  'clinicaldetails-observations-additionalinformation',
-  'plan-conditions-comments'
-] as const;
-const values = [
-  'Browser patient seven',
-  'Jane Smith',
-  'Browser observations seven',
-  'Browser plan seven'
-] as const;
+import { navigationScenarios, sections } from '../test/support/navigation';
+
 const structures = {
   clinicaldetails: [
     'clinicaldetails-problemsdiagnoses-recordedproblems',
@@ -248,13 +232,14 @@ test('S7 browser: navigation, answer persistence and structural controls remain 
     });
     await expect(page.getByTestId('save-button')).toBeVisible();
 
-    for (const [index, id] of sections.entries()) {
+    for (const scenario of navigationScenarios) {
+      const id = scenario.section;
       await openSection(page, id, small);
-      const control = field(page, fields[index]);
+      const control = field(page, scenario.field);
       await expectReachable(control, page);
-      if (index !== 1) await control.fill(values[index]);
-      await expect(control).toHaveValue(values[index]);
-      await expectSaved(page, fields[index], values[index]);
+      if (scenario.editable) await control.fill(scenario.value);
+      await expect(control).toHaveValue(scenario.value);
+      await expectSaved(page, scenario.field, scenario.value);
       if (id === 'plan') {
         const goals = page.getByRole('button', {
           name: 'Goals and tasks',
@@ -283,18 +268,19 @@ test('S7 browser: navigation, answer persistence and structural controls remain 
         contentType: 'image/png'
       });
     }
-    for (const [index, id] of sections.entries()) {
+    for (const scenario of navigationScenarios) {
+      const id = scenario.section;
       await openSection(page, id, small);
-      await expect(field(page, fields[index])).toHaveValue(values[index]);
-      await expectSaved(page, fields[index], values[index]);
+      await expect(field(page, scenario.field)).toHaveValue(scenario.value);
+      await expectSaved(page, scenario.field, scenario.value);
       if (small) {
         await sectionButton(page, id, true).click();
         await expect(sectionButton(page, id, true)).toHaveAttribute(
           'aria-expanded',
           'false'
         );
-        await expect(field(page, fields[index])).toHaveCount(0);
-        await expectSaved(page, fields[index], values[index]);
+        await expect(field(page, scenario.field)).toHaveCount(0);
+        await expectSaved(page, scenario.field, scenario.value);
       }
     }
     const requests = await page.evaluate(() => window.gpccmp.clinicalRequests);

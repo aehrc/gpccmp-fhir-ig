@@ -110,9 +110,20 @@ async function keyboardSelect(scope: HTMLElement, id: string, display: string) {
     });
   }
   expect(input.getAttribute('aria-activedescendant')).toBe(option.id);
+  // Step to a neighbouring option and back, staying inside the list wherever
+  // the live expansion places the requested option.
+  const options = screen.getAllByRole('option');
+  expect(options.length).toBeGreaterThan(1);
+  const [away, back] =
+    options[0] === option ? ['ArrowDown', 'ArrowUp'] : ['ArrowUp', 'ArrowDown'];
   await act(async () => {
-    fireEvent.keyDown(input, { key: 'ArrowUp' });
-    fireEvent.keyDown(input, { key: 'ArrowDown' });
+    fireEvent.keyDown(input, { key: away });
+  });
+  const neighbour = input.getAttribute('aria-activedescendant');
+  expect(neighbour).not.toBeNull();
+  expect(neighbour).not.toBe(option.id);
+  await act(async () => {
+    fireEvent.keyDown(input, { key: back });
   });
   expect(input.getAttribute('aria-activedescendant')).toBe(option.id);
   await act(async () => {

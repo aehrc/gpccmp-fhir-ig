@@ -10,24 +10,7 @@ import {
 } from './support/environment';
 import { expectAnswers, string, useControlDiagnostics } from './support/slice6';
 
-const sections = [
-  'patient',
-  'practitioner',
-  'clinicaldetails',
-  'plan'
-] as const;
-const fields = [
-  'patient-additionalinformation',
-  'practitioner-name',
-  'clinicaldetails-observations-additionalinformation',
-  'plan-conditions-comments'
-] as const;
-const values = [
-  'Screen seven patient',
-  'Jane Smith',
-  'Screen seven observations',
-  'Screen seven plan'
-] as const;
+import { navigationScenarios, sections } from './support/navigation';
 
 function input(scope: HTMLElement, id: string) {
   const result = requireItem(scope, id).querySelector<
@@ -37,11 +20,15 @@ function input(scope: HTMLElement, id: string) {
   return result;
 }
 
-async function editOrCheck(container: HTMLElement, index: number) {
-  if (index !== 1) await inputText(container, fields[index], values[index]);
+async function editOrCheck(
+  container: HTMLElement,
+  scenario: (typeof navigationScenarios)[number]
+) {
+  if (scenario.editable)
+    await inputText(container, scenario.field, scenario.value);
   await waitFor(() => {
-    expect(input(container, fields[index]).value).toBe(values[index]);
-    expectAnswers(fields[index], string(values[index]));
+    expect(input(container, scenario.field).value).toBe(scenario.value);
+    expectAnswers(scenario.field, string(scenario.value));
   });
 }
 
@@ -68,18 +55,29 @@ describe('S7 desktop navigation', () => {
         '[data-test="renderer-accordion"][data-linkid="patient"]'
       )
     ).toHaveLength(0);
-    for (const [index, id] of sections.entries()) {
+    for (const [index, scenario] of navigationScenarios.entries()) {
+      const id = scenario.section;
       await selectTab(container, id);
       const panel = within(container).getByRole('tabpanel');
       expect(panel.id).toBe(`tabpanel-${index}`);
       expect(panel.getAttribute('aria-labelledby')).toBe(`tab-${index}`);
       expect(panel.querySelector(`[data-linkid="${id}"]`)).not.toBeNull();
-      await editOrCheck(container, index);
+      // Only the selected panel is shown, and it holds no other section's content.
+      expect(
+        [...container.querySelectorAll<HTMLElement>('[role="tabpanel"]')].map(
+          (element) => element.hidden
+        )
+      ).toEqual(sections.map((section) => section !== id));
+      for (const other of sections)
+        if (other !== id)
+          expect(panel.querySelector(`[data-linkid="${other}"]`)).toBeNull();
+      await editOrCheck(container, scenario);
     }
-    for (const [index, id] of sections.entries()) {
+    for (const scenario of navigationScenarios) {
+      const id = scenario.section;
       await selectTab(container, id);
-      expect(input(container, fields[index]).value).toBe(values[index]);
-      expectAnswers(fields[index], string(values[index]));
+      expect(input(container, scenario.field).value).toBe(scenario.value);
+      expectAnswers(scenario.field, string(scenario.value));
     }
   });
 
@@ -87,8 +85,11 @@ describe('S7 desktop navigation', () => {
     const viewport = installViewport(DESKTOP);
     try {
       const { container } = await renderGpccmp();
-      await selectTab(container, 'plan');
-      await editOrCheck(container, 3);
+      const plan = navigationScenarios.find(
+        (scenario) => scenario.section === 'plan'
+      )!;
+      await selectTab(container, plan.section);
+      await editOrCheck(container, plan);
       await act(async () => viewport.set(SMALL_SCREEN));
       await waitFor(() =>
         expect(
@@ -98,13 +99,13 @@ describe('S7 desktop navigation', () => {
       expect(
         container.querySelector('[data-test="renderer-tab-list"]')
       ).toBeNull();
-      expect(input(container, fields[3]).value).toBe(values[3]);
+      expect(input(container, plan.field).value).toBe(plan.value);
       await act(async () => viewport.set(DESKTOP));
       await waitFor(() =>
         expect(within(container).getByRole('tabpanel').id).toBe('tabpanel-3')
       );
-      expect(input(container, fields[3]).value).toBe(values[3]);
-      expectAnswers(fields[3], string(values[3]));
+      expect(input(container, plan.field).value).toBe(plan.value);
+      expectAnswers(plan.field, string(plan.value));
     } finally {
       viewport.restore();
     }
@@ -120,7 +121,8 @@ describe('S7 smaller-screen sections', () => {
     expect(
       container.querySelector('[data-test="renderer-tab-list"]')
     ).toBeNull();
-    for (const [index, id] of sections.entries()) {
+    for (const scenario of navigationScenarios) {
+      const id = scenario.section;
       const button = sectionButton(container, id);
       if (button.getAttribute('aria-expanded') !== 'true')
         await act(async () => fireEvent.click(button));
@@ -130,20 +132,20 @@ describe('S7 smaller-screen sections', () => {
             sectionButton(container, section).getAttribute('aria-expanded')
           ).toBe(String(section === id));
       });
-      await editOrCheck(container, index);
+      await editOrCheck(container, scenario);
       await act(async () => fireEvent.click(button));
       await waitFor(() => {
         expect(button.getAttribute('aria-expanded')).toBe('false');
         expect(
-          container.querySelector(`[data-linkid="${fields[index]}"]`)
+          container.querySelector(`[data-linkid="${scenario.field}"]`)
         ).toBeNull();
       });
-      expectAnswers(fields[index], string(values[index]));
+      expectAnswers(scenario.field, string(scenario.value));
       await act(async () => fireEvent.click(button));
       await waitFor(() =>
-        expect(input(container, fields[index]).value).toBe(values[index])
+        expect(input(container, scenario.field).value).toBe(scenario.value)
       );
-      expectAnswers(fields[index], string(values[index]));
+      expectAnswers(scenario.field, string(scenario.value));
     }
   }, 90000);
 });
