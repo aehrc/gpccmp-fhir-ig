@@ -330,6 +330,13 @@ test('S4 BMI: missing/zero/change/clear and protected result', async () => {
   await check(27.5);
   await inputText(container, `${main}-height-newresultvalue`, '200');
   await check(20);
+  await inputText(container, `${main}-height-newresultvalue`, '');
+  await check();
+  expect(await getInputText(container, `${main}-weight-newresultvalue`)).toBe(
+    '80'
+  );
+  await inputText(container, `${main}-height-newresultvalue`, '200');
+  await check(20);
   await inputText(container, `${main}-weight-newresultvalue`, '');
   await check();
   await inputText(container, `${main}-height-newresultvalue`, '');

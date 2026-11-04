@@ -59,13 +59,15 @@ export async function renderGpccmp({
   resources = [],
   user = practitioner,
   role = practitionerRole,
-  location = defaultClinicLocation
+  location = defaultClinicLocation,
+  questionnaireResponse
 }: {
   patient?: Patient;
   resources?: FhirResource[];
   user?: Practitioner;
   role?: PractitionerRole;
   location?: Location;
+  questionnaireResponse?: QuestionnaireResponse;
 } = {}) {
   const bundle = (type: string) =>
     makeSearchSetBundle(resources.filter((r) => r.resourceType === type));
@@ -126,6 +128,7 @@ export async function renderGpccmp({
   const rendered = render(
     <BehavioralTestWrapper
       questionnaire={generated as Questionnaire}
+      questionnaireResponse={questionnaireResponse}
       patient={patient}
       user={user}
       fhirContext={[

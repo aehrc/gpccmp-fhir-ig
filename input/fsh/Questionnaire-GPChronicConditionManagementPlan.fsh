@@ -426,7 +426,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].extension[targetConstraint].extension[key].valueId = "constraint-regex-medicarecardnumber-1"
 * item[=].item[=].item[=].item[=].extension[targetConstraint].extension[severity].valueCode = #warning
 * item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.expression = "matches('^[0-9]{10}$')"
+* item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.expression = "%resource.repeat(item).where(linkId='patient-medicare-number').answer.value.all(matches('^[0-9]{10}$'))"
 * item[=].item[=].item[=].item[=].extension[targetConstraint].extension[human].valueString = "Medicare card number must be 10 digits"
 * item[=].item[=].item[=].item[=].linkId = "patient-medicare-number"
 * item[=].item[=].item[=].item[=].text = "Number"
@@ -437,7 +437,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].extension[targetConstraint].extension[key].valueId = "constraint-regex-medicarecardnumber-2"
 * item[=].item[=].item[=].item[=].extension[targetConstraint].extension[severity].valueCode = #warning
 * item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.expression = "matches('^[0-9]{1}$')"
+* item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.expression = "%resource.repeat(item).where(linkId='patient-medicare-referencenumber').answer.value.all(matches('^[0-9]{1}$'))"
 * item[=].item[=].item[=].item[=].extension[targetConstraint].extension[human].valueString = "Medicare card reference number must be 1 digit"
 * item[=].item[=].item[=].item[=].linkId = "patient-medicare-referencenumber"
 * item[=].item[=].item[=].item[=].text = "Reference number"
@@ -520,10 +520,10 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%HomeAddressArray.postalCode"
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[key].valueId = "constraint-regex-postcode"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[key].valueId = "constraint-regex-home-postcode"
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[severity].valueCode = #warning
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.expression = "matches('^[0-9]{4}$')"
+* item[=].item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.expression = "%resource.repeat(item).where(linkId='patient-contact-homeaddress-details-postcode').answer.value.all(matches('^[0-9]{4}$'))"
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[human].valueString = "Postcode must be 4 digits"
 * item[=].item[=].item[=].item[=].item[=].item[=].extension[entryFormat].valueString = "####"
 * item[=].item[=].item[=].item[=].item[=].item[=].linkId = "patient-contact-homeaddress-details-postcode"
@@ -568,7 +568,7 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%PostalAddressArray.postalCode"
-* item[=].item[=].item[=].item[=].item[=].extension[regex].valueString = "matches('^[0-9]{4}$')"
+* item[=].item[=].item[=].item[=].item[=].extension[regex].valueString = "^[0-9]{4}$"
 * item[=].item[=].item[=].item[=].item[=].extension[entryFormat].valueString = "####"
 * item[=].item[=].item[=].item[=].item[=].linkId = "patient-contact-postaladdress-postcode"
 * item[=].item[=].item[=].item[=].item[=].text = "Postcode"
@@ -714,10 +714,10 @@ Description: "GP Chronic Condition Management Plan"
 * item[=].item[=].item[=].item[=].item[=].repeats = false
 * item[=].item[=].item[=].item[=].item[+].extension[sdc-questionnaire-initialExpression].valueExpression.language = #text/fhirpath
 * item[=].item[=].item[=].item[=].item[=].extension[sdc-questionnaire-initialExpression].valueExpression.expression = "%ClinicLocation.address.postalCode"
-* item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[key].valueId = "constraint-regex-postcode"
+* item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[key].valueId = "constraint-regex-clinic-postcode"
 * item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[severity].valueCode = #warning
 * item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.language = #text/fhirpath
-* item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.expression = "matches('^[0-9]{4}$')"
+* item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[expression].valueExpression.expression = "%resource.repeat(item).where(linkId='practitioner-clinicdetails-address-postcode').answer.value.all(matches('^[0-9]{4}$'))"
 * item[=].item[=].item[=].item[=].item[=].extension[targetConstraint].extension[human].valueString = "Postcode must be 4 digits"
 * item[=].item[=].item[=].item[=].item[=].extension[entryFormat].valueString = "####"
 * item[=].item[=].item[=].item[=].item[=].linkId = "practitioner-clinicdetails-address-postcode"
