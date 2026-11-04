@@ -9,8 +9,7 @@ import {
 } from '@testing-library/react';
 import {
   inputText,
-  chooseSelectOption,
-  selectTab
+  chooseSelectOption
 } from '@aehrc/questionnaire-test-toolkit';
 import { useFormEnvironment } from './support/environment';
 import { queryItem, requireItem } from './support/items';
@@ -20,7 +19,8 @@ import {
   responseForPersistence,
   getInputText,
   patientPath,
-  renderGpccmp
+  renderGpccmp,
+  selectTab
 } from './support/form';
 import {
   patient,

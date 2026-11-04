@@ -5,7 +5,6 @@ import type {
   QuestionnaireResponseItem,
   QuestionnaireResponseItemAnswer
 } from 'fhir/r4';
-import { beforeEach, afterEach, vi } from 'vitest';
 import { act, fireEvent, within } from '@testing-library/react';
 import { getResponse } from '@aehrc/smart-forms-renderer';
 import generated from '../../fsh-generated/resources/Questionnaire-GPChronicConditionManagementPlan.json';
@@ -98,27 +97,6 @@ export const sct = (code: string, display: string) => ({
 });
 
 /** Call through; only the inherited, explicitly deferred DIAG-S3-03 is accepted. */
-export function useControlDiagnostics() {
-  let warn: ReturnType<typeof vi.spyOn>, error: ReturnType<typeof vi.spyOn>;
-  beforeEach(() => {
-    warn = vi.spyOn(console, 'warn');
-    error = vi.spyOn(console, 'error');
-  });
-  afterEach(() => {
-    const unexpected = [...warn.mock.calls, ...error.mock.calls]
-      .map((args) => args.map(String).join(' '))
-      .filter(
-        (message) =>
-          !/not wrapped in act|The final argument passed to use\w+ changed size between renders|Support for defaultProps will be removed from memo components/i.test(
-            message
-          )
-      );
-    warn.mockRestore();
-    error.mockRestore();
-    expect(unexpected).toEqual([]);
-  });
-}
-
 /** Open the exact plan accordion before interacting with its repeated instances. */
 export async function openGoals(container: HTMLElement) {
   const summary = within(container)

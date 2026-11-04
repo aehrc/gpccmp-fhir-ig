@@ -1,12 +1,16 @@
 import {
   inputDecimal,
   inputInteger,
-  selectTab,
   chooseSelectOption
 } from '@aehrc/questionnaire-test-toolkit';
 import { requireItem } from './support/items';
 import { useFormEnvironment } from './support/environment';
-import { getInputText, renderGpccmp, answerAt } from './support/form';
+import {
+  getInputText,
+  renderGpccmp,
+  answerAt,
+  selectTab
+} from './support/form';
 
 useFormEnvironment();
 

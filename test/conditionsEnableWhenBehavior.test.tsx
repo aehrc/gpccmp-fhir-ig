@@ -1,8 +1,4 @@
-import {
-  checkRadioOption,
-  inputText,
-  selectTab
-} from '@aehrc/questionnaire-test-toolkit';
+import { checkRadioOption, inputText } from '@aehrc/questionnaire-test-toolkit';
 import { useFormEnvironment } from './support/environment';
 import { queryItem, requireItem } from './support/items';
 import {
@@ -11,7 +7,8 @@ import {
   answerAt,
   patientPath,
   homeAddressPath,
-  clinicAddressPath
+  clinicAddressPath,
+  selectTab
 } from './support/form';
 import { patient } from './support/fixtures';
 

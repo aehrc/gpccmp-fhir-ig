@@ -1,6 +1,5 @@
 import { getResponse } from '@aehrc/smart-forms-renderer';
 import type { Patient } from 'fhir/r4';
-import { selectTab } from '@aehrc/questionnaire-test-toolkit';
 import { requireItem, queryItem } from './support/items';
 import { useFormEnvironment } from './support/environment';
 import {
@@ -9,7 +8,8 @@ import {
   getCqfText,
   renderGpccmp,
   answerAt,
-  homeAddressPath
+  homeAddressPath,
+  selectTab
 } from './support/form';
 import {
   patient,
@@ -186,6 +186,9 @@ describe('Population workflow for', () => {
       'patient-contacts-email'
     );
     expect(carersAndKeyContactsEmail).toBe('arya.stark@example.com');
+    expect(
+      requireItem(carersAndKeyContacts, 'patient-contacts-role').textContent
+    ).toContain('Emergency Contact');
 
     // Typed answers at full response paths, including hidden observation inputs.
     expect(answerAt(['container', 'patient'], 'patient-age')).toEqual([
@@ -407,6 +410,19 @@ describe('Population workflow for', () => {
         'patient-contacts-email'
       )
     ).toEqual([{ valueString: 'arya.stark@example.com' }]);
+    expect(
+      answerAt(
+        ['container', 'patient', 'patient-contacts'],
+        'patient-contacts-role'
+      )
+    ).toMatchObject([
+      {
+        valueCoding: {
+          system: 'http://terminology.hl7.org/CodeSystem/v2-0131',
+          code: 'C'
+        }
+      }
+    ]);
   });
 
   test('T26 Patient with no fixed address', async () => {
@@ -436,6 +452,12 @@ describe('Population workflow for', () => {
 
     const homeAddress = requireItem(container, 'patient-contact-homeaddress');
     expect(
+      requireItem(
+        homeAddress,
+        'patient-contact-homeaddress-nofixedaddress'
+      ).querySelector<HTMLInputElement>('input[type="checkbox"]')?.checked
+    ).toBe(true);
+    expect(
       queryItem(homeAddress, 'patient-contact-homeaddress-details')
     ).toBeUndefined();
     expect(
@@ -462,6 +484,12 @@ describe('Population workflow for', () => {
     const practitionerName = await getInputText(container, 'practitioner-name');
     expect(practitionerName).toBe('Jane Smith');
 
+    const clinicName = await getInputText(
+      container,
+      'practitioner-clinicdetails-name'
+    );
+    expect(clinicName).toBe('Clinic Location');
+
     const streetAddress = await getInputText(
       container,
       'practitioner-clinicdetails-address-streetaddress'
@@ -487,6 +515,12 @@ describe('Population workflow for', () => {
     expect(
       answerAt(['container', 'practitioner'], 'practitioner-name')
     ).toEqual([{ valueString: 'Jane Smith' }]);
+    expect(
+      answerAt(
+        ['container', 'practitioner', 'practitioner-clinicdetails'],
+        'practitioner-clinicdetails-name'
+      )
+    ).toEqual([{ valueString: 'Clinic Location' }]);
     expect(
       answerAt(
         [

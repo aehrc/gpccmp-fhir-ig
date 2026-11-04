@@ -1,3 +1,5 @@
+import { getConfig } from '@testing-library/react';
+
 /** Exact linkId selection. Repeat collections must be explicitly scoped by the caller. */
 export function queryItems(scope: ParentNode, linkId: string): HTMLElement[] {
   // Compare attributes rather than interpolating an unescaped linkId into a CSS selector.
@@ -39,7 +41,13 @@ export function requireItem(scope: ParentNode, linkId: string): HTMLElement {
   return item;
 }
 
-/** Initialization errors reject immediately, independently of the readiness timeout. */
+/**
+ * Initialization errors reject immediately, independently of the readiness timeout.
+ *
+ * The toolkit wrapper initializes asynchronously, so the renderer mounts while this waits. Run
+ * the wait through Testing Library's configured asyncWrapper, the same lifecycle `waitFor` uses,
+ * so React treats that mount as asynchronous test work rather than an update outside act().
+ */
 export function waitForFormReady(
   container: HTMLElement,
   itemIds: readonly string[],
@@ -50,46 +58,53 @@ export function waitForFormReady(
 ): Promise<void> {
   if (itemIds.length === 0)
     return Promise.reject(new Error('Readiness requires an expected item ID'));
-  return new Promise((resolve, reject) => {
-    let timer: ReturnType<typeof setTimeout>;
-    const observer = new MutationObserver(check);
-    function finish(error?: Error) {
-      observer.disconnect();
-      clearTimeout(timer);
-      if (error) reject(error);
-      else resolve();
-    }
-    function check() {
-      try {
-        const error = container.querySelector(
-          '[data-testid="toolkit-init-error"]'
+  return getConfig().asyncWrapper(
+    () =>
+      new Promise<void>((resolve, reject) => {
+        let timer: ReturnType<typeof setTimeout>;
+        const observer = new MutationObserver(check);
+        function finish(error?: Error) {
+          observer.disconnect();
+          clearTimeout(timer);
+          if (error) reject(error);
+          else resolve();
+        }
+        function check() {
+          try {
+            const error = container.querySelector(
+              '[data-testid="toolkit-init-error"]'
+            );
+            if (error)
+              throw new Error(
+                `Toolkit initialization failed: ${error.textContent?.trim()}`
+              );
+            const save = container.querySelector('[data-testid="save-button"]');
+            if (
+              save &&
+              itemIds.every((id) => queryItem(container, id)) &&
+              ready()
+            )
+              finish();
+          } catch (error) {
+            finish(error instanceof Error ? error : new Error(String(error)));
+          }
+        }
+        observer.observe(container, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          characterData: true
+        });
+        timer = setTimeout(
+          () =>
+            finish(
+              new Error(
+                `Form readiness timed out waiting for ${itemIds.join(', ')}`
+              )
+            ),
+          timeoutMs
         );
-        if (error)
-          throw new Error(
-            `Toolkit initialization failed: ${error.textContent?.trim()}`
-          );
-        const save = container.querySelector('[data-testid="save-button"]');
-        if (save && itemIds.every((id) => queryItem(container, id)) && ready())
-          finish();
-      } catch (error) {
-        finish(error instanceof Error ? error : new Error(String(error)));
-      }
-    }
-    observer.observe(container, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      characterData: true
-    });
-    timer = setTimeout(
-      () =>
-        finish(
-          new Error(
-            `Form readiness timed out waiting for ${itemIds.join(', ')}`
-          )
-        ),
-      timeoutMs
-    );
-    check();
-  });
+        check();
+      })
+  );
 }

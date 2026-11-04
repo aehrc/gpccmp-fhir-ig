@@ -5,9 +5,8 @@ import type {
   QuestionnaireResponseItem,
   QuestionnaireResponseItemAnswer
 } from 'fhir/r4';
-import { beforeEach, afterEach, vi } from 'vitest';
 import { waitFor } from '@testing-library/react';
-import { inputText, selectTab } from '@aehrc/questionnaire-test-toolkit';
+import { inputText } from '@aehrc/questionnaire-test-toolkit';
 import {
   destroyForm,
   getResponse,
@@ -17,39 +16,14 @@ import generated from '../fsh-generated/resources/Questionnaire-GPChronicConditi
 import { useFormEnvironment } from './support/environment';
 import { queryItem, requireItem } from './support/items';
 import { queryResponseItem } from './support/response';
-import { renderGpccmp, responseForPersistence } from './support/form';
+import {
+  renderGpccmp,
+  responseForPersistence,
+  selectTab
+} from './support/form';
 import { patient } from './support/fixtures';
 
 useFormEnvironment();
-
-// Call through: diagnostics remain visible. React scheduling/dependency diagnostics
-// are DIAG-S3-03 (Slice 8); expression/constraint and all other diagnostics fail here.
-let warn: ReturnType<typeof vi.spyOn>;
-let error: ReturnType<typeof vi.spyOn>;
-beforeEach(() => {
-  warn = vi.spyOn(console, 'warn');
-  error = vi.spyOn(console, 'error');
-});
-afterEach(() => {
-  const unexpected = [...warn.mock.calls, ...error.mock.calls]
-    .map((args) => args.map(String).join(' '))
-    // DIAG-S5-01: pre-existing MUI multiline Autocomplete warning. Keyboard
-    // navigation belongs to controls/dependency work (Slices 6/8); retain the log.
-    .filter(
-      (message) =>
-        message !==
-        'A textarea element was provided to Autocomplete where input was expected.\nThis is not a supported scenario but it may work under certain conditions.\nA textarea keyboard navigation may conflict with Autocomplete controls (for example enter and arrow keys).\nMake sure to test keyboard navigation and add custom event handlers if necessary.'
-    )
-    .filter(
-      (message) =>
-        !/not wrapped in act|The final argument passed to use\w+ changed size between renders|Support for defaultProps will be removed from memo components/i.test(
-          message
-        )
-    );
-  warn.mockRestore();
-  error.mockRestore();
-  expect(unexpected).toEqual([]);
-});
 
 const q = generated as Questionnaire;
 type Node = { item: QuestionnaireItem; path: string[]; protected: boolean };

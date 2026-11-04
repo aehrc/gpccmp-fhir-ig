@@ -1,6 +1,6 @@
 import { act, fireEvent, waitFor, within } from '@testing-library/react';
-import { inputText, selectTab } from '@aehrc/questionnaire-test-toolkit';
-import { renderGpccmp } from './support/form';
+import { inputText } from '@aehrc/questionnaire-test-toolkit';
+import { renderGpccmp, selectTab } from './support/form';
 import { requireItem } from './support/items';
 import {
   useFormEnvironment,
@@ -8,7 +8,7 @@ import {
   DESKTOP,
   SMALL_SCREEN
 } from './support/environment';
-import { expectAnswers, string, useControlDiagnostics } from './support/slice6';
+import { expectAnswers, string } from './support/slice6';
 
 import { navigationScenarios, sections } from './support/navigation';
 
@@ -43,7 +43,6 @@ function sectionButton(container: HTMLElement, id: string) {
 
 describe('S7 desktop navigation', () => {
   useFormEnvironment(DESKTOP);
-  useControlDiagnostics();
 
   it('S7 desktop: all four exact panels preserve edited and populated raw/cleaned answers', async () => {
     const { container } = await renderGpccmp();
@@ -114,7 +113,6 @@ describe('S7 desktop navigation', () => {
 
 describe('S7 smaller-screen sections', () => {
   useFormEnvironment(SMALL_SCREEN);
-  useControlDiagnostics();
 
   it('S7 small-screen: all four sections expand/collapse, isolate content and retain raw/cleaned answers', async () => {
     const { container } = await renderGpccmp();

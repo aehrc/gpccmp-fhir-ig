@@ -7,12 +7,11 @@ import {
   removeTableRow,
   addRepeatAnswer,
   removeRepeatAnswer,
-  inputText,
-  selectTab
+  inputText
 } from '@aehrc/questionnaire-test-toolkit';
 import { useFormEnvironment } from './support/environment';
 import { requireItem, queryItems } from './support/items';
-import { renderGpccmp } from './support/form';
+import { renderGpccmp, selectTab } from './support/form';
 import { practitionerRole } from './support/fixtures';
 import {
   answers,
@@ -23,12 +22,10 @@ import {
   saved,
   string,
   sct,
-  useControlDiagnostics,
   openGoals
 } from './support/slice6';
 
 useFormEnvironment();
-useControlDiagnostics();
 
 test('S6 patient-contacts: add, change, clear and remove preserve the exact sibling', async () => {
   const group = 'patient-contacts',

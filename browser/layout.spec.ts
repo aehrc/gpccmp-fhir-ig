@@ -2,6 +2,7 @@ import { expect, test, type Locator, type Page } from '@playwright/test';
 import type { QuestionnaireResponseItem } from 'fhir/r4';
 
 import { navigationScenarios, sections } from '../test/support/navigation';
+import { trackedBrowserConsoleException } from '../test/support/diagnostics';
 
 const structures = {
   clinicaldetails: [
@@ -181,13 +182,10 @@ test('S7 browser: navigation, answer persistence and structural controls remain 
   );
   page.on('console', (message) => {
     if (!['error', 'warning'].includes(message.type())) return;
-    // Existing narrow DIAG-S3-03 disposition remains Slice 8; messages stay visible in evidence.
-    if (
-      /Support for defaultProps will be removed from memo components|The final argument passed to use\w+ changed size between renders/.test(
-        message.text()
-      )
-    ) {
-      console.log(`DIAG-S3-03: ${message.text()}`);
+    // Exact tracked exceptions only; they stay visible in the evidence log.
+    const tracked = trackedBrowserConsoleException(message.text());
+    if (tracked && message.type() === 'error') {
+      console.log(`${tracked.id}: ${message.text()}`);
     } else diagnostics.push(`${message.type()}: ${message.text()}`);
   });
   page.on('response', (response) => {

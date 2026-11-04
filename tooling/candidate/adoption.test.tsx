@@ -25,6 +25,7 @@ import {
   waitForFormReady
 } from '../../test/support/items';
 import { requireResponseItem } from '../../test/support/response';
+import { takeConsoleDiagnostics } from '../../test/support/diagnostics';
 
 const questionnaire: Questionnaire = generated as Questionnaire;
 const patient: Patient = {
@@ -118,11 +119,27 @@ const contactPath = [
 
 useFormEnvironment();
 
-test('the packed wrapper mounts the generated form; edits and repeats share the public response state', async () => {
-  const { container } = render(
-    <BehavioralTestWrapper questionnaire={questionnaire} />
+/** Mount with the strict launch context, so the form's practitioner expressions resolve. */
+async function mountPopulated() {
+  const adapter = createClinicalAdapter(fixtures());
+  const rendered = render(
+    <BehavioralTestWrapper
+      questionnaire={questionnaire}
+      patient={patient}
+      user={user}
+      fhirContext={context}
+      fetchResourceCallback={adapter.callback}
+    />
   );
-  await waitForFormReady(container, ['patient-name']);
+  await waitForFormReady(rendered.container, ['patient-name'], {
+    timeoutMs: 20000
+  });
+  expect(adapter.requests.every((r) => r.matched)).toBe(true);
+  return rendered;
+}
+
+test('the packed wrapper mounts the generated form; edits and repeats share the public response state', async () => {
+  const { container } = await mountPopulated();
   await inputText(container, 'patient-contacts-name', 'First contact');
   const second = await addRepeatGroup(container, 'patient-contacts');
   await inputText(second, 'patient-contacts-name', 'Second contact');
@@ -149,10 +166,7 @@ test('the packed wrapper mounts the generated form; edits and repeats share the 
 });
 
 test('a protected GP CCMP field rejects edits without changing the response', async () => {
-  const { container } = render(
-    <BehavioralTestWrapper questionnaire={questionnaire} />
-  );
-  await waitForFormReady(container, ['patient-name']);
+  const { container } = await mountPopulated();
   const field = within(requireItem(container, 'patient-name')).getByRole(
     'textbox'
   );
@@ -216,13 +230,26 @@ test('an unmatched clinical request fails readiness with its query context', asy
       (r) => !r.matched && r.query === 'PractitionerRole/role-1'
     )
   ).toBe(true);
+  // The rejected request is reported by population, and the expressions that depend on its
+  // resources then fail to evaluate. Both are deliberate here; any other diagnostic still fails.
+  const [issue, ...dependent] = takeConsoleDiagnostics((message) =>
+    message.startsWith('SDC-Populate ')
+  );
+  expect(issue).toContain(
+    'fhirContext with reference "PractitionerRole/role-1" could not be resolved'
+  );
+  expect(issue).toContain(
+    'Unexpected clinical request (http://mock.example): PractitionerRole/role-1'
+  );
+  expect(dependent.length).toBeGreaterThan(0);
+  for (const message of dependent)
+    expect(message).toMatch(
+      /^SDC-Populate Error: fhirpath evaluation for .* failed\. Details below:Error: Attempting to access an undefined environment variable: (PractitionerRoleLocation|ClinicLocation)$/
+    );
 });
 
 test('table rows expose row-scoped controls for later IG helpers', async () => {
-  const { container } = render(
-    <BehavioralTestWrapper questionnaire={questionnaire} />
-  );
-  await waitForFormReady(container, ['patient']);
+  const { container } = await mountPopulated();
   await selectTab(container, 'clinicaldetails');
   const table = requireItem(
     container,
@@ -246,10 +273,7 @@ test('table rows expose row-scoped controls for later IG helpers', async () => {
 });
 
 test('repeated questions expose a collection Add control and individual answer controls', async () => {
-  const { container } = render(
-    <BehavioralTestWrapper questionnaire={questionnaire} />
-  );
-  await waitForFormReady(container, ['patient']);
+  const { container } = await mountPopulated();
   await selectTab(container, 'plan');
   await inputText(container, 'notes-additionalcomments', 'First note');
   const collection = container.querySelector<HTMLElement>(

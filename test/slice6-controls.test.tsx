@@ -11,14 +11,13 @@ import {
   addRepeatAnswer,
   removeRepeatAnswer,
   checkRadioOption,
-  inputText,
-  selectTab
+  inputText
 } from '@aehrc/questionnaire-test-toolkit';
 import { destroyForm } from '@aehrc/smart-forms-renderer';
 import { patient } from './support/fixtures';
 import { useFormEnvironment } from './support/environment';
 import { requireItem, queryItems } from './support/items';
-import { renderGpccmp } from './support/form';
+import { renderGpccmp, selectTab } from './support/form';
 import {
   answers,
   expectAnswers,
@@ -27,12 +26,10 @@ import {
   saved,
   sct,
   string,
-  useControlDiagnostics,
   openGoals
 } from './support/slice6';
 
 useFormEnvironment();
-useControlDiagnostics();
 
 const terminology = {
   condition: ['195967001', 'Asthma', '71892000', 'Cardiac asthma'],
