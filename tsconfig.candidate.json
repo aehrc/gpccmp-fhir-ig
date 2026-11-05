@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "test",
+    "tooling/candidate",
+    "vitest.config.ts",
+    "vitest.candidate.config.ts",
+    "browser",
+    "playwright.config.ts",
+    "vite.browser.config.ts"
+  ]
+}
