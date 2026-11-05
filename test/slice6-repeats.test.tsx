@@ -7,11 +7,12 @@ import {
   removeTableRow,
   addRepeatAnswer,
   removeRepeatAnswer,
-  inputText
+  inputText,
+  selectTab
 } from '@aehrc/questionnaire-test-toolkit';
 import { useFormEnvironment } from './support/environment';
 import { requireItem, queryItems } from './support/items';
-import { renderGpccmp, selectTab } from './support/form';
+import { renderGpccmp } from './support/form';
 import { practitionerRole } from './support/fixtures';
 import {
   answers,

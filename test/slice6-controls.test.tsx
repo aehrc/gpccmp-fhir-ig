@@ -11,13 +11,14 @@ import {
   addRepeatAnswer,
   removeRepeatAnswer,
   checkRadioOption,
-  inputText
+  inputText,
+  selectTab
 } from '@aehrc/questionnaire-test-toolkit';
 import { destroyForm } from '@aehrc/smart-forms-renderer';
 import { patient } from './support/fixtures';
 import { useFormEnvironment } from './support/environment';
 import { requireItem, queryItems } from './support/items';
-import { renderGpccmp, selectTab } from './support/form';
+import { renderGpccmp } from './support/form';
 import {
   answers,
   expectAnswers,

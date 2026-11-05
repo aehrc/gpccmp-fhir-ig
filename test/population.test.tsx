@@ -1,5 +1,6 @@
 import { getResponse } from '@aehrc/smart-forms-renderer';
 import type { Patient } from 'fhir/r4';
+import { selectTab } from '@aehrc/questionnaire-test-toolkit';
 import { requireItem, queryItem } from './support/items';
 import { useFormEnvironment } from './support/environment';
 import {
@@ -8,8 +9,7 @@ import {
   getCqfText,
   renderGpccmp,
   answerAt,
-  homeAddressPath,
-  selectTab
+  homeAddressPath
 } from './support/form';
 import {
   patient,

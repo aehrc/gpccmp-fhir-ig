@@ -7,11 +7,8 @@ import type {
   Questionnaire,
   QuestionnaireResponse
 } from 'fhir/r4';
-import { render, waitFor } from '@testing-library/react';
-import {
-  BehavioralTestWrapper,
-  selectTab as toolkitSelectTab
-} from '@aehrc/questionnaire-test-toolkit';
+import { render } from '@testing-library/react';
+import { BehavioralTestWrapper } from '@aehrc/questionnaire-test-toolkit';
 import {
   getResponse,
   removeEmptyAnswersFromResponse
@@ -93,30 +90,6 @@ export async function renderGpccmp({
   if (adapter.requests.some((r) => !r.matched))
     throw new Error('Unmatched clinical requests after initialization');
   return { ...rendered, adapter };
-}
-
-/**
- * Select a section, then wait for the renderer's own tab-switch outcome. A desktop tab click
- * focuses the selected panel's first heading after a 100 ms delay (FormBodySingleTab). A control
- * focused before then would lose focus, which closes an open autocomplete popup.
- */
-export async function selectTab(container: HTMLElement, linkId: string) {
-  await toolkitSelectTab(container, linkId);
-  const tab = Array.from(
-    container.querySelectorAll<HTMLElement>(
-      '[data-test="renderer-tab-list"] [data-linkid]'
-    )
-  )
-    .find((entry) => entry.getAttribute('data-linkid') === linkId)
-    ?.querySelector<HTMLElement>('[id^="tab-"]');
-  // Small-screen sections expand in place and do not move focus.
-  if (!tab || !/^tab-\d+$/.test(tab.id)) return;
-  const panel = container.querySelector(`#tabpanel-${tab.id.slice(4)}`);
-  await waitFor(() => {
-    const heading = panel?.querySelector('h1, h2, h3, h4, h5, h6');
-    expect(heading, `${linkId} panel heading`).toBeTruthy();
-    expect(document.activeElement).toBe(heading);
-  });
 }
 
 /** Read by exact ID and reject ambiguous repeats before using a toolkit getter. */

@@ -6,7 +6,7 @@ import type {
   QuestionnaireResponseItemAnswer
 } from 'fhir/r4';
 import { waitFor } from '@testing-library/react';
-import { inputText } from '@aehrc/questionnaire-test-toolkit';
+import { inputText, selectTab } from '@aehrc/questionnaire-test-toolkit';
 import {
   destroyForm,
   getResponse,
@@ -16,11 +16,7 @@ import generated from '../fsh-generated/resources/Questionnaire-GPChronicConditi
 import { useFormEnvironment } from './support/environment';
 import { queryItem, requireItem } from './support/items';
 import { queryResponseItem } from './support/response';
-import {
-  renderGpccmp,
-  responseForPersistence,
-  selectTab
-} from './support/form';
+import { renderGpccmp, responseForPersistence } from './support/form';
 import { patient } from './support/fixtures';
 
 useFormEnvironment();

@@ -1,6 +1,6 @@
 import { act, fireEvent, waitFor, within } from '@testing-library/react';
-import { inputText } from '@aehrc/questionnaire-test-toolkit';
-import { renderGpccmp, selectTab } from './support/form';
+import { inputText, selectTab } from '@aehrc/questionnaire-test-toolkit';
+import { renderGpccmp } from './support/form';
 import { requireItem } from './support/items';
 import {
   useFormEnvironment,
