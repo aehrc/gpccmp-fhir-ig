@@ -9,10 +9,10 @@ import type {
   Bundle
 } from 'fhir/r4';
 import {
-  addRepeatGroup,
+  addRepeatInstance,
   BehavioralTestWrapper,
   inputText,
-  removeRepeatGroup,
+  removeRepeatInstance,
   selectTab
 } from '@aehrc/questionnaire-test-toolkit';
 import { getResponse } from '@aehrc/smart-forms-renderer';
@@ -141,7 +141,7 @@ async function mountPopulated() {
 test('the packed wrapper mounts the generated form; edits and repeats share the public response state', async () => {
   const { container } = await mountPopulated();
   await inputText(container, 'patient-contacts-name', 'First contact');
-  const second = await addRepeatGroup(container, 'patient-contacts');
+  const second = await addRepeatInstance(container, 'patient-contacts');
   await inputText(second, 'patient-contacts-name', 'Second contact');
   await waitFor(() =>
     expect(
@@ -156,7 +156,7 @@ test('the packed wrapper mounts the generated form; edits and repeats share the 
     requireResponseItem([...contactPath, { linkId: 'patient-contacts-name' }])
       .answer
   ).toEqual([{ valueString: 'First contact' }]);
-  await removeRepeatGroup(queryItems(container, 'patient-contacts')[0]);
+  await removeRepeatInstance(queryItems(container, 'patient-contacts')[0]);
   await waitFor(() =>
     expect(
       requireResponseItem([...contactPath, { linkId: 'patient-contacts-name' }])

@@ -1,12 +1,8 @@
 import type { PractitionerRole } from 'fhir/r4';
 import { act, fireEvent, waitFor } from '@testing-library/react';
 import {
-  addRepeatGroup,
-  removeRepeatGroup,
-  addTableRow,
-  removeTableRow,
-  addRepeatAnswer,
-  removeRepeatAnswer,
+  addRepeatInstance,
+  removeRepeatInstance,
   inputText,
   selectTab
 } from '@aehrc/questionnaire-test-toolkit';
@@ -33,7 +29,7 @@ test('S6 patient-contacts: add, change, clear and remove preserve the exact sibl
     field = 'patient-contacts-name';
   const { container } = await renderGpccmp();
   await inputText(requireItem(container, group), field, 'Alice');
-  const second = await addRepeatGroup(container, group);
+  const second = await addRepeatInstance(container, group);
   await inputText(second, field, 'Bob');
   expectAnswers(field, string('Alice'), { [group]: 0 });
   expectAnswers(field, string('Bob'), { [group]: 1 });
@@ -45,7 +41,7 @@ test('S6 patient-contacts: add, change, clear and remove preserve the exact sibl
   expectAnswers(field, [], { [group]: 0 });
   expectAnswers(field, string('Bob'), { [group]: 1 });
   await inputText(first, field, 'Alice restored');
-  await removeRepeatGroup(first);
+  await removeRepeatInstance(first);
   await waitFor(() => expect(queryItems(container, group)).toHaveLength(1));
   expectAnswers(field, string('Bob'), { [group]: 0 });
   expectGroupCount(group, 1);
@@ -165,9 +161,7 @@ for (const [group, field, table] of editableGroups) {
     }[group];
     await enter(first, marker, 'First row association');
     await enter(first, field, 'First instance');
-    const second = table
-      ? await addTableRow(scope, group)
-      : await addRepeatGroup(scope, group);
+    const second = await addRepeatInstance(scope, group);
     await enter(second, marker, 'Second row association');
     await enter(second, field, 'Second instance');
     const check = (firstValue: string | null) => {
@@ -193,8 +187,7 @@ for (const [group, field, table] of editableGroups) {
     await enter(first, field, '');
     check(null);
     await enter(first, field, 'Restored instance');
-    if (table) await removeTableRow(first);
-    else await removeRepeatGroup(first);
+    await removeRepeatInstance(first);
     await waitFor(() => expect(rows(scope, group, table)).toHaveLength(1));
     expectAnswers(field, string('Second instance'));
     expectAnswers(marker, string('Second row association'));
@@ -251,7 +244,7 @@ for (const id of editableQuestions) {
     if (id.startsWith('plan-goalstasks')) await openGoals(container);
     const scope = parent ? queryItems(container, parent)[0]! : container;
     await enter(scope, id, 'First answer');
-    const second = await addRepeatAnswer(scope, id);
+    const second = await addRepeatInstance(scope, id);
     await enter(second, id, 'Second answer');
     expectAnswers(id, [...string('First answer'), ...string('Second answer')]);
     const collection = requireItem(scope, id);
@@ -264,7 +257,7 @@ for (const id of editableQuestions) {
     await enter(first, id, '');
     expectAnswers(id, string('Second answer'));
     await enter(first, id, 'Restored answer');
-    await removeRepeatAnswer(first);
+    await removeRepeatInstance(first);
     expectAnswers(id, string('Second answer'));
     if (marker && parent) {
       expectAnswers(id, string('Untouched sibling'), { [parent]: 1 });
@@ -350,11 +343,11 @@ for (const [id, first, second] of protectedQuestions) {
       await expect(
         inputText(rendered.container, id, 'Overwrite')
       ).rejects.toThrow(/read.only|disabled/);
-      await expect(addRepeatAnswer(rendered.container, id)).rejects.toThrow(
+      await expect(addRepeatInstance(rendered.container, id)).rejects.toThrow(
         /disabled|not found/
       );
       await expect(
-        removeRepeatAnswer(
+        removeRepeatInstance(
           root.querySelector<HTMLElement>('.MuiCollapse-root')!
         )
       ).rejects.toThrow(/disabled/);
@@ -404,13 +397,13 @@ for (const [group, field, first, second] of [
         await expect(inputText(instance, field, 'Overwrite')).rejects.toThrow(
           /read.only|disabled/
         );
-        await expect(removeRepeatGroup(instance)).rejects.toThrow(
+        await expect(removeRepeatInstance(instance)).rejects.toThrow(
           /disabled|not found/
         );
       }
-      await expect(addRepeatGroup(rendered.container, group)).rejects.toThrow(
-        /disabled|not found/
-      );
+      await expect(
+        addRepeatInstance(rendered.container, group)
+      ).rejects.toThrow(/disabled|not found/);
       expectAnswers(field, string(first), { [group]: 0 });
       expectAnswers(field, string(second), { [group]: 1 });
       rendered.unmount();
@@ -523,14 +516,10 @@ for (const [group, protectedField, coding, field, table] of [
     await expect(
       inputText(instances[0]!, protectedField, 'Overwrite')
     ).rejects.toThrow(/disabled|read.only/);
-    if (table)
-      await expect(addTableRow(container, group)).rejects.toThrow(/not found/);
-    else
-      await expect(addRepeatGroup(container, group)).rejects.toThrow(
-        /not found/
-      );
-    if (table) await removeTableRow(instances[0]!);
-    else await removeRepeatGroup(instances[0]!);
+    await expect(addRepeatInstance(container, group)).rejects.toThrow(
+      /not found/
+    );
+    await removeRepeatInstance(instances[0]!);
     await waitFor(() => expect(rows(container, group, table)).toHaveLength(1));
     expectAnswers(protectedField, string('Second recorded identity'));
     expectGroupCount(group, 1);
@@ -549,7 +538,7 @@ test('S6 plan-goalstasks: add and remove a parent retains its nested goals and n
   });
   await selectTab(container, 'plan');
   await openGoals(container);
-  const second = await addRepeatGroup(container, outer);
+  const second = await addRepeatInstance(container, outer);
   await enter(second, `${outer}-problemneed`, 'Second problem');
   await enter(
     second,
@@ -566,7 +555,7 @@ test('S6 plan-goalstasks: add and remove a parent retains its nested goals and n
   expectAnswers(field, [], { [outer]: 1 });
   expectAnswers(field, string('First goal'));
   await enter(second, field, 'Second goal restored');
-  await removeRepeatGroup(queryItems(container, outer)[0]!);
+  await removeRepeatInstance(queryItems(container, outer)[0]!);
   await waitFor(() => expect(queryItems(container, outer)).toHaveLength(1));
   expectAnswers(`${outer}-problemneed`, string('Second problem'));
   expectAnswers(field, string('Second goal restored'));

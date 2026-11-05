@@ -10,8 +10,8 @@ test('compiled ESM and CommonJS public entries expose the same runtime API in a 
   for (const name of [
     'BehavioralTestWrapper',
     'inputText',
-    'addRepeatGroup',
-    'removeRepeatGroup'
+    'addRepeatInstance',
+    'removeRepeatInstance'
   ]) {
     expect(typeof esm[name]).toBe('function');
     expect(typeof cjs[name]).toBe('function');

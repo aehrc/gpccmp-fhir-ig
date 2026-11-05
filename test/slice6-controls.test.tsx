@@ -8,8 +8,8 @@ import {
 } from '@testing-library/react';
 import {
   chooseSelectOption,
-  addRepeatAnswer,
-  removeRepeatAnswer,
+  addRepeatInstance,
+  removeRepeatInstance,
   checkRadioOption,
   inputText,
   selectTab
@@ -188,7 +188,7 @@ for (const [id, term] of autocompletes) {
     ).toBe(first.display);
     checkSibling();
     if (node(id).item.repeats) {
-      const added = await addRepeatAnswer(scope, id);
+      const added = await addRepeatInstance(scope, id);
       await chooseSelectOption(added, id, second.display!);
       await waitFor(() =>
         expectAnswers(id, [{ valueCoding: first }, { valueCoding: second }])
@@ -208,7 +208,7 @@ for (const [id, term] of autocompletes) {
       await waitFor(() =>
         expectAnswers(id, [{ valueCoding: first }, { valueCoding: second }])
       );
-      await removeRepeatAnswer(firstAnswer);
+      await removeRepeatInstance(firstAnswer);
       expectAnswers(id, [{ valueCoding: second }]);
       checkSibling();
       return;
