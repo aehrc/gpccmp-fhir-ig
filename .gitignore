@@ -10,3 +10,4 @@ template/
 generate-transaction-bundle.ps1
 transaction-bundle.json
 transaction-bundle-complete.json
+node_modules/

@@ -1,0 +1,33 @@
+name: Questionnaire lint
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: questionnaire-lint-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: actions/cache@v6
+        with:
+          path: ~/.fhir/packages
+          key: fhir-packages-${{ runner.os }}-${{ hashFiles('sushi-config.yaml') }}
+      - run: npm ci
+      - name: Compile the IG
+        run: npm run generate
+      - name: Lint Questionnaire (report only)
+        run: ./node_modules/.bin/sdc-lint lint --format github || [ $? -eq 1 ]

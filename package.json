@@ -1,0 +1,19 @@
+{
+  "name": "gpccmp-fhir-ig",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "pregenerate": "node -e \"require('node:fs').rmSync('fsh-generated', { recursive: true, force: true })\"",
+    "generate": "sushi .",
+    "lint": "npm run generate && sdc-lint lint"
+  },
+  "devDependencies": {
+    "@aehrc/sdc-questionnaire-lint": "0.1.0",
+    "@aehrc/sdc-questionnaire-lint-plugin-smart-forms": "0.1.0",
+    "fsh-sushi": "3.20.1"
+  }
+}
