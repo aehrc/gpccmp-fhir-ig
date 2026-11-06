@@ -4,7 +4,7 @@
 
 The Questionnaire's FHIRPath and x-fhir-query expressions are checked with
 [sdc-questionnaire-lint](https://aehrc.github.io/sdc-questionnaire-lint/) and its
-Smart Forms plugin. With Node 24:
+Smart Forms plugin. With the Node version in `.nvmrc`:
 
 ```sh
 nvm use
@@ -22,11 +22,11 @@ annotations on the run (and on changed lines of a pull request) and in the job
 summary, but do not fail the job. Installation, SUSHI compilation and linter setup
 failures do fail it.
 
-The Smart Forms plugin checks against renderer `1.4.0` and populate `4.7.1`, the
-newest versions it has verified (see `sdc-questionnaire-lint.config.mjs`). This is
-the lint target, not necessarily the Smart Forms version that renders the form;
-newer versions are tracked in
-[aehrc/sdc-questionnaire-lint#7](https://github.com/aehrc/sdc-questionnaire-lint/issues/7).
+The Smart Forms plugin checks against the newest Smart Forms versions that the
+installed plugin release has verified, which can be older than the version that
+renders the form. The job summary and the end of the local output list the versions
+used. Upgrading the plugin moves the target; see
+[compatibility](https://aehrc.github.io/sdc-questionnaire-lint/docs/plugin-smart-forms/entry-and-compat).
 
 Fix findings in the FSH. If a finding is a false positive, suppress that specific
 expression with a reason, as described in the
